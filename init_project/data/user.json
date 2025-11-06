@@ -1,0 +1,92 @@
+{
+    "2312593": {
+        "role": "student",
+        "name": "Phat Nguyen Thanh",
+        "major": "cs",
+        "rate": 4.5,
+        "tutor": [
+            "2313001",
+            "2313002"
+        ]
+    },
+    "2312594": {
+        "role": "student",
+        "name": "Nguyen Hoang Anh",
+        "major": "it",
+        "rate": 3.9,
+        "tutor": [
+            "2313001"
+        ]
+    },
+    "2313001": {
+        "role": "tutor",
+        "name": "Le Minh Tuan",
+        "major": "cs",
+        "rate": 4.7,
+        "students": [
+            "2312593",
+            "2312594",
+            "2312595",
+            "2312597"
+        ]
+    },
+    "2313002": {
+        "role": "tutor",
+        "name": "Tran Thuy Linh",
+        "major": "se",
+        "rate": 4.4,
+        "students": [
+            "2312593",
+            "2312596",
+            "2312597",
+            "2312598"
+        ]
+    },
+    "9999999": {
+        "role": "admin",
+        "name": "System Administrator",
+        "major": "",
+        "rate": 5.0,
+        "privileges": [
+            "manage_users",
+            "manage_system"
+        ]
+    },
+    "2312595": {
+        "role": "student",
+        "name": "Pham Quang Huy",
+        "major": "cs",
+        "rate": 4.2,
+        "tutor": [
+            "2313001"
+        ]
+    },
+    "2312596": {
+        "role": "student",
+        "name": "Hoang Thi Mai",
+        "major": "it",
+        "rate": 3.8,
+        "tutor": [
+            "2313002"
+        ]
+    },
+    "2312597": {
+        "role": "student",
+        "name": "Nguyen Minh Duc",
+        "major": "cs",
+        "rate": 4.0,
+        "tutor": [
+            "2313001",
+            "2313002"
+        ]
+    },
+    "2312598": {
+        "role": "student",
+        "name": "Le Thi Hoa",
+        "major": "se",
+        "rate": 4.1,
+        "tutor": [
+            "2313002"
+        ]
+    }
+}
