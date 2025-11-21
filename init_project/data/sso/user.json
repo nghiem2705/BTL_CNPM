@@ -1,38 +1,42 @@
 {
     "2312593": {
-        "username": "phat.nguyenthanh2408",
-        "password": "123456789"
+        "username": "phat.nguyen",
+        "password": "pass2312593"
     },
-    "2312594": {
-        "username": "nguyen.hoanganh1201",
-        "password": "passw0rd"
+    "2312185": {
+        "username": "nam.phan",
+        "password": "nam12345"
     },
-    "2313001": {
-        "username": "leminhtuan_tutor",
-        "password": "tutor1234"
+    "2312329": {
+        "username": "nguyen.bui",
+        "password": "nguyen2329"
     },
-    "2313002": {
-        "username": "tranthuylinh_tutor",
-        "password": "linh@2025"
+    "2213696": {
+        "username": "trung.nguyen",
+        "password": "trung3696"
+    },
+    "2212050": {
+        "username": "minh.luong",
+        "password": "minh2050"
+    },
+    "2212209": {
+        "username": "nghiem.nguyen",
+        "password": "nghiem2209"
     },
     "9999999": {
         "username": "admin.master",
         "password": "adm1n!"
     },
-    "2312595": {
-        "username": "pham.quanghuy",
-        "password": "pqhuY2025"
+    "t_00001": {
+        "username": "trung.mai",
+        "password": "t_med123"
     },
-    "2312596": {
-        "username": "hoang.thimai",
-        "password": "htm!2345"
+    "t_00002": {
+        "username": "tuan.le",
+        "password": "tuanle2025"
     },
-    "2312597": {
-        "username": "nguyen.minhduc",
-        "password": "nduc4321"
-    },
-    "2312598": {
-        "username": "le.thihoa",
-        "password": "lthoa@2025"
+    "t_00003": {
+        "username": "linh.tran",
+        "password": "linhtran2025"
     }
 }

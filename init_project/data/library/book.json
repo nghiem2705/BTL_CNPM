@@ -1,0 +1,51 @@
+{
+    "book1": {
+        "title": "Giai Tich 2",
+        "author": "Nguyen Dinh Huy",
+        "category": "general",
+        "description": "Giai Tich 2 is a comprehensive book on advanced calculus, covering topics such as multivariable calculus, vector calculus, and differential equations. It is designed for students in mathematics and engineering fields.",
+        "isbn": "978-3-16-148410-0",   
+        "publisher": "Nha Xuat Ban Giao Duc",
+        "publication_date": "2023-01-15",
+        "ebook": "https://example.com/giai_tich_2.pdf",
+        "cover_image": "https://example.com/giai_tich_2_cover.jpg"
+    },
+
+    "book2": {
+        "title": "Computer Networking: A Top-Down Approach",
+        "author": "James F. Kurose, Keith W. Ross",
+        "category": "computer_science",
+        "description": "A widely used textbook that introduces computer networking concepts using a top-down approach, starting from applications and moving downward through transport, network, and link layers.",
+        "isbn": "978-0136681557",
+        "publisher": "Pearson",
+        "publication_date": "2021-08-25",
+        "ebook": "https://example.com/computer_networking_topdown.pdf",
+        "cover_image": "https://example.com/computer_networking_topdown_cover.jpg"
+    },
+
+    "paper1": {
+        "title": "Attention Is All You Need",
+        "author": "Vaswani et al.",
+        "category": "scientific_paper",
+        "description": "A landmark paper introducing the Transformer architecture, which relies entirely on attention mechanisms and has become foundational for modern NLP models.",
+        "doi": "10.48550/arXiv.1706.03762",
+        "publisher": "NeurIPS",
+        "publication_date": "2017-06-12",
+        "ebook": "https://arxiv.org/pdf/1706.03762.pdf",
+        "cover_image": "https://example.com/attention_is_all_you_need_cover.jpg"
+    },
+
+    "book3": {
+        "title": "Đắc Nhân Tâm",
+        "author": "Dale Carnegie",
+        "category": "self_help",
+        "description": "Phiên bản tiếng Việt của 'How to Win Friends and Influence People', một trong những cuốn sách kỹ năng sống nổi tiếng và có ảnh hưởng nhất thế giới.",
+        "isbn": "978-6045880134",
+        "publisher": "NXB Tổng Hợp TP.HCM",
+        "publication_date": "2019-05-20",
+        "ebook": "https://example.com/dac_nhan_tam.pdf",
+        "cover_image": "https://example.com/dac_nhan_tam_cover.jpg"
+    }
+
+
+}
