@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import json
 
 class BaseController(ABC):
     """Lớp cơ sở cho tất cả các controller trong hệ thống."""
