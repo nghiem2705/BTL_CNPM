@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+# models just used for create database structure
+# in our project we will use entity class instead 
+# for demo using json raw data
