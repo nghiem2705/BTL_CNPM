@@ -14,15 +14,15 @@ class SessionFiler(Enum):
 
 class Session:
     def __init__(self):
-        self.title = ""
+        self.name = ""
         self.session_id = ""
-        self.tutor_name = ""
+        self.tutor = ""
         self.students = []
         self.date = None
         self.status = SessionStatus.NOT_SET
         self.time = None
         self.duration = 0
-        self.is_online = False
+        self.online = False
         self.address = ""
         self.description = ""
         self.note = ""
@@ -42,34 +42,35 @@ class Session:
         else:
             return SessionStatus.COMPLETED
 
-    def __init__(self, session_id, title, tutor_name, students, date, time, duration, is_online, address, description, note, document):
+    def __init__(self, session_id, name, tutor, students, date, time, duration, online, address, description, note, document):
         self.session_id = session_id
-        self.title = title
-        self.tutor_name = tutor_name
+        self.name = name
+        self.tutor = tutor
         self.students = students
         self.date = date
         self.time = time
         self.duration = duration
-        self.is_online = is_online
+        self.online = online
         self.address = address
         self.description = description
         self.note = note
         self.document = document
-        self.status = self.get_status()
+        
+        self.status = self.getStatus()
 
     def add_student(self, student):
         self.students.append(student)
 
     def to_dictionary(self):
         return {
-            'title': self.title,
-            'tutor_name': self.tutor_name,
+            'name': self.name,
+            'tutor': self.tutor,
             'students': self.students,
             'date': self.date.isoformat() if self.date else None,
-            'status': self.status.name,
+            'online': self.online,
             'time': self.time.isoformat() if self.time else None,
             'duration': self.duration,
-            'is_online': self.is_online,
+            'online': self.online,
             'address': self.address,
             'description': self.description,
             'note': self.note,

@@ -1,7 +1,7 @@
 from rest_framework.response import Response 
 from rest_framework import status
-import BaseView
-from controller.SchedulerController import *
+from .BaseView import BaseView
+from polls.controller.SchedulerController import *
 
 class SchedulerView(BaseView):
     def __init__(self):
@@ -38,20 +38,17 @@ class SchedulerView(BaseView):
         
         data = request.data
         new_session = Session(session_id, 
-                            data["title"],
-                            data["session_id"],
-                            data["tutor_name"],
-                            data["students"],
-                            data["date"],
-                            data["status"],
-                            data["time"],
-                            data["duration"],
-                            data["is_online"],
-                            data["address"],
-                            data["description"],
-                            data["note"],
-                            data["document"]
-                            )
+                        data['name'],
+                        data['tutor'],
+                        data['students'],
+                        data['date'],
+                        data['time'],
+                        data['duration'],
+                        data['online'],
+                        data['address'],
+                        data['description'],
+                        data['note'],
+                        data['document'])
         self.controller.updateSession(session_id, new_session)
         return Response({"message": f"Created {session_id}"})
 

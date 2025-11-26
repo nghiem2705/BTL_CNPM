@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from init_project.polls.view.SchedulerView import SchedulerView
+from .view.SchedulerView import SchedulerView
 
 scheduler = SchedulerView()
 

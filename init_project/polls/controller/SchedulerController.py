@@ -1,5 +1,5 @@
-import BaseController
-from init_project.polls.entity.SessionEntity import *
+from .BaseController import BaseController
+from polls.entity.SessionEntity import *
 
 class SchedulerController(BaseController):
 
@@ -15,11 +15,11 @@ class SchedulerController(BaseController):
     def update(self):
         self.all_sessions = self.getAllSessions()
 
-    def writeFile(self):
+    def writeSession(self):
         # tiền xử lý dữ liệu đưa về dạng dictionary
         data = {ss.session_id: ss.to_dict() for ss in self.all_sessions}
         # ghi vào file
-        to_return = super.writeFile(self.SESSION_PATH, data)
+        to_return = super().writeFile(self.SESSION_PATH, data)
         # cập nhật lại danh sách
         self.update()
 
@@ -33,14 +33,13 @@ class SchedulerController(BaseController):
         to_return = []
         for key, value in data.items():
             ss = Session(key, 
-                        value['title'],
-                        value['tutor_name'],
+                        value['name'],
+                        value['tutor'],
                         value['students'],
                         value['date'],
-                        value['status'],
                         value['time'],
                         value['duration'],
-                        value['is_online'],
+                        value['online'],
                         value['address'],
                         value['description'],
                         value['note'],
@@ -82,7 +81,7 @@ class SchedulerController(BaseController):
         session_id: str -> id của buổi học cần xóa
         """
         self.all_sessions.remove(self.getSessionById(session_id))
-        self.writeFile()
+        self.writeSession()
 
     def updateSession(self, session_id, new_session):
         """
@@ -92,5 +91,5 @@ class SchedulerController(BaseController):
         if current is not None:
             self.all_sessions.remove(current)
         self.all_sessions.append(new_session)
-        self.writeFile()
+        self.writeSession()
 
