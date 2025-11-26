@@ -1,3 +1,5 @@
+// src/api/index.js
+
 export const mockSessions = [
   {
     id: 1,
@@ -10,7 +12,7 @@ export const mockSessions = [
     status: "upcoming", 
     location: "Google Meet",
     meetLink: "https://meet.google.com/gfs-iocr-yks",
-    description: "Giúp người học hiểu rõ vai trò và ứng dụng của đại số trong các lĩnh vực công nghệ hiện đại như lập trình, trí tuệ nhân tạo, và xử lý dữ liệu lớn.",
+    description: "Giúp người học hiểu rõ vai trò và ứng dụng của đại số...",
     note: "Nhớ xem trước tài liệu chương 1 nhé các em!",
     files: [{ name: "Slide_Chuong_1.pdf", size: "2.3 MB" }]
   },
@@ -25,7 +27,7 @@ export const mockSessions = [
     status: "finished",
     location: "Google Meet",
     meetLink: "",
-    description: "Giới thiệu các khái niệm cơ bản về AI, Machine Learning và Deep Learning.",
+    description: "Giới thiệu các khái niệm cơ bản về AI...",
     note: "Đã tổng kết điểm danh.",
     files: []
   },
@@ -40,8 +42,8 @@ export const mockSessions = [
     status: "upcoming", 
     location: "Phòng 201-H6",
     meetLink: "",
-    description: "Hướng dẫn thực hành xây dựng giao diện Single Page Application.",
-    note: "Yêu cầu mang laptop cài sẵn Node.js",
-    files: [{ name: "React_Cheatsheet.pdf", size: "1.5 MB" }, { name: "Setup_Guide.docx", size: "500 KB" }]
+    description: "Hướng dẫn thực hành ReactJS...",
+    note: "Yêu cầu mang laptop...",
+    files: [{ name: "React_Cheatsheet.pdf", size: "1.5 MB" }]
   }
 ];
