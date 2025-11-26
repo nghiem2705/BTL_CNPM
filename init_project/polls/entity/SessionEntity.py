@@ -1,5 +1,5 @@
 from enum import Enum
-import datetime
+from datetime import datetime, timedelta
 
 class SessionStatus(Enum):
     NOT_SET = 0
@@ -14,6 +14,7 @@ class SessionFiler(Enum):
 
 class Session:
     def __init__(self):
+        self.title = ""
         self.session_id = ""
         self.tutor_name = ""
         self.students = []
@@ -27,12 +28,23 @@ class Session:
         self.note = ""
         self.document = ""
 
-    def get_status(self):
+    def getStatus(self):
         # compare time
-        pass
+        start_str = self.date + " " + self.time
+        start_dt = datetime.strptime(start_str, "%Y-%m-%d %H:%M")
+        end_dt = start_dt + timedelta(minutes=self.duration)
+        now = datetime.now()
 
-    def __init__(self, session_id, tutor_name, students, date, time, duration, is_online, address, description, note, document):
+        if now < start_dt:
+            return SessionStatus.COMING_SOON
+        elif start_dt <= now < end_dt:
+            return SessionStatus.PROCESSING
+        else:
+            return SessionStatus.COMPLETED
+
+    def __init__(self, session_id, title, tutor_name, students, date, time, duration, is_online, address, description, note, document):
         self.session_id = session_id
+        self.title = title
         self.tutor_name = tutor_name
         self.students = students
         self.date = date
@@ -50,7 +62,7 @@ class Session:
 
     def to_dictionary(self):
         return {
-            'session_id': self.session_id,
+            'title': self.title,
             'tutor_name': self.tutor_name,
             'students': self.students,
             'date': self.date.isoformat() if self.date else None,
