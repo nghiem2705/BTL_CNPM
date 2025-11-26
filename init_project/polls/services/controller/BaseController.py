@@ -8,16 +8,44 @@ class BaseController(ABC):
     def __init__(self):
         pass
 
-    @abstractmethod
-    def writeFile(self, path, data):
-        pass
+    def writeFile(self, paths, data):
+        """
+        paths: list -> ["data", "session.json"]
+        data: dữ liệu cần ghi
+        """
 
-    @abstractmethod
-    def readFile(self, file, path):
-        pass
+        # ghép đường dẫn
+        file_path = os.path.join(*paths)
+
+        # tự tạo nếu file chưa tồn tại
+        folder = os.path.dirname(file_path)
+        os.makedirs(folder, exist_ok=True)
+
+        # Ghi file
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+
+        return file_path
+
+    def readFile(self, paths):
+        """
+        paths: list -> ["data", "session.json"]
+        """
+
+        # ghép đường dẫn
+        file_path = os.path.join(*paths)
+
+        # Đọc file
+        with open(file_path, "r", encoding="utf-8") as f:
+            return json.load(f)
 
 # file_path = os.path.join(settings.BASE_DIR, "data", "session.json")
-file_path = os.path.join("init_project", "data", "session.json")
-with open(file_path, "r", encoding="utf-8") as f:
-    data = json.load(f)
-print(data)
+# paths = ["init_project", "data", "session.json"]
+
+# file_path = os.path.join(*paths)
+# # Đọc file
+# with open(file_path, "r", encoding="utf-8") as f:
+#     data = json.load(f)
+
+# for key, values in data.items():
+#     print(f"{key}: {values}")
