@@ -10,5 +10,5 @@ urlpatterns = [
     path('load-data/', views.load_data, name='load_data'),
     # scheduler service API
     path('sessions/', scheduler.as_view(), name='sessions_list'),
-    path("sessions/<int:pk>/", scheduler.as_view(), name="session-interaction"),
+    path("sessions/<str:session_id>/", scheduler.as_view(), name="session-interaction"),
 ]

@@ -17,7 +17,7 @@ class SchedulerController(BaseController):
 
     def writeSession(self):
         # tiền xử lý dữ liệu đưa về dạng dictionary
-        data = {ss.session_id: ss.to_dict() for ss in self.all_sessions}
+        data = {ss.session_id: ss.to_dictionary() for ss in self.all_sessions}
         # ghi vào file
         to_return = super().writeFile(self.SESSION_PATH, data)
         # cập nhật lại danh sách
@@ -56,20 +56,29 @@ class SchedulerController(BaseController):
 
     def getSessions(self, page, keyword, sort_filer, status = SessionStatus.NOT_SET):
 
+        # print([ss.to_dictionary() for ss in self.all_sessions])
+
         filtered_sessions = self.all_sessions.copy()
         if status != SessionStatus.NOT_SET:
             filtered_sessions = [ss for ss in filtered_sessions if ss.status == status]
         
+        # print([ss.to_dictionary() for ss in filtered_sessions])
+        
         if sort_filer == SessionFiler.DATE:
             filtered_sessions.sort(key=lambda x: x.date)
         elif sort_filer == SessionFiler.NAME:
-            filtered_sessions.sort(key=lambda x: x.title)
+            filtered_sessions.sort(key=lambda x: x.name)
         elif sort_filer == SessionFiler.DURATION:
             filtered_sessions.sort(key=lambda x: x.duration)
 
+        # print([ss.to_dictionary() for ss in filtered_sessions])
+
+        print(keyword)
         if keyword != "" and keyword is not None:
-            filtered_sessions = [ss for ss in filtered_sessions if keyword.lower() in ss.title.lower()]
+            filtered_sessions = [ss for ss in filtered_sessions if keyword.lower() in ss.name.lower()]
         
+        # print([ss.to_dictionary() for ss in filtered_sessions])
+
         result = []
         for i in range((page - 1) * self.SESSION_PER_PAGE, min(page * self.SESSION_PER_PAGE, len(filtered_sessions))):
             result.append(filtered_sessions[i])

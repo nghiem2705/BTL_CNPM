@@ -8,20 +8,32 @@ class SchedulerView(BaseView):
         super().__init__()
         self.controller = SchedulerController()
 
+    """Test rồi"""
     # GET sessions/...
     # get sessions list
     # require query parameters ?filter=...,keywork=...,status=...,page=...
     #return .sessions, .message
-    def get(self, request) -> Response:
-        page = request.query_params['page']
+    def get(self, request, session_id = None) -> Response:
+        if session_id is not None:
+            session = self.controller.getSessionById(session_id)
+            if session is not None:
+                return Response({"session": session.to_dictionary(), "message": f"Get Detail {session_id}"})
+            else:
+                return Response({"message": f"Session {session_id} not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        page = int(request.query_params['page'])
         keyword = request.query_params['keyword']
-        filter = request.query_params['filter']
-        status = request.query_params['status']
+        filter = int(request.query_params['filter'])
+        status = int(request.query_params['status'])
         sessions_list = self.controller.getSessions(
             page, keyword, filter, status)
-        into_dict = {ss.session_id: ss.to_dict() for ss in sessions_list}
+        
+        # print([{ss.session_id: ss.to_dictionary()} for ss in sessions_list])
+
+        into_dict = {ss.session_id: ss.to_dictionary() for ss in sessions_list}
         return Response({"sessions": into_dict, "message": f"Search for {keyword} having {status} status in page {page}. Sorted by {filter}"})
     
+    """Test rồi"""
     # POST sessions
     # create new sessions
     # require body and header json
@@ -52,37 +64,28 @@ class SchedulerView(BaseView):
         self.controller.updateSession(session_id, new_session)
         return Response({"message": f"Created {session_id}"})
 
+    """Test rồi"""
     # PUT sessions/<pk>
     # need body and header json
     # return .message
     def put(self, request, session_id) -> Response:
         data = request.data
         new_session = Session(session_id, 
-                            data["title"],
-                            data["session_id"],
-                            data["tutor_name"],
-                            data["students"],
-                            data["date"],
-                            data["status"],
-                            data["time"],
-                            data["duration"],
-                            data["is_online"],
-                            data["address"],
-                            data["description"],
-                            data["note"],
-                            data["document"]
-                            )
+                        data['name'],
+                        data['tutor'],
+                        data['students'],
+                        data['date'],
+                        data['time'],
+                        data['duration'],
+                        data['online'],
+                        data['address'],
+                        data['description'],
+                        data['note'],
+                        data['document'])
         self.controller.updateSession(session_id, new_session)
         return Response({"message": f"Updated {session_id}"})
 
-    # DETAIL sessions/<pk>
-    # need header json
-    # return .session, .message
-    def detail(self, request, session_id) -> Response:
-        session = self.controller.getSessionById(session_id)
-        if session is not None:
-            return Response({"session": session.to_dict(), "message": f"Updated {session_id}"})
-
+    """Test rồi"""
     # DELETE sessions/<pk>
     # return .message
     def delete(self, request, session_id) -> Response:

@@ -80,7 +80,25 @@
             container.className = 'loading';
 
             // Gọi đến URL '/load-data/' mà chúng ta đã định nghĩa
-            fetch('/load-data/')
+            fetch('/sessions/ss0/', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "name": "Sample Session test",
+                    "date": "2025-12-30",
+                    "duration": 60,
+                    "tutor": "t_00002",
+                    "students": [],
+                    "time": "12:00",
+                    "online": true,
+                    "address": "test",
+                    "description": "test111111",
+                    "note": "No additional notes.",
+                    "document": []
+                })
+            })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Lỗi mạng hoặc máy chủ. Status: ' + response.status);
@@ -93,7 +111,7 @@
                         container.className = 'error';
                     } else {
                         // Cập nhật nội dung từ key 'content'
-                        container.textContent = data.content; 
+                        container.textContent = data.message; 
                         container.className = 'success';
                     }
                 })

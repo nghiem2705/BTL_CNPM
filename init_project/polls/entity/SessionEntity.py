@@ -1,13 +1,13 @@
-from enum import Enum
+from enum import IntEnum
 from datetime import datetime, timedelta
 
-class SessionStatus(Enum):
+class SessionStatus(IntEnum):
     NOT_SET = 0
     PROCESSING = 1
     COMPLETED = 2
     COMING_SOON = 3
 
-class SessionFiler(Enum):
+class SessionFiler(IntEnum):
     DATE = 0
     NAME = 1
     DURATION = 2
@@ -55,7 +55,7 @@ class Session:
         self.description = description
         self.note = note
         self.document = document
-        
+
         self.status = self.getStatus()
 
     def add_student(self, student):
@@ -66,9 +66,9 @@ class Session:
             'name': self.name,
             'tutor': self.tutor,
             'students': self.students,
-            'date': self.date.isoformat() if self.date else None,
+            'date': self.date,
             'online': self.online,
-            'time': self.time.isoformat() if self.time else None,
+            'time': self.time,
             'duration': self.duration,
             'online': self.online,
             'address': self.address,

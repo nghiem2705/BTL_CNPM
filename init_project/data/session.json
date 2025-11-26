@@ -1,51 +1,51 @@
 {
     "ss1": {
         "name": "Session 1",
-        "date": "2025-08-24",
-        "time": "10:00",
-        "duration": 60,
         "tutor": "t_00001",
-        "online": true,
-        "address": "https://meet.google.com/abc-defg-hij",
-        "description": "Initial session to discuss project requirements.",
-        "note": "Initial session to discuss project requirements.",
         "students": [
             "2312593"
         ],
+        "date": "2025-08-24",
+        "online": true,
+        "time": "10:00",
+        "duration": 60,
+        "address": "https://meet.google.com/abc-defg-hij",
+        "description": "Initial session to discuss project requirements.",
+        "note": "Initial session to discuss project requirements.",
         "document": [
             "https://example.com/session1_document.pdf"
         ]
     },
     "ss2": {
         "name": "Session 2",
-        "date": "2025-12-12",
-        "time": "18:00",
-        "duration": 70,
         "tutor": "t_00001",
-        "online": true,
-        "address": "https://meet.google.com/abc-defg-hij",
-        "description": "Initial session to discuss project requirements.",
-        "note": "Initial session to discuss project requirements.",
         "students": [
             "2312593"
         ],
+        "date": "2025-12-12",
+        "online": true,
+        "time": "18:00",
+        "duration": 70,
+        "address": "https://meet.google.com/abc-defg-hij",
+        "description": "Initial session to discuss project requirements.",
+        "note": "Initial session to discuss project requirements.",
         "document": [
             "https://example.com/session1_document.pdf"
         ]
     },
     "ss3": {
         "name": "Session 3",
-        "date": "2025-10-18",
-        "time": "13:00",
-        "duration": 90,
         "tutor": "t_00003",
-        "online": false,
-        "address": "CS2, 801 BK.B6",
-        "description": "Initial session to discuss project requirements.",
-        "note": "Initial session to discuss project requirements.",
         "students": [
             "2312185"
         ],
+        "date": "2025-10-18",
+        "online": false,
+        "time": "13:00",
+        "duration": 90,
+        "address": "CS2, 801 BK.B6",
+        "description": "Initial session to discuss project requirements.",
+        "note": "Initial session to discuss project requirements.",
         "document": [
             "https://example.com/session1_document.pdf"
         ]
