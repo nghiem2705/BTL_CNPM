@@ -18,7 +18,7 @@ class SchedulerView(BaseView):
         if session_id is not None:
             session = self.controller.getSessionById(session_id)
             if session is not None:
-                return Response({"session": session.to_dictionary(), "message": f"Get Detail {session_id}"})
+                return Response({"session": session.to_dictionary(has_status=True), "message": f"Get Detail {session_id}"})
             else:
                 return Response({"message": f"Session {session_id} not found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -31,7 +31,7 @@ class SchedulerView(BaseView):
         
         # print([{ss.session_id: ss.to_dictionary()} for ss in sessions_list])
 
-        into_dict = {ss.session_id: ss.to_dictionary() for ss in sessions_list}
+        into_dict = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions_list}
         return Response({"sessions": into_dict, "message": f"Search for {keyword} having {status} status in page {page}. Sorted by {filter}"})
     
     """Test rồi"""

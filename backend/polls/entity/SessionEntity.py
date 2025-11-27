@@ -61,18 +61,35 @@ class Session:
     def add_student(self, student):
         self.students.append(student)
 
-    def to_dictionary(self):
-        return {
-            'name': self.name,
-            'tutor': self.tutor,
-            'students': self.students,
-            'date': self.date,
-            'online': self.online,
-            'time': self.time,
-            'duration': self.duration,
-            'online': self.online,
-            'address': self.address,
-            'description': self.description,
-            'note': self.note,
-            'document': self.document
-        }
+    def to_dictionary(self, have_status=False):
+        if have_status:
+            return {
+                'status': self.status,
+                'name': self.name,
+                'tutor': self.tutor,
+                'students': self.students,
+                'date': self.date,
+                'online': self.online,
+                'time': self.time,
+                'duration': self.duration,
+                'online': self.online,
+                'address': self.address,
+                'description': self.description,
+                'note': self.note,
+                'document': self.document
+            }
+        else:
+            return {
+                'name': self.name,
+                'tutor': self.tutor,
+                'students': self.students,
+                'date': self.date,
+                'online': self.online,
+                'time': self.time,
+                'duration': self.duration,
+                'online': self.online,
+                'address': self.address,
+                'description': self.description,
+                'note': self.note,
+                'document': self.document
+            }
