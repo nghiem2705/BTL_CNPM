@@ -1,8 +1,10 @@
 from django.urls import path
 from . import views
 from .view.SchedulerView import SchedulerView
+from .view.InformationView import InformationView
 
 scheduler = SchedulerView()
+info = InformationView()
 
 urlpatterns = [
     # init
@@ -11,4 +13,9 @@ urlpatterns = [
     # scheduler service API
     path('sessions/', scheduler.as_view(), name='sessions_list'),
     path("sessions/<str:session_id>/", scheduler.as_view(), name="session-interaction"),
+
+    # Information endpoints for tutor 
+    path('tutor/information/', info.as_view(), name='tutor_information'),           # GET ?uID=<tutor_id>
+    path('tutor/information/<str:uID>/', info.as_view(), name='tutor_update'),      # PUT profile
+    path('tutor/<str:tutor_id>/students/', info.as_view(), name='tutor_students'),  # GET students following tutor
 ]
