@@ -1,0 +1,53 @@
+{
+    "ss1": {
+        "name": "Session 1",
+        "tutor": "t_00001",
+        "students": [
+            "2312593"
+        ],
+        "date": "2025-08-24",
+        "online": true,
+        "time": "10:00",
+        "duration": 60,
+        "address": "https://meet.google.com/abc-defg-hij",
+        "description": "Initial session to discuss project requirements.",
+        "note": "Initial session to discuss project requirements.",
+        "document": [
+            "https://example.com/session1_document.pdf"
+        ]
+    },
+    "ss2": {
+        "name": "Session 2",
+        "tutor": "t_00001",
+        "students": [
+            "2312593"
+        ],
+        "date": "2025-12-12",
+        "online": true,
+        "time": "18:00",
+        "duration": 70,
+        "address": "https://meet.google.com/abc-defg-hij",
+        "description": "Initial session to discuss project requirements.",
+        "note": "Initial session to discuss project requirements.",
+        "document": [
+            "https://example.com/session1_document.pdf"
+        ]
+    },
+    "ss3": {
+        "name": "Session 3",
+        "tutor": "t_00003",
+        "students": [
+            "2312185"
+        ],
+        "date": "2025-10-18",
+        "online": false,
+        "time": "13:00",
+        "duration": 90,
+        "address": "CS2, 801 BK.B6",
+        "description": "Initial session to discuss project requirements.",
+        "note": "Initial session to discuss project requirements.",
+        "document": [
+            "https://example.com/session1_document.pdf"
+        ]
+    }
+}
