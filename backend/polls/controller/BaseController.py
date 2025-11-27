@@ -38,14 +38,3 @@ class BaseController(ABC):
         # Đọc file
         with open(file_path, "r", encoding="utf-8") as f:
             return json.load(f)
-
-# file_path = os.path.join(settings.BASE_DIR, "data", "session.json")
-# paths = ["init_project", "data", "session.json"]
-
-# file_path = os.path.join(*paths)
-# # Đọc file
-# with open(file_path, "r", encoding="utf-8") as f:
-#     data = json.load(f)
-
-# for key, values in data.items():
-#     print(f"{key}: {values}")

@@ -1,5 +1,71 @@
 // src/api/index.js
 
+const BASE_URL = "http://localhost:8000/"; // Django backend URL
+
+export async function getSessionList(page, filter, status, keyword) {
+    const response = await fetch(`${BASE_URL}/sessions/?page=${page}&keyword=${keyword}&filter=${filter}&status=${status}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    return response.json();
+}
+
+export async function getSessionDetail(session_id) {
+    const response = await fetch(`${BASE_URL}/sessions/${session_id}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    return response.json();
+}
+
+// map_data is expected to be a Map object
+// having key-value pairs to be sent in the request body
+export async function createNewSession(session_id, map_data) {
+    const obj = Object.fromEntries(map_data);
+
+    const response = await fetch(`${BASE_URL}/sessions/${session_id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        
+        body: JSON.stringify(obj)
+    });
+    return response.json();
+}
+
+// map_data is expected to be a Map object
+// having key-value pairs to be sent in the request body
+export async function updateSession(session_id, map_data) {
+    const obj = Object.fromEntries(map_data);
+
+    const response = await fetch(`${BASE_URL}/sessions/${session_id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        
+        body: JSON.stringify(obj)
+    });
+    return response.json();
+}
+
+export async function removeSession(session_id) {
+
+    const response = await fetch(`${BASE_URL}/sessions/${session_id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    });
+    return response.json();
+}
+
+
 export const mockSessions = [
   {
     id: 1,
