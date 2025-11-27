@@ -61,35 +61,26 @@ class Session:
     def add_student(self, student):
         self.students.append(student)
 
-    def to_dictionary(self, have_status=False):
-        if have_status:
-            return {
-                'status': self.status,
-                'name': self.name,
-                'tutor': self.tutor,
-                'students': self.students,
-                'date': self.date,
-                'online': self.online,
-                'time': self.time,
-                'duration': self.duration,
-                'online': self.online,
-                'address': self.address,
-                'description': self.description,
-                'note': self.note,
-                'document': self.document
-            }
-        else:
-            return {
-                'name': self.name,
-                'tutor': self.tutor,
-                'students': self.students,
-                'date': self.date,
-                'online': self.online,
-                'time': self.time,
-                'duration': self.duration,
-                'online': self.online,
-                'address': self.address,
-                'description': self.description,
-                'note': self.note,
-                'document': self.document
-            }
+    # Thêm tham số mặc định has_status=False
+    def to_dictionary(self, has_status=False):
+        result = {
+            "session_id": self.session_id,
+            "name": self.name,
+            "tutor": self.tutor,
+            "students": self.students,
+            "date": self.date,
+            "time": self.time,
+            "duration": self.duration,
+            "online": self.online,
+            "address": self.address,
+            "description": self.description,
+            "note": self.note,
+            "document": self.document
+        }
+
+        # Nếu code bên ngoài yêu cầu lấy Status (has_status=True)
+        if has_status:
+            # Gọi hàm getStatus mà bạn đã viết trước đó
+            result["status"] = self.getStatus()
+
+        return result

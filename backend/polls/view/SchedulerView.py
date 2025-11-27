@@ -14,7 +14,28 @@ class SchedulerView(BaseView):
     # get sessions list
     # require query parameters ?filter=...,keywork=...,status=...,page=...
     #return .sessions, .message
-    def get(self, request, session_id = None) -> Response:
+    # def get(self, request, session_id = None) -> Response:
+    #     if session_id is not None:
+    #         session = self.controller.getSessionById(session_id)
+    #         if session is not None:
+    #             return Response({"session": session.to_dictionary(has_status=True), "message": f"Get Detail {session_id}"})
+    #         else:
+    #             return Response({"message": f"Session {session_id} not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    #     page = int(request.query_params['page'])
+    #     keyword = request.query_params['keyword']
+    #     filter = int(request.query_params['filter'])
+    #     status = int(request.query_params['status'])
+    #     sessions_list = self.controller.getSessions(
+    #         page, keyword, filter, status)
+        
+    #     # print([{ss.session_id: ss.to_dictionary()} for ss in sessions_list])
+
+    #     into_dict = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions_list}
+    #     return Response({"sessions": into_dict, "message": f"Search for {keyword} having {status} status in page {page}. Sorted by {filter}"})
+
+    def get(self, request, session_id=None) -> Response:
+        # 1. Xử lý lấy chi tiết (Giữ nguyên)
         if session_id is not None:
             session = self.controller.getSessionById(session_id)
             if session is not None:
@@ -22,18 +43,38 @@ class SchedulerView(BaseView):
             else:
                 return Response({"message": f"Session {session_id} not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        page = int(request.query_params['page'])
-        keyword = request.query_params['keyword']
-        filter = int(request.query_params['filter'])
-        status = int(request.query_params['status'])
-        sessions_list = self.controller.getSessions(
-            page, keyword, filter, status)
-        
-        # print([{ss.session_id: ss.to_dictionary()} for ss in sessions_list])
+        # 2. Xử lý lấy danh sách (SỬA Ở ĐÂY)
+        try:
+            # Dùng .get('key', default_value) để tạo giá trị mặc định nếu Frontend không gửi lên
+            page = int(request.query_params.get('page', 1))         # Mặc định trang 1
+            keyword = request.query_params.get('keyword', '')       # Mặc định tìm rỗng
+            
+            # Đổi tên biến filter -> sort_option (tránh trùng tên hàm filter của python)
+            sort_option = int(request.query_params.get('filter', 0)) # Mặc định sắp xếp kiểu 0
+            
+            # Đổi tên biến status -> search_status (tránh trùng library status)
+            search_status = int(request.query_params.get('status', 0)) # Mặc định status 0
+            
+            # Gọi Controller
+            sessions_list = self.controller.getSessions(
+                page, keyword, sort_option, search_status
+            )
 
-        into_dict = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions_list}
-        return Response({"sessions": into_dict, "message": f"Search for {keyword} having {status} status in page {page}. Sorted by {filter}"})
-    
+            # 3. Chuyển đổi dữ liệu trả về
+            # LƯU Ý: Frontend React thường thích nhận về LIST ([]), 
+            # nhưng code cũ của bạn đang trả về DICT ({ "ss1": {...} }).
+            # Nếu Frontend bạn đã dùng Object.entries() như mình chỉ thì giữ nguyên dòng dưới.
+            into_dict = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions_list}
+            
+            return Response({
+                "sessions": into_dict, 
+                "message": f"Search for '{keyword}' status {search_status} page {page}"
+            })
+
+        except Exception as e:
+            # Bắt lỗi nếu controller có vấn đề để server không bị sập (Error 500)
+            print("Lỗi server:", str(e))
+            return Response({"message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     """Test rồi"""
     # POST sessions
     # create new sessions

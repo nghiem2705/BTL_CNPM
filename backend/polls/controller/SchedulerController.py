@@ -1,10 +1,14 @@
 from .BaseController import BaseController
 from polls.entity.SessionEntity import *
 from datetime import datetime, timedelta
+import os
+from django.conf import settings
 
 class SchedulerController(BaseController):
 
-    SESSION_PATH = ["data", "session.json"]
+    # SESSION_PATH = ["data", "session.json"]
+    # SESSION_PATH = os.path.join(settings.BASE_DIR, 'data', 'session.json')
+    SESSION_PATH = [str(settings.BASE_DIR), "data", "session.json"]
     SESSION_PER_PAGE = 2
 
     def __init__(self):
