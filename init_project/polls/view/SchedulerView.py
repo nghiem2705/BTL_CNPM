@@ -3,6 +3,7 @@ from rest_framework import status
 from .BaseView import BaseView
 from polls.controller.SchedulerController import *
 
+
 class SchedulerView(BaseView):
     def __init__(self):
         super().__init__()
@@ -61,8 +62,14 @@ class SchedulerView(BaseView):
                         data['description'],
                         data['note'],
                         data['document'])
-        self.controller.updateSession(session_id, new_session)
-        return Response({"message": f"Created {session_id}"})
+        valid = self.controller.addSession(new_session)
+        if valid: 
+            return Response({"message": f"Created {session_id}", "id": session_id}, status=status.HTTP_200_OK)
+        
+        return Response(
+            {"error": "Lịch dạy bị trùng!"}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
     """Test rồi"""
     # PUT sessions/<pk>

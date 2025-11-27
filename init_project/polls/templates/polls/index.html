@@ -80,18 +80,18 @@
             container.className = 'loading';
 
             // Gọi đến URL '/load-data/' mà chúng ta đã định nghĩa
-            fetch('/sessions/ss0/', {
-                method: 'DELETE',
+            fetch('http://127.0.0.1:8000/sessions/', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     "name": "Sample Session test",
-                    "date": "2025-12-30",
+                    "date": "2025-12-26",
                     "duration": 60,
                     "tutor": "t_00002",
                     "students": [],
-                    "time": "12:00",
+                    "time": "15:50",
                     "online": true,
                     "address": "test",
                     "description": "test111111",
