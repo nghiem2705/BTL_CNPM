@@ -100,6 +100,7 @@ class SchedulerView(BaseView):
                         data['duration'],
                         data['online'],
                         data['address'],
+                        data['link'],
                         data['description'],
                         data['note'],
                         data['document'])
@@ -118,15 +119,19 @@ class SchedulerView(BaseView):
     # return .message
     def put(self, request, session_id) -> Response:
         data = request.data
+        session = self.controller.getSessionById(session_id)
+        tutor = session.tutor
+        students = session.students
         new_session = Session(session_id, 
                         data['name'],
-                        data['tutor'],
-                        data['students'],
+                        tutor,
+                        students,
                         data['date'],
                         data['time'],
                         data['duration'],
                         data['online'],
                         data['address'],
+                        data['link'],
                         data['description'],
                         data['note'],
                         data['document'])

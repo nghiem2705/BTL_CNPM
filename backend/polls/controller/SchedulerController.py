@@ -9,7 +9,7 @@ class SchedulerController(BaseController):
     # SESSION_PATH = ["data", "session.json"]
     # SESSION_PATH = os.path.join(settings.BASE_DIR, 'data', 'session.json')
     SESSION_PATH = [str(settings.BASE_DIR), "data", "session.json"]
-    SESSION_PER_PAGE = 2
+    SESSION_PER_PAGE = 10
 
     def __init__(self):
         super().__init__()
@@ -50,6 +50,7 @@ class SchedulerController(BaseController):
                         value['duration'],
                         value['online'],
                         value['address'],
+                        value['link'],
                         value['description'],
                         value['note'],
                         value['document'])

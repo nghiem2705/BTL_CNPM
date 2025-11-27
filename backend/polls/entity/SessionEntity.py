@@ -24,6 +24,7 @@ class Session:
         self.duration = 0
         self.online = False
         self.address = ""
+        self.link = ""
         self.description = ""
         self.note = ""
         self.document = ""
@@ -42,7 +43,7 @@ class Session:
         else:
             return SessionStatus.COMPLETED
 
-    def __init__(self, session_id, name, tutor, students, date, time, duration, online, address, description, note, document):
+    def __init__(self, session_id, name, tutor, students, date, time, duration, online, address, link, description, note, document):
         self.session_id = session_id
         self.name = name
         self.tutor = tutor
@@ -52,6 +53,7 @@ class Session:
         self.duration = duration
         self.online = online
         self.address = address
+        self.link = link
         self.description = description
         self.note = note
         self.document = document
@@ -73,6 +75,7 @@ class Session:
             "duration": self.duration,
             "online": self.online,
             "address": self.address,
+            "link": self.link,
             "description": self.description,
             "note": self.note,
             "document": self.document
