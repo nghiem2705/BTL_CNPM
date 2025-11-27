@@ -84,6 +84,7 @@ class Session:
         # Nếu code bên ngoài yêu cầu lấy Status (has_status=True)
         if has_status:
             # Gọi hàm getStatus mà bạn đã viết trước đó
-            result["status"] = self.getStatus()
+            # print("getting status...")
+            result["status"] = int(self.getStatus())
 
         return result

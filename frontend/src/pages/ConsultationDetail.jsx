@@ -106,7 +106,7 @@ const ConsultationDetail = () => {
         <div>
           <h2 className="text-2xl font-bold text-[#102A43] tracking-tight">{formData.title}</h2>
           <div className="flex gap-2 mt-2">
-            {formData.status === 'upcoming' ? (
+            {formData.status === 3 ? (
                 <span className="bg-blue-500 text-white text-[10px] font-bold px-2 py-1 rounded">Sắp diễn ra</span>
             ) : (
                 <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded">Đã kết thúc</span>

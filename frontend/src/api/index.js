@@ -77,7 +77,7 @@ export const sessionApi = {
         startTime: item.time,
         endTime: calculateEndTime(item.time, item.duration),
         duration: item.duration + " phút",
-        status: "upcoming",
+        status: item.status,
         isOnline: item.online,
         location: item.address,
         meetLink: item.link,
