@@ -205,7 +205,7 @@ const Home = () => {
                     {/* BÊN PHẢI: Buttons */}
                     <div className="flex items-center gap-2">
                       <button 
-                        onClick={() => navigate(`/consultation/${item.id}`)}
+                        onClick={() => navigate(`/sessions/${item.id}`)}
                         className="bg-[#1e40af] hover:bg-blue-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors"
                       >
                         Xem chi tiết

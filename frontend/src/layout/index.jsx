@@ -1,11 +1,15 @@
 import React from 'react';
-import Header from './Header';
+// import Header from './Header';
 import { GraduationCap } from 'lucide-react';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, header }) => {
   return (
     <div className="flex flex-col min-h-screen bg-[#F8F9FA] font-sans text-[#334E68]">
-      <Header />
+      {/* <Header />  chỗ này thay bằng biến để trong app.jsx gọi hàm */}
+      <div className="w-full z-50">
+         {header}
+      </div>
+
       <main className="flex-grow p-4 sm:p-6 max-w-7xl mx-auto w-full">
         {children}
       </main>
