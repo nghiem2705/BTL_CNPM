@@ -6,7 +6,7 @@ import {
   ChevronLeft, X, Plus, Download, CheckCircle
 } from 'lucide-react';
 // import { mockSessions } from '../api'; // Import dữ liệu giả
-import { sessionApi } from '../api'; // Import API
+import { sessionApi } from '../../../api'; // Import API
 
 // --- HELPER COMPONENTS --- (giữ nguyên)
 const ToggleSwitch = ({ isOn, onToggle, disabled }) => (

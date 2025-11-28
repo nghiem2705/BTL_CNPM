@@ -5,7 +5,7 @@ import {
   Calendar, Clock, Search, Plus, Download, 
   ChevronDown, Check 
 } from 'lucide-react';
-import { sessionApi } from '../../api'; // Import dữ liệu giả ///// sửa chỗ này
+import { sessionApi } from '../../../api'; // Import dữ liệu giả ///// sửa chỗ này
 // import { mockSessions } from '../../api';
 
 const Home = () => {
@@ -205,7 +205,7 @@ const Home = () => {
                     {/* BÊN PHẢI: Buttons */}
                     <div className="flex items-center gap-2">
                       <button 
-                        onClick={() => navigate(`/sessions/${item.id}`)}
+                        onClick={() => navigate(`/tutor/sessions/${item.id}`)}
                         className="bg-[#1e40af] hover:bg-blue-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors"
                       >
                         Xem chi tiết

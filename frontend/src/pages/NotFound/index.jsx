@@ -9,12 +9,12 @@ const NotFound = () => {
                     <h1 className="text-9xl font-extrabold text-white opacity-20">
                         404
                     </h1>
-                    
+
                     {/* Main Heading */}
                     <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
                         Trang không tồn tại
                     </h2>
-                    
+
                     {/* Subheading */}
                     <p className="text-xl text-gray-300 mb-8">
                         Xin lỗi, chúng tôi không thể tìm thấy trang bạn đang tìm kiếm.
@@ -60,7 +60,7 @@ const NotFound = () => {
                         </svg>
                         Về trang chủ
                     </Link>
-                    
+
                     <button
                         onClick={() => window.history.back()}
                         className="w-full inline-flex items-center justify-center px-8 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-300 bg-transparent hover:bg-white hover:text-gray-900 transition duration-300 ease-in-out transform hover:scale-105"

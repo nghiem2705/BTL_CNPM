@@ -8,17 +8,21 @@ import TutorHeader from './layout/Header/tutor_index';
 import StudentHeader from './layout/Header/student_index';
 
 // Import Tutor page
-import TutorHome from './pages/Home/Home';
-import Session from './pages/Session';
-import ConsultationDetail from './pages/ConsultationDetail'; // Import trang mới
+import TutorConsultationDetail from './pages/tutor/ConsultationDetail'; // Import trang mới
+import TutorConsultation from "./pages/tutor/Consultation";
+import TutorConsultationCreate from "./pages/tutor/ConsultationCreate";
 
 // Import Student page
-
-
+import StudentConsultation from "./pages/student/Consultation";
+import StudentConsultationRegister from "./pages/student/ConsultationRegister";
+import StudentConsultationDetail from "./pages/student/ConsultationDetail";
+import TutorMatch from "./pages/student/TutorMatch";
 
 // Import Guest Interface and Login page
+import Home from './pages/Home/Home';
 import RoleSelection from './pages/Login/RoleSelection';
 import Login from './pages/Login/index'
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -34,7 +38,7 @@ function App() {
           {/*  GIAO DIỆN KHÁCH */}
           <Route path="/" element={ 
             <Layout header={<PublicHeader />}> 
-                <TutorHome /> 
+                <Home /> 
             </Layout>
           } />
 
@@ -42,19 +46,19 @@ function App() {
           {/* TRANG TUTOR */}
           <Route path="/tutor" element={
               <Layout header={<TutorHeader />}> 
-                  <TutorHome /> 
+                  <Home /> 
               </Layout>
           } />
 
           <Route path="/tutor/sessions" element={
               <Layout header={<TutorHeader />}> 
-                  <Session /> 
+                  <TutorConsultation /> 
               </Layout>
           } />
           
           <Route path="/tutor/create" element={
               <Layout header={<TutorHeader />}> 
-                  {/* Thêm trang chỗ này */}
+                  <TutorConsultationCreate />
               </Layout>
           } />
 
@@ -76,24 +80,22 @@ function App() {
               </Layout>
           } />
 
-          <Route path="/sessions/:id" element={
+          <Route path="/tutor/sessions/:id" element={
               <Layout header={<TutorHeader />}> 
-                  <ConsultationDetail /> 
+                  <TutorConsultationDetail /> 
               </Layout>
           } />
-
-
 
           {/* TRANG STUDENT */}
           <Route path="/student" element={
               <Layout header={<StudentHeader />}> 
-                  <TutorHome /> 
+                  <Home /> 
               </Layout>
           } />
 
           <Route path="/student/tutors" element={
               <Layout header={<StudentHeader />}> 
-                  {/* Thêm trang chỗ này */}
+                  <TutorMatch />
               </Layout>
           } />
 
@@ -105,13 +107,13 @@ function App() {
 
           <Route path="/student/sessions/registered" element={
               <Layout header={<StudentHeader />}> 
-                  {/* Thêm trang chỗ này */}
+                  <StudentConsultation />
               </Layout>
           } />
 
           <Route path="/student/sessions/register" element={
               <Layout header={<StudentHeader />}> 
-                  {/* Thêm trang chỗ này */}
+                  <StudentConsultationRegister/>
               </Layout>
           } />
 

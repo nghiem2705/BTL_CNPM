@@ -1,3 +1,10 @@
+import axios from "axios";
+
+const api = axios.create({
+    baseURL: "http://localhost:8000/",
+    withCredentials: true,
+})
+
 const BASE_URL = 'http://127.0.0.1:8000';
 
 export const sessionApi = {
@@ -152,3 +159,5 @@ const convertDateToDisplay = (dateStr) => {
     const date = new Date(dateStr);
     return `Thứ ${date.getDay() + 1}, ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 };
+
+export default api;
