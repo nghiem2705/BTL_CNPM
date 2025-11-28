@@ -1,0 +1,158 @@
+{
+    "2312593": {
+        "role": "student",
+        "name": "Nguyễn Thành Phát",
+        "major": "cs",
+        "rate": 3.4,
+        "mail": "phat.nguyen@gmail.com",
+        "phone": "0498207847",
+        "description": "Auto generated profile.",
+        "demand": [
+            "soft_comm",
+            "cs_se",
+            "cs_ml"
+        ],
+        "strength": [],
+        "tutor": [
+            "t_00001"
+        ]
+    },
+    "2312185": {
+        "role": "student",
+        "name": "Phan Trọng Bảo Nam",
+        "major": "cs",
+        "rate": 3.9,
+        "mail": "nam.phan@gmail.com",
+        "phone": "0211229050",
+        "description": "Auto generated profile.",
+        "demand": [
+            "ch_thermo",
+            "cs_se"
+        ],
+        "strength": [],
+        "tutor": [
+            "t_00003"
+        ]
+    },
+    "2312329": {
+        "role": "student",
+        "name": "Bùi Trọng Nguyên",
+        "major": "cs",
+        "rate": 4.2,
+        "mail": "nguyen.bui@gmail.com",
+        "phone": "0215800130",
+        "description": "Auto generated profile.",
+        "demand": [
+            "soft_lead",
+            "cs_se"
+        ],
+        "strength": [],
+        "tutor": []
+    },
+    "2213696": {
+        "role": "student",
+        "name": "Nguyễn Chí Trung",
+        "major": "cs",
+        "rate": 3.9,
+        "mail": "trung.nguyen@gmail.com",
+        "phone": "0067703659",
+        "description": "Auto generated profile.",
+        "demand": [
+            "soft_fast",
+            "cs_se"
+        ],
+        "strength": [],
+        "tutor": []
+    },
+    "2212050": {
+        "role": "student",
+        "name": "Lương Vĩnh Minh",
+        "major": "cs",
+        "rate": 3.8,
+        "mail": "minh.luong@gmail.com",
+        "phone": "0019566815",
+        "description": "Auto generated profile.",
+        "demand": [
+            "cs_algo",
+            "cs_se"
+        ],
+        "strength": [],
+        "tutor": []
+    },
+    "2212209": {
+        "role": "student",
+        "name": "Nguyễn Quang Nghiêm",
+        "major": "cs",
+        "rate": 3.2,
+        "mail": "nghiem.nguyen@gmail.com",
+        "phone": "0413430604",
+        "description": "Auto generated profile.",
+        "demand": [
+            "soft_team",
+            "cs_se"
+        ],
+        "strength": [],
+        "tutor": []
+    },
+    "t_00001": {
+        "role": "tutor",
+        "name": "Mai Đức Trung",
+        "major": "cs",
+        "rate": 4.0,
+        "mail": "trung.mai@gmail.com",
+        "phone": "0229023317",
+        "description": "Auto generated profile.",
+        "demand": [],
+        "strength": [
+            "cs_se",
+            "soft_comm"
+        ]
+    },
+    "t_00002": {
+        "role": "tutor",
+        "name": "Lê Minh Tuấn",
+        "major": "ee",
+        "rate": 4.2,
+        "mail": "tuan.le@gmail.com",
+        "phone": "0387181895",
+        "description": "Auto generated profile. dev",
+        "demand": [],
+        "strength": [
+            "ee_circuit",
+            "cs_algo",
+            "cs_ml",
+            "uit_number_one"
+        ]
+    },
+    "t_00003": {
+        "role": "tutor",
+        "name": "Trần Thùy Linh",
+        "major": "ch",
+        "rate": 3.4,
+        "mail": "linh.tran@gmail.com",
+        "phone": "0232465401",
+        "description": "Auto generated profile.",
+        "demand": [],
+        "strength": [
+            "ch_thermo",
+            "soft_lead",
+            "soft_comm",
+            "soft_fast",
+            "soft_crit",
+            "soft_team"
+        ]
+    },
+    "9999999": {
+        "role": "admin",
+        "name": "System Administrator",
+        "major": "",
+        "rate": 5.0,
+        "mail": "",
+        "phone": "",
+        "description": "",
+        "privileges": [
+            "manage_users",
+            "manage_system"
+        ]
+    }
+}
