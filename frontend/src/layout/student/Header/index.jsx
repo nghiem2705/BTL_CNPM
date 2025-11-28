@@ -11,7 +11,7 @@ const Header = () => {
     const navItems = [
         { label: 'Trang chủ', path: '/student/home' },
         { label: 'Thư viện số', path: '/student/library' },
-        { label: 'Tutor', path: '/student/tutor' },
+        { label: 'Giảng viên', path: '/tutor' },
         { label: 'Đăng ký buổi', path: '/student/register' },
         { label: 'Buổi tư vấn', path: '/student/consultation' },
     ];

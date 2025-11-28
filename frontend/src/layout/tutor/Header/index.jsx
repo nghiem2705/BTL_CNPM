@@ -12,7 +12,7 @@ const Header = () => {
         { label: 'Trang Chủ', path: '/tutor/home' },
         { label: 'Thư Viện', path: '/tutor/library' },
         // { label: 'Thêm Lịch', path: '/tutor/consultation/create' },
-        { label: 'Học Viên', path: '/tutor/students' },
+        { label: 'Học Viên', path: '/student' },
         { label: 'Lịch Của Tôi', path: '/tutor/consultation' },
     ];
 
