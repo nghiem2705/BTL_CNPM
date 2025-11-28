@@ -1,4 +1,4 @@
-import { GraduationCap, User } from 'lucide-react';
+import { Bell, GraduationCap, User } from 'lucide-react';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -7,14 +7,16 @@ const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Navigation items configuration
+    // Navigation items configuration (left side)
     const navItems = [
         { label: 'Trang chủ', path: '/student/home' },
         { label: 'Thư viện số', path: '/student/library' },
-        { label: 'Giảng viên', path: '/tutor' },
         { label: 'Đăng ký buổi', path: '/student/register' },
         { label: 'Buổi tư vấn', path: '/student/consultation' },
     ];
+
+    // Tutor switch button (right side)
+    const tutorPath = '/tutor';
 
     // Check if a route is active
     const isActive = (path) => {
@@ -64,10 +66,34 @@ const Header = () => {
                 </nav>
             </div>
 
-            {/* User Profile Icon */}
-            <div className="flex items-center">
-                <div className="w-10 h-10 bg-gradient-to-br from-amber-100 to-amber-50 rounded-full flex items-center justify-center border-2 border-white shadow-sm cursor-pointer hover:shadow-md transition-shadow">
-                    <User size={20} className="text-[#8B6914]" />
+            {/* Right Side: Tutor Switch + User Profile */}
+            <div className="flex items-center gap-4">
+                {/* Tutor Switch Button */}
+                <button
+                    onClick={() => navigate(tutorPath)}
+                    className={`hidden md:block px-4 py-2 rounded-md text-sm font-medium transition-all ${location.pathname.startsWith(tutorPath)
+                        ? 'bg-white/20 underline decoration-2 underline-offset-4 font-semibold'
+                        : 'hover:bg-white/10'
+                        }`}
+                >
+                    Giảng viên
+                </button>
+
+                {/* Notifications */}
+                <div className="relative">
+                    <Bell size={20} className="cursor-pointer opacity-80 hover:opacity-100" />
+                    <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                </div>
+
+                {/* User Profile */}
+                <div className="flex items-center gap-2 cursor-pointer hover:bg-[#005058] p-1.5 rounded-lg transition-colors">
+                    <div className="text-right hidden lg:block">
+                        <p className="text-xs font-bold">Nguyễn Văn A</p>
+                        <p className="text-[10px] opacity-70">GV001 - Giảng viên</p>
+                    </div>
+                    <div className="w-9 h-9 bg-gray-200 rounded-full flex items-center justify-center text-[#006D77] border-2 border-white shadow-sm">
+                        <User size={20} />
+                    </div>
                 </div>
             </div>
         </header>
