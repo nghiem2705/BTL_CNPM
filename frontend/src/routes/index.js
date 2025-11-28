@@ -50,10 +50,6 @@ const Routers = () => {
                     path: '/tutor/consultation/create',
                     element: <TutorConsultationCreate />
                 },
-                {
-                    path: '*',
-                    element: <NotFound />
-                },
             ]
         },
         {
@@ -79,10 +75,6 @@ const Routers = () => {
                 {
                     path: '/student/consultation/:id',
                     element: <StudentConsultationDetail />
-                },
-                {
-                    path: '*',
-                    element: <NotFound />
                 },
             ]
         },
