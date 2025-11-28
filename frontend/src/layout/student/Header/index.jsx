@@ -88,8 +88,8 @@ const Header = () => {
                 {/* User Profile */}
                 <div className="flex items-center gap-2 cursor-pointer hover:bg-[#005058] p-1.5 rounded-lg transition-colors">
                     <div className="text-right hidden lg:block">
-                        <p className="text-xs font-bold">Nguyễn Văn A</p>
-                        <p className="text-[10px] opacity-70">GV001 - Giảng viên</p>
+                        <p className="text-xs font-bold">Nguyễn Văn B</p>
+                        <p className="text-[10px] opacity-70">HV001 - Học viên</p>
                     </div>
                     <div className="w-9 h-9 bg-gray-200 rounded-full flex items-center justify-center text-[#006D77] border-2 border-white shadow-sm">
                         <User size={20} />
