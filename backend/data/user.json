@@ -32,7 +32,8 @@
         "strength": [],
         "tutor": [
             "t_00003"
-        ]
+        ],
+        "tutors": []
     },
     "2312329": {
         "role": "student",
@@ -110,10 +111,10 @@
     },
     "t_00002": {
         "role": "tutor",
-        "name": "Lê Minh Tuấn",
+        "name": "Nguyễn Văn A",
         "major": "ee",
         "rate": 4.2,
-        "mail": "tuan.le@gmail.com",
+        "mail": "a@example.com",
         "phone": "0387181895",
         "description": "Auto generated profile.",
         "demand": [],
@@ -139,14 +140,15 @@
             "soft_fast",
             "soft_crit",
             "soft_team"
-        ]
+        ],
+        "students": []
     },
     "9999999": {
         "role": "admin",
         "name": "System Administrator",
         "major": "",
         "rate": 5.0,
-        "mail": "",  
+        "mail": "",
         "phone": "",
         "description": "",
         "privileges": [

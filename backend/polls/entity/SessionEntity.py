@@ -61,8 +61,8 @@ class Session:
     def add_student(self, student):
         self.students.append(student)
 
-    def to_dictionary(self, have_status=False):
-        if have_status:
+    def to_dictionary(self, has_status=False):
+        if has_status:
             return {
                 'status': self.status,
                 'name': self.name,

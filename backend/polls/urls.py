@@ -18,4 +18,11 @@ urlpatterns = [
     path('tutor/information/', info.as_view(), name='tutor_information'),           # GET ?uID=<tutor_id>
     path('tutor/information/<str:uID>/', info.as_view(), name='tutor_update'),      # PUT profile
     path('tutor/<str:tutor_id>/students/', info.as_view(), name='tutor_students'),  # GET students following tutor
+
+    # sheduler endpoints - trung
+    path('tutor/sessions/', scheduler.as_view(), name='tutor_sessions'),
+    path('student/sessions/registered/', scheduler.as_view(), name='student_registered_sessions'),
+    path('student/sessions/register/', scheduler.as_view(), name='student_register_session'),
+    path('student/sessions/unregister/', scheduler.as_view(), name='student_unregister_session'),
+    path('student/follow/<str:student_id>/<str:tutor_id>/', scheduler.as_view(), name='student_follow'),
 ]

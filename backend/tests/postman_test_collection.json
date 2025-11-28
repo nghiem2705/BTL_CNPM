@@ -1,0 +1,229 @@
+{
+  "info": {
+    "name": "BTL_CNPM Backend API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Collection to test Django backend APIs"
+  },
+  "item": [
+    {
+      "name": "Sessions - List",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/sessions/?page=1&keyword=&filter=0&status=0",
+          "host": ["{{base_url}}"],
+          "path": ["sessions", ""],
+          "query": [
+            { "key": "page", "value": "1" },
+            { "key": "keyword", "value": "" },
+            { "key": "filter", "value": "0" },
+            { "key": "status", "value": "0" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Sessions - Tutor List",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/tutor/sessions/?tutor_id={{tutor_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["tutor", "sessions", ""],
+          "query": [{ "key": "tutor_id", "value": "{{tutor_id}}" }]
+        }
+      }
+    },
+    {
+      "name": "Sessions - Student Registered",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/student/sessions/registered/?student_id={{student_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["student", "sessions", "registered", ""],
+          "query": [{ "key": "student_id", "value": "{{student_id}}" }]
+        }
+      }
+    },
+    {
+      "name": "Sessions - Detail",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/sessions/{{session_id}}/",
+          "host": ["{{base_url}}"],
+          "path": ["sessions", "{{session_id}}", ""]
+        }
+      },
+      "response": [],
+      "event": [],
+      "protocolProfileBehavior": {}
+    },
+    {
+      "name": "Sessions - Create",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Buổi học thử\",\n  \"tutor\": \"t_00002\",\n  \"students\": [\"2312185\"],\n  \"date\": \"2025-12-31\",\n  \"time\": \"09:00\",\n  \"duration\": 60,\n  \"online\": true,\n  \"address\": \"Online\",\n  \"description\": \"Test tạo lịch\",\n  \"note\": \"\",\n  \"document\": []\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/sessions/",
+          "host": ["{{base_url}}"],
+          "path": ["sessions", ""]
+        }
+      }
+    },
+    {
+      "name": "Sessions - Update",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Cập nhật buổi học\",\n  \"tutor\": \"t_00002\",\n  \"students\": [\"2312185\"],\n  \"date\": \"2025-12-31\",\n  \"time\": \"10:30\",\n  \"duration\": 90,\n  \"online\": false,\n  \"address\": \"CS2, B6\",\n  \"description\": \"Ôn tập\",\n  \"note\": \"\",\n  \"document\": []\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/sessions/{{session_id}}/",
+          "host": ["{{base_url}}"],
+          "path": ["sessions", "{{session_id}}", ""]
+        }
+      }
+    },
+    {
+      "name": "Sessions - Delete",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/sessions/{{session_id}}/",
+          "host": ["{{base_url}}"],
+          "path": ["sessions", "{{session_id}}", ""]
+        }
+      }
+    },
+    {
+      "name": "Student - Register Session",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"student_id\": \"{{student_id}}\",\n  \"session_id\": \"{{session_id}}\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/student/sessions/register/",
+          "host": ["{{base_url}}"],
+          "path": ["student", "sessions", "register", ""]
+        }
+      }
+    },
+    {
+      "name": "Student - Unregister Session",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"student_id\": \"{{student_id}}\",\n  \"session_id\": \"{{session_id}}\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/student/sessions/unregister/",
+          "host": ["{{base_url}}"],
+          "path": ["student", "sessions", "unregister", ""]
+        }
+      }
+    },
+    {
+      "name": "Student - Follow Tutor (POST)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/student/follow/{{student_id}}/{{tutor_id}}/",
+          "host": ["{{base_url}}"],
+          "path": ["student", "follow", "{{student_id}}", "{{tutor_id}}", ""]
+        }
+      }
+    },
+    {
+      "name": "Student - Follow Tutor (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/student/follow/{{student_id}}/{{tutor_id}}/",
+          "host": ["{{base_url}}"],
+          "path": ["student", "follow", "{{student_id}}", "{{tutor_id}}", ""]
+        }
+      }
+    },
+    {
+      "name": "Student - Unfollow Tutor",
+      "request": {
+        "method": "DELETE",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/student/follow/{{student_id}}/{{tutor_id}}/",
+          "host": ["{{base_url}}"],
+          "path": ["student", "follow", "{{student_id}}", "{{tutor_id}}", ""]
+        }
+      }
+    },
+    {
+      "name": "Tutor - Profile",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/tutor/information/?uID=t_00002",
+          "host": ["{{base_url}}"],
+          "path": ["tutor", "information", ""],
+          "query": [{ "key": "uID", "value": "t_00002" }]
+        }
+      }
+    },
+    {
+      "name": "Tutor - Update Profile",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Nguyễn Văn A\",\n  \"mail\": \"a@example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/tutor/information/{{uID}}/",
+          "host": ["{{base_url}}"],
+          "path": ["tutor", "information", "{{uID}}", ""]
+        }
+      }
+    },
+    {
+      "name": "Tutor - Students Following",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": {
+          "raw": "{{base_url}}/tutor/{{tutor_id}}/students/",
+          "host": ["{{base_url}}"],
+          "path": ["tutor", "{{tutor_id}}", "students", ""]
+        }
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    { "key": "base_url", "value": "http://127.0.0.1:8000" },
+    { "key": "session_id", "value": "ss0" },
+    { "key": "uID", "value": "t_00002" },
+    { "key": "tutor_id", "value": "t_00003" },
+    { "key": "student_id", "value": "2312185" }
+  ]
+}

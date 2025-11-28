@@ -13,6 +13,9 @@ class SchedulerController(BaseController):
         self.all_sessions = []
         self.update()
 
+        # user data path
+        self.USER_PATH = ["data", "user.json"]
+
     def update(self):
         self.all_sessions = self.getAllSessions()
 
@@ -133,5 +136,115 @@ class SchedulerController(BaseController):
                 print(f"Trùng lịch với {session.session_id}") 
                 return False
         return True
-        
 
+##################################################
+    # Helpers
+    def read_users(self) -> dict:
+        try:
+            return super().readFile(self.USER_PATH) or {}
+        except Exception:
+            return {}
+
+    def write_users(self, data: dict) -> bool:
+        try:
+            super().writeFile(self.USER_PATH, data)
+            return True
+        except Exception:
+            return False
+
+    def get_sessions_by_tutor(self, tutor_id: str) -> list[Session]:
+        """Lấy tất cả các buổi học của tutor theo tutor_id"""
+        return [ss for ss in self.all_sessions if ss.tutor == tutor_id]
+
+    def get_sessions_registered_by_student(self, student_id: str) -> list[Session]:
+        """Lấy tất cả các buổi học mà student đã đăng ký theo student_id"""
+        return [ss for ss in self.all_sessions if student_id in (ss.students or [])]
+
+    def register_student_to_session(self, student_id: str, session_id: str) -> tuple[bool, str]:
+        """Sinh viên đăng ký tham gia buổi học"""
+        ss = self.getSessionById(session_id)
+        if ss is None:
+            return False, "Session not found"
+        if ss.students is None:
+            ss.students = []
+        if student_id in ss.students:
+            return False, "Already registered"
+        ss.students.append(student_id)
+        self.writeSession()
+        
+        return True, "Registered"
+
+    def unregister_student_from_session(self, student_id: str, session_id: str) -> tuple[bool, str]:
+        """Sinh viên hủy đăng ký tham gia buổi học"""
+        ss = self.getSessionById(session_id)
+        if ss is None:
+            return False, "Session not found"
+        if ss.students is None or student_id not in ss.students:
+            return False, "Not registered"
+        ss.students.remove(student_id)
+        self.writeSession()
+        
+        return True, "Unregistered"
+
+    def student_follow_tutor(self, student_id: str, tutor_id: str) -> tuple[bool, str]:
+        """
+        Student follows Tutor:
+        - Add tutor_id to student's `tutor` list
+        - Add student_id to tutor's `students` list
+        Enforces roles: follower must be student, target must be tutor.
+        """
+        if student_id == tutor_id:
+            return False, "Cannot follow self"
+        users = self.read_users()
+        if student_id not in users or tutor_id not in users:
+            return False, "User not found"
+
+        student = users[student_id]
+        tutor = users[tutor_id]
+        if student.get("role") != "student" or tutor.get("role") != "tutor":
+            return False, "Invalid roles: require student->tutor"
+
+        student_tutors = student.get("tutors", [])
+        if tutor_id in student_tutors:
+            return False, "Already following"
+        student_tutors.append(tutor_id)
+        student["tutors"] = student_tutors
+
+        tutor_students = tutor.get("students", [])
+        if student_id not in tutor_students:
+            tutor_students.append(student_id)
+            tutor["students"] = tutor_students
+
+        if not self.write_users(users):
+            return False, "Write failed"
+        return True, "Followed"
+
+    def student_unfollow_tutor(self, student_id: str, tutor_id: str) -> tuple[bool, str]:
+        """
+        Student unfollows Tutor:
+        - Remove tutor_id from student's `tutor` list
+        - Remove student_id from tutor's `students` list (if present)
+        Enforces roles: follower must be student, target must be tutor.
+        """
+        users = self.read_users()
+        if student_id not in users or tutor_id not in users:
+            return False, "User not found"
+        student = users[student_id]
+        tutor = users[tutor_id]
+        if student.get("role") != "student" or tutor.get("role") != "tutor":
+            return False, "Invalid roles: require student->tutor"
+
+        student_tutors = student.get("tutors", [])
+        if tutor_id not in student_tutors:
+            return False, "Not following"
+        student_tutors.remove(tutor_id)
+        student["tutors"] = student_tutors
+
+        tutor_students = tutor.get("students", [])
+        if student_id in tutor_students:
+            tutor_students.remove(student_id)
+            tutor["students"] = tutor_students
+
+        if not self.write_users(users):
+            return False, "Write failed"
+        return True, "Unfollowed"
