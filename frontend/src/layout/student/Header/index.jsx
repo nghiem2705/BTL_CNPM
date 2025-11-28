@@ -11,12 +11,10 @@ const Header = () => {
     const navItems = [
         { label: 'Trang chủ', path: '/student/home' },
         { label: 'Thư viện số', path: '/student/library' },
+        { label: 'Giảng viên', path: '/student/tutors' },
         { label: 'Đăng ký buổi', path: '/student/register' },
         { label: 'Buổi tư vấn', path: '/student/consultation' },
     ];
-
-    // Tutor switch button (right side)
-    const tutorPath = '/tutor';
 
     // Check if a route is active
     const isActive = (path) => {
@@ -68,17 +66,6 @@ const Header = () => {
 
             {/* Right Side: Tutor Switch + User Profile */}
             <div className="flex items-center gap-4">
-                {/* Tutor Switch Button */}
-                <button
-                    onClick={() => navigate(tutorPath)}
-                    className={`hidden md:block px-4 py-2 rounded-md text-sm font-medium transition-all ${location.pathname.startsWith(tutorPath)
-                        ? 'bg-white/20 underline decoration-2 underline-offset-4 font-semibold'
-                        : 'hover:bg-white/10'
-                        }`}
-                >
-                    Giảng viên
-                </button>
-
                 {/* Notifications */}
                 <div className="relative">
                     <Bell size={20} className="cursor-pointer opacity-80 hover:opacity-100" />
