@@ -1,8 +1,28 @@
 import React, { useState } from 'react';
 import { User, Bell, GraduationCap } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const [imgError, setImgError] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    // Navigation items configuration
+    const navItems = [
+        { label: 'Trang Chủ', path: '/home' },
+        { label: 'Thư Viện', path: '/library' },
+        { label: 'Thêm Lịch', path: '/add-schedule' },
+        { label: 'Học Viên', path: '/students' },
+        { label: 'Lịch Của Tôi', path: '/consultation' },
+    ];
+
+    // Check if a route is active
+    const isActive = (path) => {
+        if (path === '/home') {
+            return location.pathname === '/home' || location.pathname === '/';
+        }
+        return location.pathname.startsWith(path);
+    };
 
     return (
         <header className="bg-[#006D77] text-white h-16 px-4 sm:px-6 flex justify-between items-center shadow-md z-20 sticky top-0">
@@ -29,11 +49,23 @@ const Header = () => {
 
                 {/* Navigation Menu */}
                 <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-                    {['Trang Chủ', 'Thư Viện', 'Thêm Lịch'].map((item) => (
-                        <a key={item} href="#" className="opacity-80 hover:opacity-100 hover:text-white transition-all">{item}</a>
-                    ))}
-                    <a href="#" className="bg-[#005058] text-white px-4 py-2 rounded-md shadow-inner border border-[#00838f]">Lịch Của Tôi</a>
-                    <a href="#" className="opacity-80 hover:opacity-100 transition-all">Học Viên</a>
+                    {navItems.map((item) => {
+                        const active = isActive(item.path);
+
+                        return (
+                            <button
+                                key={item.label}
+                                onClick={() => navigate(item.path)}
+                                className={`rounded-md transition-all ${`px-3 py-2 ${active
+                                            ? 'bg-[#005058] text-white shadow-inner border border-[#00838f]'
+                                            : 'opacity-80 hover:opacity-100 hover:text-white'
+                                        }`
+                                    }`}
+                            >
+                                {item.label}
+                            </button>
+                        );
+                    })}
                 </nav>
             </div>
 

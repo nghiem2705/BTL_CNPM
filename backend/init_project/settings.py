@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-xhf(n@qz*ia1n7()l#353kzygt*xjdlol6-f4wpu(tov&1bz+w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
 
 # Application definition
@@ -124,4 +124,44 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-CORS_ALLOW_ALL_ORIGINS = True
+
+# CORS Configuration
+# Note: Cannot use CORS_ALLOW_ALL_ORIGINS = True with CORS_ALLOW_CREDENTIALS = True
+# When using credentials (withCredentials: true), must specify exact origins
+CORS_ALLOW_CREDENTIALS = True
+
+# Allow specific origins (required when using credentials)
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+# Allow all HTTP methods
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+# Allow all headers
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-xsrf-token',
+    'x-requested-with',
+]
+
+# CSRF trusted origins
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]

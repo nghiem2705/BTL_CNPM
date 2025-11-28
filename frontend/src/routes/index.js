@@ -2,6 +2,8 @@
 import { Navigate, useRoutes } from "react-router-dom";
 import Layout from "../layout";
 import NotFound from "../pages/NotFound";
+import Consultation from "../pages/Consultation";
+import ConsultationCreate from "../pages/ConsultationCreate";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import ConsultationDetail from "../pages/ConsultationDetail";
@@ -27,8 +29,16 @@ const Routers = () => {
                     element: <Home />
                 },
                 {
+                    path: '/consultation',
+                    element: <Consultation />
+                },
+                {
                     path: '/consultation/:id',
                     element: <ConsultationDetail />
+                },
+                {
+                    path: '/consultation/create',
+                    element: <ConsultationCreate />
                 },
                 {
                     path: '*',
