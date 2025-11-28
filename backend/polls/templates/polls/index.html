@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Django 'Polls'</title>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            text-align: center; 
+            padding-top: 50px; 
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        h1 { color: #0c5460; }
+        
+        /* Đây là cái "hộp" cho "hello world" */
+        .info-box {
+            background-color: #e6f7ff;
+            border: 1px solid #b3e0ff;
+            color: #0056b3;
+            padding: 15px;
+            margin: 20px auto;
+            border-radius: 8px;
+            max-width: 500px;
+        }
+
+        button { 
+            font-size: 16px; 
+            padding: 12px 24px; 
+            cursor: pointer; 
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        button:hover { background-color: #0056b3; }
+        
+        #data-container { 
+            margin: 30px auto;
+            padding: 20px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            background: #ffffff; 
+            min-height: 50px; 
+            max-width: 500px;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            /* Dùng 'pre-wrap' để giữ nguyên các dấu xuống dòng từ file .txt */
+            white-space: pre-wrap; 
+        }
+        #data-container.loading { color: #888; }
+        #data-container.error { color: #D8000C; background-color: #FFD2D2; }
+        #data-container.success { color: #270; background-color: #DFF2BF; }
+    </style>
+</head>
+<body>
+
+    <h1>Hello World từ Polls App!</h1>
+
+    <!-- Yêu cầu: "hello world trong một cái hộp" -->
+    <div class="info-box">
+        hello world
+    </div>
+    
+    <!-- Yêu cầu: "có nút bấm" -->
+    <button id="load-data-btn">Nhấn để lấy dữ liệu từ file .txt</button>
+    
+    <!-- Yêu cầu: "lấy dữ liệu từ file" -->
+    <div id="data-container" class="loading">
+        Chưa có dữ liệu. Hãy nhấn nút...
+    </div>
+
+    <script>
+        document.getElementById('load-data-btn').addEventListener('click', function() {
+            const container = document.getElementById('data-container');
+            container.textContent = 'Đang tải...';
+            container.className = 'loading';
+
+            // Gọi đến URL '/load-data/' mà chúng ta đã định nghĩa
+            fetch('http://127.0.0.1:8000/sessions/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "name": "Sample Session test",
+                    "date": "2025-12-26",
+                    "duration": 60,
+                    "tutor": "t_00002",
+                    "students": [],
+                    "time": "15:50",
+                    "online": true,
+                    "address": "test",
+                    "description": "test111111",
+                    "note": "No additional notes.",
+                    "document": []
+                })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Lỗi mạng hoặc máy chủ. Status: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.error) {
+                        container.textContent = 'Lỗi: ' + data.error;
+                        container.className = 'error';
+                    } else {
+                        // Cập nhật nội dung từ key 'content'
+                        container.textContent = data.message; 
+                        container.className = 'success';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    container.textContent = 'Đã xảy ra lỗi khi tải dữ liệu: ' + error.message;
+                    container.className = 'error';
+                });
+        });
+    </script>
+</body>
+</html>

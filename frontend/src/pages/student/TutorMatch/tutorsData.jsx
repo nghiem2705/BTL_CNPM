@@ -1,0 +1,80 @@
+export const tutors = [
+  {
+    id: 1,
+    name: "Nguyễn Văn B",
+    subject: "Toán học",
+    rating: 4.5,
+    students: 250,
+    desc: "Giảng viên toán học với hơn 10 năm kinh nghiệm.",
+    avatar: "/avatars/a1.jpg",
+    majors: ["Giải tích", "Hình học"],
+    email: "b.nguyen@hcmut.edu.vn",
+    phone: "0966 566 810",
+    registered: true
+  },
+  {
+    id: 2,
+    name: "Nguyễn Văn C",
+    subject: "Tiếng Anh",
+    rating: 4.3,
+    students: 232,
+    desc: "Giảng viên tiếng Anh với hơn 4 năm kinh nghiệm.",
+    avatar: "/avatars/a2.jpg",
+    majors: ["TOEIC", "IELTS"],
+    email: "c.nguyen@hcmut.edu.vn",
+    phone: "0966 567 810",
+    registered: true
+  },
+  {
+    id: 3,
+    name: "Trần D",
+    subject: "Xã hội học",
+    rating: 3.9,
+    students: 67,
+    desc: "Giảng viên xã hội học với hơn 10 năm kinh nghiệm.",
+    avatar: "/avatars/a3.jpg",
+    majors: ["Triết học"],
+    email: "d.tran@hcmut.edu.vn",
+    phone: "0966 556 810",
+    registered: false
+  },
+  {
+    id: 4,
+    name: "Bùi Trọng Nguyên",
+    subject: "Toán học",
+    rating: 4.9,
+    students: 25,
+    desc: "Giảng viên toán học với 8 năm kinh nghiệm.",
+    avatar: "/avatars/a1.jpg",
+    majors: ["Đại số", "Hình học"],
+    email: "nguyen.buitrong@hcmut.edu.vn",
+    phone: "0966 566 820",
+    registered: false
+  },
+  {
+    id: 5,
+    name: "Nguyễn Thị E",
+    subject: "Vật lý",
+    rating: 4.5,
+    students: 240,
+    desc: "Giảng viên vật lý với hơn 10 năm kinh nghiệm.",
+    avatar: "/avatars/a4.jpg",
+    majors: ["Vật lý ứng dụng"],
+    email: "e.nguyen@hcmut.edu.vn",
+    phone: "0966 566 810",
+    registered: false
+  },
+  {
+    id: 6,
+    name: "Trần Ngọc F",
+    subject: "Hóa học",
+    rating: 3.2,
+    students: 50,
+    desc: "Giảng viên hóa học với 3 năm kinh nghiệm.",
+    avatar: "/avatars/a5.jpg",
+    majors: ["Hóa vô cơ", "Hóa hữu cơ"],
+    email: "f.tranngoc@hcmut.edu.vn",
+    phone: "0966 566 810",
+    registered: false
+  }
+];

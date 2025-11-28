@@ -1,0 +1,81 @@
+{
+    "ss1": {
+        "session_id": "ss1",
+        "name": "Sample Session test 1",
+        "tutor": "t_00002",
+        "students": [],
+        "date": "2025-12-23",
+        "time": "16:00",
+        "duration": 60,
+        "online": true,
+        "address": "Zoom",
+        "link": "123-234-345",
+        "description": "test111111",
+        "note": "No additional notes.",
+        "document": []
+    },
+    "ss2": {
+        "session_id": "ss2",
+        "name": "Sample Session test 2",
+        "tutor": "t_00002",
+        "students": [],
+        "date": "2025-12-26",
+        "time": "15:50",
+        "duration": 60,
+        "online": false,
+        "address": "CS2. H6-101",
+        "link": "",
+        "description": "test111111",
+        "note": "No additional notes.",
+        "document": []
+    },
+    "ss3": {
+        "session_id": "ss3",
+        "name": "Session 3",
+        "tutor": "t_00003",
+        "students": [
+            "2312185"
+        ],
+        "date": "2025-10-18",
+        "time": "13:00",
+        "duration": 90,
+        "online": false,
+        "address": "CS2, 801 BK.B6",
+        "link": "",
+        "description": "Initial session to discuss project requirements.",
+        "note": "Initial session to discuss project requirements.",
+        "document": [
+            "https://example.com/session1_document.pdf"
+        ]
+    },
+    "ss4": {
+        "session_id": "ss4",
+        "name": "Sample Session test 4",
+        "tutor": "t_00002",
+        "students": [],
+        "date": "2025-12-29",
+        "time": "12:00",
+        "duration": 120,
+        "online": true,
+        "address": "test",
+        "link": "quw-rty-uio",
+        "description": "test111111",
+        "note": "No additional notes.",
+        "document": []
+    },
+    "ss5": {
+        "session_id": "ss5",
+        "name": "Sample Session test 5",
+        "tutor": "t_00002",
+        "students": [],
+        "date": "2025-12-28",
+        "time": "14:30",
+        "duration": 60,
+        "online": true,
+        "address": "test",
+        "link": "xxx-xcv-bnm",
+        "description": "test111111",
+        "note": "No additional notes.",
+        "document": []
+    }
+}
