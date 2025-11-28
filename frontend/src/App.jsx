@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TutorLayout from './tutor_layout';
-import Home from './pages/Home';
+import Home from './pages/TutorMatch';
 import ConsultationDetail from './pages/ConsultationDetail'; // Import trang mới
 
 // Làm rõ xíu về cái app này nha
