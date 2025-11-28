@@ -9,8 +9,8 @@ import {
 } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { mockSessions } from '../../api/mock-data';
-import api from '../../api';
+import api from '../../../api';
+import { mockSessions } from '../../../api/mock-data';
 
 const Consultation = () => {
     const navigate = useNavigate();
@@ -22,7 +22,9 @@ const Consultation = () => {
     // State cho Menu Sort
     const [isSortOpen, setIsSortOpen] = useState(false);
     const [sortOption, setSortOption] = useState('date');
+    const [currentPage, setCurrentPage] = useState(1);
     const sortRef = useRef(null);
+    const itemsPerPage = 4;
 
     useEffect(() => {
         async function fetchSessions() {
@@ -94,7 +96,10 @@ const Consultation = () => {
         return processed;
     };
 
-    const displayedSessions = getProcessedSessions();
+    const filteredSessions = getProcessedSessions();
+    const totalPages = Math.ceil(filteredSessions.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const displayedSessions = filteredSessions.slice(startIndex, startIndex + itemsPerPage);
 
     // Label hiển thị trên nút Sort
     const sortLabels = {
@@ -117,7 +122,10 @@ const Consultation = () => {
                     {['Tất cả', 'Đã kết thúc', 'Sắp diễn ra', 'Tháng này'].map((tab) => (
                         <button
                             key={tab}
-                            onClick={() => setActiveTab(tab)}
+                            onClick={() => {
+                                setActiveTab(tab);
+                                setCurrentPage(1);
+                            }}
                             className={`px-4 py-1.5 rounded text-xs font-bold transition-all ${activeTab === tab
                                 ? 'bg-[#dbeafe] text-gray-800'
                                 : 'text-gray-500 hover:bg-gray-100'
@@ -168,13 +176,16 @@ const Consultation = () => {
                             placeholder="Tìm kiếm tên chủ đề"
                             className="w-full border border-gray-200 rounded pl-9 py-2 text-xs bg-[#f8f9fa] focus:bg-white focus:outline-blue-500 transition-all"
                             value={searchText}
-                            onChange={(e) => setSearchText(e.target.value)}
+                            onChange={(e) => {
+                                setSearchText(e.target.value);
+                                setCurrentPage(1);
+                            }}
                         />
                         <Search size={14} className="absolute left-3 top-2.5 text-gray-400" />
                     </div>
 
                     <button
-                        onClick={() => navigate('/consultation/create')}
+                        onClick={() => navigate('/tutor/consultation/create')}
                         className="bg-[#4CAF50] hover:bg-[#43a047] text-white p-2 rounded shadow-sm transition-colors"
                     >
                         <Plus size={20} />
@@ -182,59 +193,125 @@ const Consultation = () => {
                 </div>
 
                 {/* --- DANH SÁCH ITEM (Giống ảnh) --- */}
-                <div className="space-y-4">
-                    {displayedSessions.map(item => (
-                        <div key={item.id} className="border border-gray-300 rounded-xl p-4 bg-white hover:border-blue-400 transition-all relative group shadow-sm hover:shadow-md">
-                            <div className="flex justify-between items-start">
+                <div className="space-y-4 mb-6">
+                    {displayedSessions.length > 0 ? (
+                        displayedSessions.map(item => (
+                            <div key={item.id} className="border border-gray-300 rounded-xl p-4 bg-white hover:border-blue-400 transition-all relative group shadow-sm hover:shadow-md">
+                                <div className="flex justify-between items-start">
 
-                                {/* BÊN TRÁI: Logo + Info */}
-                                <div className="flex gap-4">
-                                    {/* Logo giả lập */}
-                                    <div className="w-10 h-10 border border-gray-300 rounded flex items-center justify-center shrink-0 mt-1 text-gray-600">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                                        </svg>
-                                    </div>
-
-                                    <div>
-                                        <h3 className="font-bold text-sm text-gray-900 mb-2">{item.title}</h3>
-                                        <div className="flex items-center gap-3 mb-1">
-                                            <p className="flex items-center gap-1.5 text-xs text-gray-600 font-medium">
-                                                <Calendar size={14} className="text-gray-500" /> {item.displayDate}
-                                            </p>
-                                            {item.status === 'upcoming' ? (
-                                                <span className="bg-[#0ea5e9] text-white px-2 py-0.5 rounded text-[10px] font-bold">Sắp diễn ra</span>
-                                            ) : (
-                                                <span className="bg-[#ff4d4f] text-white px-2 py-0.5 rounded text-[10px] font-bold">Đã kết thúc</span>
-                                            )}
+                                    {/* BÊN TRÁI: Logo + Info */}
+                                    <div className="flex gap-4">
+                                        {/* Logo giả lập */}
+                                        <div className="w-10 h-10 border border-gray-300 rounded flex items-center justify-center shrink-0 mt-1 text-gray-600">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                                            </svg>
                                         </div>
-                                        <p className="flex items-center gap-1.5 text-xs text-gray-600">
-                                            <Clock size={14} className="text-gray-500" /> {item.startTime} - {item.endTime} ({item.duration})
-                                        </p>
+
+                                        <div>
+                                            <h3 className="font-bold text-sm text-gray-900 mb-2">{item.title}</h3>
+                                            <div className="flex items-center gap-3 mb-1">
+                                                <p className="flex items-center gap-1.5 text-xs text-gray-600 font-medium">
+                                                    <Calendar size={14} className="text-gray-500" /> {item.displayDate}
+                                                </p>
+                                                {item.status === 'upcoming' ? (
+                                                    <span className="bg-[#0ea5e9] text-white px-2 py-0.5 rounded text-[10px] font-bold">Sắp diễn ra</span>
+                                                ) : (
+                                                    <span className="bg-[#ff4d4f] text-white px-2 py-0.5 rounded text-[10px] font-bold">Đã kết thúc</span>
+                                                )}
+                                            </div>
+                                            <p className="flex items-center gap-1.5 text-xs text-gray-600">
+                                                <Clock size={14} className="text-gray-500" /> {item.startTime} - {item.endTime} ({item.duration})
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
 
-                                {/* BÊN PHẢI: Buttons */}
-                                <div className="flex items-center gap-2">
-                                    <button
-                                        onClick={() => navigate(`/consultation/${item.id}`)}
-                                        className="bg-[#1e40af] hover:bg-blue-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors"
-                                    >
-                                        Xem chi tiết
-                                    </button>
+                                    {/* BÊN PHẢI: Buttons */}
+                                    <div className="flex items-center gap-2">
+                                        <button
+                                            onClick={() => navigate(`/tutor/consultation/${item.id}`)}
+                                            className="bg-[#1e40af] hover:bg-blue-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors"
+                                        >
+                                            Xem chi tiết
+                                        </button>
 
-                                    <button className="bg-[#475569] hover:bg-gray-700 text-white text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors">
-                                        Hủy buổi
-                                    </button>
+                                        <button className="bg-[#475569] hover:bg-gray-700 text-white text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors">
+                                            Hủy buổi
+                                        </button>
 
-                                    <button className="bg-[#0d9488] hover:bg-teal-700 text-white p-1.5 rounded-full transition-colors">
-                                        <Download size={14} />
-                                    </button>
+                                        <button className="bg-[#0d9488] hover:bg-teal-700 text-white p-1.5 rounded-full transition-colors">
+                                            <Download size={14} />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
+                        ))
+                    ) : (
+                        <div className="text-center py-12 text-gray-500">
+                            <p>Không có buổi tư vấn nào được tìm thấy.</p>
                         </div>
-                    ))}
+                    )}
                 </div>
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                    <div className="flex items-center justify-center gap-2 pt-4 border-t border-gray-200">
+                        <button
+                            onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                            disabled={currentPage === 1}
+                            className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        >
+                            ← Previous
+                        </button>
+
+                        <div className="flex items-center gap-1">
+                            {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+                                let pageNum;
+                                if (totalPages <= 5) {
+                                    pageNum = i + 1;
+                                } else if (currentPage <= 3) {
+                                    pageNum = i + 1;
+                                } else if (currentPage >= totalPages - 2) {
+                                    pageNum = totalPages - 4 + i;
+                                } else {
+                                    pageNum = currentPage - 2 + i;
+                                }
+
+                                return (
+                                    <button
+                                        key={pageNum}
+                                        onClick={() => setCurrentPage(pageNum)}
+                                        className={`px-3 py-1.5 text-sm rounded transition-colors ${currentPage === pageNum
+                                            ? 'bg-blue-600 text-white font-semibold'
+                                            : 'text-gray-600 hover:bg-gray-100'
+                                            }`}
+                                    >
+                                        {pageNum}
+                                    </button>
+                                );
+                            })}
+                            {totalPages > 5 && currentPage < totalPages - 2 && (
+                                <>
+                                    <span className="px-2 text-gray-400">...</span>
+                                    <button
+                                        onClick={() => setCurrentPage(totalPages)}
+                                        className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded transition-colors"
+                                    >
+                                        {totalPages}
+                                    </button>
+                                </>
+                            )}
+                        </div>
+
+                        <button
+                            onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                            disabled={currentPage === totalPages}
+                            className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        >
+                            Next →
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );

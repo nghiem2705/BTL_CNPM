@@ -130,7 +130,7 @@ const ConsultationCreate = () => {
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 animate-fade-in max-w-5xl mx-auto my-6">
             {/* Back button */}
             <button
-                onClick={() => navigate('/consultation')}
+                onClick={() => navigate('/tutor/consultation')}
                 className="flex items-center gap-1 text-gray-500 hover:text-[#006D77] mb-4 text-sm font-medium transition-colors"
             >
                 <ChevronLeft size={20} /> Quay lại danh sách

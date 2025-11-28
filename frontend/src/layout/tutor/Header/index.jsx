@@ -9,11 +9,11 @@ const Header = () => {
 
     // Navigation items configuration
     const navItems = [
-        { label: 'Trang Chủ', path: '/home' },
-        { label: 'Thư Viện', path: '/library' },
-        { label: 'Thêm Lịch', path: '/add-schedule' },
-        { label: 'Học Viên', path: '/students' },
-        { label: 'Lịch Của Tôi', path: '/consultation' },
+        { label: 'Trang Chủ', path: '/tutor/home' },
+        { label: 'Thư Viện', path: '/tutor/library' },
+        // { label: 'Thêm Lịch', path: '/tutor/consultation/create' },
+        { label: 'Học Viên', path: '/tutor/students' },
+        { label: 'Lịch Của Tôi', path: '/tutor/consultation' },
     ];
 
     // Check if a route is active
