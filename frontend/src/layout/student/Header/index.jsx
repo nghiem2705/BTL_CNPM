@@ -25,17 +25,23 @@ const Header = () => {
         <header className="bg-[#1E88E5] text-white h-16 px-4 sm:px-6 flex justify-between items-center shadow-md z-20 sticky top-0">
             <div className="flex items-center gap-4 sm:gap-8">
                 {/* Logo BK e-learning */}
-                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center p-0.5 shadow-sm overflow-hidden flex-shrink-0">
-                    {!imgError ? (
-                        <img
-                            src="https://cdn.haitrieu.com/wp-content/uploads/2021/09/Logo-DH-Bach-Khoa-HCMUT.png"
-                            alt="Logo Bách Khoa"
-                            className="w-full h-full object-contain"
-                            onError={() => setImgError(true)}
-                        />
-                    ) : (
-                        <GraduationCap size={24} className="text-[#006D77]" />
-                    )}
+                <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center p-0.5 shadow-sm overflow-hidden flex-shrink-0">
+                        {!imgError ? (
+                            <img
+                                src="https://cdn.haitrieu.com/wp-content/uploads/2021/09/Logo-DH-Bach-Khoa-HCMUT.png"
+                                alt="Logo Bách Khoa"
+                                className="w-full h-full object-contain"
+                                onError={() => setImgError(true)}
+                            />
+                        ) : (
+                            <GraduationCap size={24} className="text-[#006D77]" />
+                        )}
+                    </div>
+                    <div className="flex flex-col leading-tight">
+                        <span className="font-bold text-lg tracking-wide hidden sm:block">HCMUT</span>
+                        <span className="text-[10px] opacity-80 uppercase tracking-wider hidden sm:block">E-Learning System</span>
+                    </div>
                 </div>
 
                 {/* Navigation Menu */}
