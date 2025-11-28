@@ -5,7 +5,7 @@ export default function TutorCard({ tutor }) {
     <div className="border rounded-xl p-4 bg-white shadow-sm hover:shadow-md transition">
       <div className="flex items-center gap-3 mb-2">
         <img
-          src={tutor.avatar}
+          src={"/avatar/icon.png"}
           alt={tutor.name}
           className="w-12 h-12 rounded-full object-cover"
         />
@@ -39,15 +39,30 @@ export default function TutorCard({ tutor }) {
         </p>
       </div>
 
-      <button
-        className={`w-full py-1.5 text-sm font-semibold rounded 
-          ${tutor.registered
-            ? "bg-gray-300 text-gray-600 cursor-default"
-            : "bg-blue-600 text-white hover:bg-blue-700"
-          }`}
-      >
-        {tutor.registered ? "Đã đăng ký" : "Đăng ký"}
-      </button>
+      <div className="mt-3">
+        {tutor.registered ? (
+          <div className="flex gap-2">
+            <button
+              className="w-full py-1.5 text-sm font-semibold rounded bg-gray-300 text-gray-700 cursor-default"
+            >
+              Đã đăng ký
+            </button>
+
+            <button
+              className="w-full py-1.5 text-sm font-semibold rounded bg-green-600 text-white hover:bg-green-700"
+            >
+              Đánh giá
+            </button>
+          </div>
+        ) : (
+          <button
+            // onClick={() => onRegister(tutor.id)}   // 🎯 handle click
+            className="w-full py-1.5 text-sm font-semibold rounded bg-blue-600 text-white hover:bg-blue-700"
+          >
+            Đăng ký
+          </button>
+        )}
+      </div>
     </div>
   );
 }
