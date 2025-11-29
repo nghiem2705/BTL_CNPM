@@ -74,7 +74,7 @@ const ConsultationDetail = () => {
             <div className="max-w-6xl mx-auto px-4 py-6">
                 {/* Back Button */}
                 <button
-                    onClick={() => navigate('/student/consultation')}
+                    onClick={() => navigate('/student/sessions/registered')}
                     className="flex items-center gap-1 text-gray-500 hover:text-[#1E88E5] mb-4 text-sm font-medium transition-colors"
                 >
                     <ChevronLeft size={20} /> Quay lại danh sách

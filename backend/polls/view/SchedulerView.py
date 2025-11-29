@@ -9,12 +9,17 @@ class SchedulerView(BaseView):
         super().__init__()
         self.controller = SchedulerController()
 
-    """Test rồi"""
-    # GET sessions/...
-    # get sessions list
-    # require query parameters ?filter=...,keywork=...,status=...,page=...
-    #return .sessions, .message
-    def get(self, request, session_id = None) -> Response:
+    # GET
+    # /tutor/sessions/ --> get all sessions by tutor_id (query param)
+    # /student/sessions/registered/ --> get all sessions registered by student_id
+    # /sessions/ --> get all sessions (with filters)
+    # /sessions/<str:session_id>/ --> get session detail
+    def get(self, request, session_id = None, follower_id: str = None, target_id: str = None) -> Response:
+        path = request.path
+        if path.endswith('/tutor/sessions/'):
+            return self._handle_get_tutor_sessions(request)
+        if path.endswith('/student/sessions/registered/'):
+            return self._handle_get_student_registered(request)
         if session_id is not None:
             return self._handle_get_session_detail(session_id)
         return self._handle_get_sessions_list(request)
@@ -79,24 +84,41 @@ class SchedulerView(BaseView):
             return Response({"session": session.to_dictionary(has_status=True), "message": f"Get Detail {session_id}"})
         return Response({"message": f"Session {session_id} not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        page = int(request.query_params['page'])
-        keyword = request.query_params['keyword']
-        filter = int(request.query_params['filter'])
-        status = int(request.query_params['status'])
-        sessions_list = self.controller.getSessions(
-            page, keyword, filter, status)
-        
-        # print([{ss.session_id: ss.to_dictionary()} for ss in sessions_list])
+    # /sessions/ --> get all sessions (with filters)
+    def _handle_get_sessions_list(self, request) -> Response:
+        page = int(request.query_params.get('page', 1))
+        keyword = request.query_params.get('keyword', "")
+        sort_filter = int(request.query_params.get('filter', SessionFiler.DATE))
+        status_filter = int(request.query_params.get('status', SessionStatus.NOT_SET))
+        sessions_list = self.controller.getSessions(page, keyword, sort_filter, status_filter)
+        data = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions_list}
+        return Response({
+            "sessions": data,
+            "message": f"Search for {keyword} having {status_filter} status in page {page}. Sorted by {sort_filter}"
+        })
 
-        into_dict = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions_list}
-        return Response({"sessions": into_dict, "message": f"Search for {keyword} having {status} status in page {page}. Sorted by {filter}"})
-    
-    """Test rồi"""
-    # POST sessions
-    # create new sessions
-    # require body and header json
-    # return .message
-    def post(self, request) -> Response:
+    # ===================== Handlers (POST) =====================
+    # /student/sessions/register/
+    def _handle_post_register(self, request) -> Response:
+        data = getattr(request, 'data', {}) or {}
+        student_id = data.get('student_id')
+        session_id = data.get('session_id')
+        if not student_id or not session_id:
+            return Response({"error": "Missing student_id or session_id"}, status=status.HTTP_400_BAD_REQUEST)
+        ok, msg = self.controller.register_student_to_session(student_id, session_id)
+        if ok:
+            return Response({"message": msg, "student_id": student_id, "session_id": session_id})
+        return Response({"message": msg}, status=status.HTTP_400_BAD_REQUEST)
+
+    # /student/follow/<str:student_id>/<str:tutor_id>/
+    def _handle_post_follow(self, student_id: str, tutor_id: str) -> Response:
+        ok, msg = self.controller.student_follow_tutor(student_id, tutor_id)
+        if ok:
+            return Response({"message": msg, "student_id": student_id, "tutor_id": tutor_id})
+        return Response({"message": msg}, status=status.HTTP_400_BAD_REQUEST)
+
+    # /sessions/ --> create new session
+    def _handle_post_create_session(self, request) -> Response:
         # generate id
         id = 0
         auto_gen_id = f"ss{id}"
@@ -104,20 +126,25 @@ class SchedulerView(BaseView):
             id += 1
             auto_gen_id = f"ss{id}"
         session_id = auto_gen_id
-        
-        data = request.data
-        new_session = Session(session_id, 
-                        data['name'],
-                        data['tutor'],
-                        data['students'],
-                        data['date'],
-                        data['time'],
-                        data['duration'],
-                        data['online'],
-                        data['address'],
-                        data['description'],
-                        data['note'],
-                        data['document'])
+        try:
+            data = request.data
+            new_session = Session(
+                session_id,
+                data['name'],
+                data['tutor'],
+                [],
+                data['date'],
+                data['time'],
+                data['duration'],
+                data['online'],
+                data['address'],
+                data['address'],
+                data['description'],
+                data['note'],
+                data['document']
+            )
+        except KeyError as e:
+            return Response({"error": f"Missing field: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
         valid = self.controller.addSession(new_session)
         if valid:
             return Response({"message": f"Created {session_id}", "id": session_id}, status=status.HTTP_200_OK)
@@ -127,18 +154,24 @@ class SchedulerView(BaseView):
     # /sessions/<str:session_id>/ --> update session
     def _handle_put_update_session(self, request, session_id: str) -> Response:
         data = request.data
-        new_session = Session(session_id, 
-                        data['name'],
-                        data['tutor'],
-                        data['students'],
-                        data['date'],
-                        data['time'],
-                        data['duration'],
-                        data['online'],
-                        data['address'],
-                        data['description'],
-                        data['note'],
-                        data['document'])
+        session = self.controller.getSessionById(session_id)
+        tutor = session.tutor
+        students = session.students
+        new_session = Session(
+            session_id,
+            data['name'],
+            tutor,
+            students,
+            data['date'],
+            data['time'],
+            data['duration'],
+            data['online'],
+            data['address'],
+            data['link'],
+            data['description'],
+            data['note'],
+            data['document']
+        )
         self.controller.updateSession(session_id, new_session)
         return Response({"message": f"Updated {session_id}"})
 

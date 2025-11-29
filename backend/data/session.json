@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "ss1": {
         "session_id": "ss1",
         "name": "Sample Session test 1",
@@ -56,7 +55,7 @@
         "students": [],
         "date": "2025-12-29",
         "time": "12:00",
-        "duration": 120,
+        "duration": 60,
         "online": true,
         "address": "test",
         "link": "quw-rty-uio",
@@ -80,97 +79,3 @@
         "document": []
     }
 }
-=======
-  "ss0": {
-    "name": "Cập nhật buổi học",
-    "tutor": "t_00002",
-    "students": ["2312185"],
-    "date": "2025-12-31",
-    "online": false,
-    "time": "10:30",
-    "duration": 90,
-    "address": "CS2, B6",
-    "description": "Ôn tập",
-    "note": "",
-    "document": []
-  },
-  "ss1": {
-    "name": "Sample Session test",
-    "tutor": "t_00002",
-    "students": [],
-    "date": "2025-12-30",
-    "online": true,
-    "time": "16:00",
-    "duration": 60,
-    "address": "test",
-    "description": "test111111",
-    "note": "No additional notes.",
-    "document": []
-  },
-  "ss2": {
-    "name": "Sample Session test",
-    "tutor": "t_00002",
-    "students": [],
-    "date": "2025-12-26",
-    "online": true,
-    "time": "15:50",
-    "duration": 60,
-    "address": "test",
-    "description": "test111111",
-    "note": "No additional notes.",
-    "document": []
-  },
-  "ss3": {
-    "name": "Session 3",
-    "tutor": "t_00003",
-    "students": ["2312185"],
-    "date": "2025-10-18",
-    "online": false,
-    "time": "13:00",
-    "duration": 90,
-    "address": "CS2, 801 BK.B6",
-    "description": "Initial session to discuss project requirements.",
-    "note": "Initial session to discuss project requirements.",
-    "document": ["https://example.com/session1_document.pdf"]
-  },
-  "ss4": {
-    "name": "Sample Session test",
-    "tutor": "t_00002",
-    "students": [],
-    "date": "2025-12-30",
-    "online": true,
-    "time": "12:00",
-    "duration": 60,
-    "address": "test",
-    "description": "test111111",
-    "note": "No additional notes.",
-    "document": []
-  },
-  "ss5": {
-    "name": "Sample Session test",
-    "tutor": "t_00002",
-    "students": [],
-    "date": "2025-12-30",
-    "online": true,
-    "time": "14:30",
-    "duration": 60,
-    "address": "test",
-    "description": "test111111",
-    "note": "No additional notes.",
-    "document": []
-  },
-  "ss6": {
-    "name": "Buổi học thử",
-    "tutor": "t_00002",
-    "students": ["2312185"],
-    "date": "2025-12-31",
-    "online": true,
-    "time": "09:00",
-    "duration": 60,
-    "address": "Online",
-    "description": "Test tạo lịch",
-    "note": "",
-    "document": []
-  }
-}
->>>>>>> origin/feature/newAPIs

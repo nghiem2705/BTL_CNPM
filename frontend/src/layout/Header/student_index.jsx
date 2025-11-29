@@ -39,11 +39,11 @@ const StudentHeader = () => {
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           
           <NavLink to="/student" end className={navLinkClass}>
-            Trang Chủ
+            Trang chủ
           </NavLink>
 
           <NavLink to="/student/library" className={navLinkClass}>
-            Thư Viện
+            Thư viện
           </NavLink>
 
           <NavLink to="/student/tutors" className={navLinkClass}>
