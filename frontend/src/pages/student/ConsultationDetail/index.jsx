@@ -9,8 +9,10 @@ import {
     Star,
     User
 } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getSessionDetail } from '../../../api';
+import { studentSessionApi } from '../../../api/StudentSession';
 import { mockRegisteredSessions } from '../../../api/mock-data';
 
 // Mock tutor data
@@ -35,22 +37,77 @@ const ConsultationDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [session, setSession] = useState(null);
+    const [tutor, setTutor] = useState(null);
     const {uID} = useParams();
     useEffect(() => {
         // Find session by id
-        const foundSession = mockRegisteredSessions.find(s => s.id === parseInt(id));
-        if (foundSession) {
-            // Add additional data for detail view
-            setSession({
-                ...foundSession,
-                location: 'Online - Google Meet',
-                meetLink: 'https://meet.google.com/gfs-iocr-yks',
-                description: 'Giúp người học hiểu rõ vai trò và ứng dụng của đại số trong các lĩnh vực công nghệ hiện đại như lập trình, trí tuệ nhân tạo, và xử lý dữ liệu, từ đó thấy được tầm quan trọng của môn học này trong thực tiễn.',
-                note: 'Nhớ xem trước tài liệu nhé các em!',
-                files: [{ name: 'Sample Q-A.pdf', type: 'PDF', size: '2.3 MB' }],
-                specialization: 'Toán học'
-            });
+        async function fetchSession() {
+            try {
+                const response = await getSessionDetail(id);
+                
+                if (response && response.session) {
+                    const sessionData = response.session;
+
+
+                    const tutorResponse = await studentSessionApi.getTutorById(sessionData.tutor);
+                    
+                    // Set tutor data if API call successful
+                    if (tutorResponse.success && tutorResponse.data.profile) {
+                        setTutor(tutorResponse.data.profile);
+                    }
+                    
+                    // Map API data to component format
+                    setSession({
+                        id: sessionData.session_id,
+                        title: sessionData.name,
+                        tutor: {
+                            id: sessionData.tutor,
+                            name: tutorResponse.success ? tutorResponse.data.profile.name : sessionData.tutor
+                        },
+                        date: sessionData.date,
+                        displayDate: new Date(sessionData.date).toLocaleDateString('vi-VN', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        }),
+                        startTime: sessionData.time,
+                        endTime: (() => {
+                            const [hours, minutes] = sessionData.time.split(':');
+                            const startMinutes = parseInt(hours) * 60 + parseInt(minutes);
+                            const endMinutes = startMinutes + sessionData.duration;
+                            const endHours = Math.floor(endMinutes / 60);
+                            const endMins = endMinutes % 60;
+                            return `${endHours.toString().padStart(2, '0')}:${endMins.toString().padStart(2, '0')}`;
+                        })(),
+                        duration: `${sessionData.duration} phút`,
+                        location: sessionData.online ? sessionData.address : sessionData.address,
+                        meetLink: sessionData.online ? sessionData.link : null,
+                        description: sessionData.description,
+                        note: sessionData.note,
+                        files: sessionData.document || [],
+                        status: sessionData.status === 3 ? 'upcoming' : 'completed',
+                        specialization: tutorResponse.success ? tutorResponse.data.profile.major : 'Toán học'
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching session data:', error);
+                // Fallback to mock data if API fails
+                const foundSession = mockRegisteredSessions.find(s => s.id === parseInt(id));
+                if (foundSession) {
+                    setSession({
+                        ...foundSession,
+                        location: 'Online - Google Meet',
+                        meetLink: 'https://meet.google.com/gfs-iocr-yks',
+                        description: 'Giúp người học hiểu rõ vai trò và ứng dụng của đại số trong các lĩnh vực công nghệ hiện đại như lập trình, trí tuệ nhân tạo, và xử lý dữ liệu, từ đó thấy được tầm quan trọng của môn học này trong thực tiễn.',
+                        note: 'Nhớ xem trước tài liệu nhé các em!',
+                        files: [{ name: 'Sample Q-A.pdf', type: 'PDF', size: '2.3 MB' }],
+                        specialization: 'Toán học'
+                    });
+                }
+            }
         }
+        fetchSession();
     }, [id]);
 
     if (!session) {
@@ -61,7 +118,8 @@ const ConsultationDetail = () => {
         );
     }
 
-    const tutor = mockTutors[session.tutor.name] || mockTutors['Nguyễn Văn B'];
+    // Use real tutor data from API or fallback to mock data
+    const tutorData = tutor || mockTutors[session.tutor.name] || mockTutors['Nguyễn Văn B'];
 
     const handleDownload = (fileName) => {
         // Handle file download
@@ -147,22 +205,30 @@ const ConsultationDetail = () => {
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-3">
-                                    <LinkIcon size={18} className="text-gray-500" />
-                                    <div className="flex-1">
-                                        <p className="text-xs text-gray-500 uppercase font-semibold mb-0.5">
-                                            Link tham gia
-                                        </p>
-                                        <a
-                                            href={session.meetLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-sm text-blue-600 hover:text-blue-800 hover:underline break-all"
-                                        >
-                                            {session.meetLink}
-                                        </a>
+                                {session.meetLink && (
+                                    <div className="flex items-center gap-3">
+                                        <LinkIcon size={18} className="text-gray-500" />
+                                        <div className="flex-1">
+                                            <p className="text-xs text-gray-500 uppercase font-semibold mb-0.5">
+                                                Link tham gia
+                                            </p>
+                                            {session.meetLink.startsWith('http') ? (
+                                                <a
+                                                    href={session.meetLink}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="text-sm text-blue-600 hover:text-blue-800 hover:underline break-all"
+                                                >
+                                                    {session.meetLink}
+                                                </a>
+                                            ) : (
+                                                <p className="text-sm text-gray-900 font-medium">
+                                                    ID: {session.meetLink}
+                                                </p>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
                         </div>
 
@@ -232,27 +298,51 @@ const ConsultationDetail = () => {
                                     <User size={32} className="text-[#8B6914]" />
                                 </div>
                                 <h3 className="text-lg font-bold text-gray-900 mb-2">
-                                    {tutor.name}
+                                    {tutorData.name}
                                 </h3>
                                 {/* Rating */}
                                 <div className="flex items-center justify-center gap-1 mb-2">
                                     <Star size={16} className="text-yellow-400 fill-yellow-400" />
                                     <span className="text-sm font-semibold text-gray-900">
-                                        {tutor.rating}
+                                        {tutorData.rate || tutorData.rating || 0}
                                     </span>
                                 </div>
                                 {/* Specialization Tag */}
                                 <span className="inline-block bg-gray-100 text-gray-700 border border-gray-300 text-xs font-bold px-3 py-1 rounded mb-3">
-                                    {tutor.specialization}
+                                    {tutorData.major || tutorData.specialization || 'Chưa cập nhật'}
                                 </span>
+                                {/* Contact Info */}
+                                {tutorData.mail && (
+                                    <div className="text-xs text-gray-500 mb-1">
+                                        📧 {tutorData.mail}
+                                    </div>
+                                )}
+                                {tutorData.phone && (
+                                    <div className="text-xs text-gray-500 mb-3">
+                                        📞 {tutorData.phone}
+                                    </div>
+                                )}
                             </div>
                             {/* Description */}
                             <p className="text-sm text-gray-700 leading-relaxed mb-4 text-left">
-                                {tutor.description}
+                                {tutorData.description || 'Chưa có mô tả'}
                             </p>
+                            {/* Strengths */}
+                            {tutorData.strength && tutorData.strength.length > 0 && (
+                                <div className="mb-4">
+                                    <h4 className="text-xs font-bold text-gray-900 mb-2">Điểm mạnh:</h4>
+                                    <div className="flex flex-wrap gap-1">
+                                        {tutorData.strength.map((skill, index) => (
+                                            <span key={index} className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
+                                                {skill}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                             {/* View Profile Button */}
                             <button
-                                onClick={() => navigate(`/student/${uID}/tutor/${tutor.name}`)}
+                                onClick={() => navigate(`/student/${uID}/tutor/${session.tutor.id}`)}
                                 className="w-full bg-[#1E88E5] hover:bg-[#1565C0] text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors"
                             >
                                 Xem hồ sơ

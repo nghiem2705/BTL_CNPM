@@ -9,6 +9,33 @@ export const studentSessionApi = {
 
     getRegisteredSession: async (/*trong này là tham số nè*/) => {
         // try ...
+    },
+
+    getTutorById: async (tutorId) => {
+        try {
+            const response = await fetch(`${BASE_URL}/tutor/information/?uID=${tutorId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            return {
+                success: true,
+                data: data
+            };
+        } catch (error) {
+            console.error('Error fetching tutor by ID:', error);
+            return {
+                success: false,
+                error: error.message
+            };
+        }
     }
 };
 
