@@ -1,10 +1,16 @@
 from rest_framework.response import Response 
 from rest_framework import status
+from rest_framework.permissions import AllowAny
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from .BaseView import BaseView
 from polls.controller.SchedulerController import *
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class SchedulerView(BaseView):
+    permission_classes = [AllowAny]
+    
     def __init__(self):
         super().__init__()
         self.controller = SchedulerController()
@@ -13,7 +19,7 @@ class SchedulerView(BaseView):
     # /student/<str:student_id>/sessions/register/ --> Lấy tất cả các buổi học mà student chưa đăng ký
     # /student/<str:student_id>/sessions/registered/ --> Lấy tất cả các buổi học mà student đã đăng ký
     # /student/<str:student_id>/sessions/registered/<str:session_id>/ --> student xem chi tiết buổi học đã đk
-    # /sessions/ --> get all sessions (with filters) #### Skip
+    # /sessions/ --> get all sessions 
     # /tutor/<str:tutor_id>/sessions/ --> Lấy tất cả buổi học ma tutor đã tạo theo tutor_id
     # /tutor/<str:tutor_id>/sessions/<str:session_id>/ --> tutor xem chi tiết buổi học đã tạo
     def get(self, request, session_id=None, student_id: str=None, tutor_id: str=None) -> Response:
@@ -103,7 +109,7 @@ class SchedulerView(BaseView):
             return Response({"session": session.to_dictionary(has_status=True), "message": f"Get Detail {session_id}"})
         return Response({"message": f"Session {session_id} not found"}, status=status.HTTP_404_NOT_FOUND)
 
-    # /sessions/ --> get all sessions (with filters)
+    # /sessions/ --> get all sessions
     def _handle_get_sessions_list(self, request) -> Response:
         page = int(request.query_params.get('page', 1))
         keyword = request.query_params.get('keyword', "")
