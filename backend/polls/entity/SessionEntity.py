@@ -35,13 +35,13 @@ class Session:
         start_dt = datetime.strptime(start_str, "%Y-%m-%d %H:%M")
         end_dt = start_dt + timedelta(minutes=self.duration)
         now = datetime.now()
-
         if now < start_dt:
             return SessionStatus.COMING_SOON
         elif start_dt <= now < end_dt:
             return SessionStatus.PROCESSING
         else:
             return SessionStatus.COMPLETED
+
 
     def __init__(self, session_id, name, tutor, students, date, time, duration, online, address, link, description, note, document):
         self.session_id = session_id

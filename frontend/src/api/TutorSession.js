@@ -2,9 +2,9 @@ const BASE_URL = 'http://127.0.0.1:8000';
 
 // Ở đây chứa các API liên quan tới Session trong trang tutor nhé ae
 export const sessionApi = {
-  getAll: async () => {
+  getAll: async (uID) => {
     try {
-      const response = await fetch(`${BASE_URL}/sessions/`, {
+      const response = await fetch(`${BASE_URL}/tutor/${uID}/sessions/`, {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
       });
@@ -26,7 +26,7 @@ export const sessionApi = {
             session_id: key  // Lấy key "ss2" gán vào biến session_id
           };
       }).filter(item => item !== null); // Lọc bỏ mấy cái null
-
+      // console.log(item.status)
       // --- BƯỚC 3: MAP SANG GIAO DIỆN ---
       return dataArray.map(item => ({
         id: item.session_id,           
@@ -41,13 +41,14 @@ export const sessionApi = {
         // Thêm kiểm tra để không bị "undefined phút"
         duration: (item.duration || 0) + " phút", 
         
-        status: "upcoming", 
+        status: item.status, 
         location: item.address,
         meetLink: item.link, // Xử lý nếu online là boolean
         description: item.description,
         note: item.note,
         files: []
       }));
+      
 
     } catch (error) {
       console.error("Lỗi API:", error);
@@ -55,9 +56,9 @@ export const sessionApi = {
     }
   },
 
-  getById: async (id) => {
+  getById: async (uID, id) => {
     try {
-      const response = await fetch(`${BASE_URL}/sessions/${id}/`, {
+      const response = await fetch(`${BASE_URL}/tutor/${uID}/sessions/${id}/`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

@@ -37,7 +37,7 @@ const ConsultationDetail = () => {
       const fetchDetail = async () => {
         try {
           setLoading(true);
-          const data = await sessionApi.getById(id);
+          const data = await sessionApi.getById(uID, id);
           setFormData(data);
           
           // Tự động bật/tắt toggle dựa trên địa điểm

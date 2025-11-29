@@ -3,6 +3,8 @@ from polls.entity.SessionEntity import *
 from datetime import datetime, timedelta
 import os
 from django.conf import settings
+from polls.controller.InformationController import *
+
 
 class SchedulerController(BaseController):
 
@@ -14,6 +16,7 @@ class SchedulerController(BaseController):
         
         self.all_sessions = []
         self.update()
+        self.infoController = InformationController()
 
         # user data path
         self.USER_PATH = ["data", "user.json"]
@@ -64,6 +67,17 @@ class SchedulerController(BaseController):
         """
         ss_having_id = [ss for ss in self.all_sessions if ss.session_id == session_id]
         return ss_having_id[0] if ss_having_id else None
+
+    def getSessionById2(self, session_id):
+        """
+        session_id: str -> id của buổi học cần lấy
+        """
+        ss_having_id = [ss for ss in self.all_sessions if ss.session_id == session_id]
+        ss = ss_having_id[0] if ss_having_id else None
+        tutor = self.infoController.getProfile(ss.tutor)
+        ss.tutor = tutor
+
+        return ss
 
     def getSessions(self, page, keyword, sort_filer, status = SessionStatus.NOT_SET):
 
@@ -161,7 +175,31 @@ class SchedulerController(BaseController):
 
     def get_sessions_registered_by_student(self, student_id: str) -> list[Session]:
         """Lấy tất cả các buổi học mà student đã đăng ký theo student_id"""
-        return [ss for ss in self.all_sessions if student_id in (ss.students or [])]
+        if not self.all_sessions:
+            self.all_sessions = self.getAllSessions()
+        # print(self.all_sessions)
+        results = []
+
+        # 2. Duyệt qua từng session để kiểm tra
+        for session in self.all_sessions:
+            # Lấy danh sách sinh viên (Nếu None thì coi như rỗng [])
+            # Để tránh lỗi "NoneType is not iterable"
+            current_students_list = session.students or []
+            tutor = self.infoController.getProfile(session.tutor)
+            session.tutor = tutor
+            # In ra để kiểm tra từng session (Bạn có thể comment dòng này nếu thấy spam quá)
+            # print(f"   + Check Session {session.session_id}: Danh sách SV = {current_students_list}")
+
+            # 3. Kiểm tra xem student_id có nằm trong danh sách không
+            # Chú ý: Ép kiểu str() để chắc chắn so sánh chuỗi với chuỗi
+            if str(student_id) in [str(s) for s in current_students_list]:
+                # print(f"   => TÌM THẤY! Sinh viên {student_id} có trong session {session.session_id}")
+                results.append(session)
+
+        # print(f"--- KẾT THÚC DEBUG: Tìm thấy tổng cộng {len(results)} session ---\n")
+        
+        return results
+        # return [ss for ss in self.all_sessions if student_id in (ss.students or [])]
 
     def register_student_to_session(self, student_id: str, session_id: str) -> tuple[bool, str]:
         """Sinh viên đăng ký tham gia buổi học"""

@@ -39,7 +39,7 @@ const Home = () => {
     const fetchSessions = async () => {
       try {
         setLoading(true);
-        const data = await sessionApi.getAll(); 
+        const data = await sessionApi.getAll(uID); 
         setSessions(data);
       } catch (error) {
         console.error("Lỗi tải danh sách:", error);
@@ -98,6 +98,19 @@ const Home = () => {
         } catch (error) {
             alert("Lỗi khi xóa! Vui lòng thử lại.");
         }
+    }
+  };
+
+  const renderStatus = (status) => {
+    switch (status) {
+      case 1:
+        return <span className="bg-yellow-500 text-white px-2 py-0.5 rounded text-[10px] font-bold">Đang diễn ra</span>;
+      case 2:
+        return <span className="bg-[#ff4d4f] text-white px-2 py-0.5 rounded text-[10px] font-bold">Đã kết thúc</span>;
+      case 3:
+        return <span className="bg-[#0ea5e9] text-white px-2 py-0.5 rounded text-[10px] font-bold">Sắp diễn ra</span>;
+      default:
+        return <span className="bg-gray-400 text-white px-2 py-0.5 rounded text-[10px] font-bold">Không xác định</span>;
     }
   };
 
@@ -191,11 +204,7 @@ const Home = () => {
                                 <p className="flex items-center gap-1.5 text-xs text-gray-600 font-medium">
                                     <Calendar size={14} className="text-gray-500"/> {item.displayDate}
                                 </p>
-                                {item.status === 'upcoming' ? (
-                                    <span className="bg-[#0ea5e9] text-white px-2 py-0.5 rounded text-[10px] font-bold">Sắp diễn ra</span>
-                                ) : (
-                                    <span className="bg-[#ff4d4f] text-white px-2 py-0.5 rounded text-[10px] font-bold">Đã kết thúc</span>
-                                )}
+                                {renderStatus(item.status)}
                             </div>
                             <p className="flex items-center gap-1.5 text-xs text-gray-600">
                                 <Clock size={14} className="text-gray-500"/> {item.startTime} - {item.endTime} ({item.duration})

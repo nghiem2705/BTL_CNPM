@@ -9,12 +9,14 @@ import {
 } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate , useParams} from 'react-router-dom';
-import { mockRegisteredSessions } from '../../../api/mock-data';
+// import { mockRegisteredSessions } from '../../../api/mock-data';
+import { studentSessionApi } from '../../../api/StudentSession';
 
 
 const Consultation = () => {
     const navigate = useNavigate();
-    const [sessions, setSessions] = useState(mockRegisteredSessions);
+    // const [sessions, setSessions] = useState(mockRegisteredSessions);
+    const [sessions, setSessions] = useState([]);
     const [searchText, setSearchText] = useState('');
     const [activeTab, setActiveTab] = useState('Tất cả');
     const [selectedTutor, setSelectedTutor] = useState('Tất cả');
@@ -22,6 +24,7 @@ const Consultation = () => {
     const [isTutorOpen, setIsTutorOpen] = useState(false);
     const [sortOption, setSortOption] = useState('date');
     const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(true);
     const sortRef = useRef(null);
     const tutorRef = useRef(null);
     const itemsPerPage = 4;
@@ -43,6 +46,26 @@ const Consultation = () => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
+
+    // THÊM DATA BẰNG USEEFFECT NHA 
+    useEffect(() => {
+        const fetchStudentData = async () => {
+            if (!uID) return; // Nếu chưa có ID thì khoan chạy
+            
+            try {
+                setLoading(true);
+                // Gọi hàm dành riêng cho Student vừa viết ở api/index.js
+                const data = await studentSessionApi.getRegisteredSession(uID);
+                setSessions(data);
+            } catch (error) {
+                console.error("Lỗi:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchStudentData();
+    }, [uID]);
 
     // Process sessions with filters
     const getProcessedSessions = () => {
@@ -110,11 +133,35 @@ const Consultation = () => {
     };
 
     // Handle cancel session
-    const handleCancel = (sessionId) => {
-        if (window.confirm('Bạn có chắc chắn muốn hủy buổi tư vấn này?')) {
-            setSessions(sessions.filter(s => s.id !== sessionId));
+    const handleCancel = async (e, uID, id, title) => {
+        // if (window.confirm('Bạn có chắc chắn muốn hủy buổi tư vấn này?')) {
+        //     setSessions(FormData.filter(s => s.id !== id));
+        // }
+        e.stopPropagation(); 
+        
+        if (window.confirm(`Bạn có chắc chắn muốn hủy buổi: "${title}"?`)) {
+            try {
+                await studentSessionApi.deleteSession(uID, id); 
+                setSessions(prev => prev.filter(item => item.id !== id));
+                alert("Đã hủy buổi thành công!");
+            } catch (error) {
+                alert("Lỗi khi xóa! Vui lòng thử lại.");
+            }
         }
     };
+    // const handleDelete = async (e, id, title) => {
+    //     e.stopPropagation(); 
+        
+    //     if (window.confirm(`Bạn có chắc chắn muốn hủy buổi: "${title}"?`)) {
+    //         try {
+    //             await sessionApi.delete(id); 
+    //             setSessions(prev => prev.filter(item => item.id !== id));
+    //             alert("Đã hủy thành công!");
+    //         } catch (error) {
+    //             alert("Lỗi khi xóa! Vui lòng thử lại.");
+    //         }
+    //     }
+    //   };
 
     // Handle evaluate
     const handleEvaluate = (sessionId) => {
@@ -290,7 +337,7 @@ const Consultation = () => {
                                             </button>
                                         ) : (
                                             <button
-                                                onClick={() => handleCancel(session.id)}
+                                                onClick={(e) => handleCancel(e, uID, session.id, session.title)}
                                                 className="bg-gray-600 hover:bg-gray-700 text-white text-xs font-bold px-4 py-2 rounded transition-colors"
                                             >
                                                 Hủy buổi

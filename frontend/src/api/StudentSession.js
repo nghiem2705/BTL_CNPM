@@ -7,9 +7,100 @@ export const studentSessionApi = {
         // try ....
     },
 
-    getRegisteredSession: async (/*trong này là tham số nè*/) => {
-        // try ...
-    }
+    getRegisteredSession: async (uID) => {
+        try {
+            const response = await fetch(`${BASE_URL}/student/${uID}/sessions/registered`, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            });
+            const rawData = await response.json();
+
+            const sessionsDict = rawData.sessions || rawData; 
+
+            const dataArray = Object.entries(sessionsDict).map(([key, value]) => {
+
+                if (typeof value !== 'object' || value === null) return null;
+                
+                return {
+                    ...value,        // Lấy hết name, time, duration...
+                    session_id: key  // Lấy key "ss2" gán vào biến session_id
+                };
+            }).filter(item => item !== null); 
+            return dataArray.map(item => ({
+                id: item.session_id,           
+                title: item.name,              
+                tutor: item.tutor,
+                date: item.date,
+                displayDate: convertDateToDisplay(item.date),
+                
+                startTime: item.time,          
+                endTime: calculateEndTime(item.time, item.duration), 
+                duration: (item.duration || 0) + " phút", 
+                
+                status: item.status, 
+                location: item.address,
+                meetLink: item.link,
+                description: item.description,
+                note: item.note,
+                files: []
+            }));
+            
+
+        } catch (error) {
+        console.error("Lỗi API:", error);
+        return []; 
+        }
+    },
+    getSessionById: async (uID, id) => {
+        try {
+        const response = await fetch(`${BASE_URL}/student/${uID}/sessions/registered/${id}/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) throw new Error('Không tìm thấy');
+        
+        const rootData = await response.json();
+        // Backend trả về: { session: {...data...}, message: "..." }
+        const item = rootData.session; // <--- LẤY ĐÚNG CÁI NÀY
+        console.log("Item", item)
+        // Map sang Frontend
+        return {
+            id: item.session_id,
+            tutor: item.tutor,
+            title: item.name,
+            date: item.date,
+            displayDate: convertDateToDisplay(item.date),
+            startTime: item.time,
+            endTime: calculateEndTime(item.time, item.duration),
+            duration: item.duration + " phút",
+            status: item.status,
+            isOnline: item.online,
+            location: item.address,
+            meetLink: item.link,
+            description: item.description,
+            note: item.note,
+            files: item.document
+        };
+        } catch (error) {
+        console.error("Lỗi getSessionById:", error);
+        throw error;
+        }
+    },
+
+    deleteSession: async (uID, id) => {
+      try {
+        const response = await fetch(`${BASE_URL}/student/${uID}/sessions/registered/${id}/`, {
+            method: 'DELETE',
+        });
+        
+        if (!response.ok) throw new Error('Lỗi khi xóa');
+        return true;
+      } catch (error) {
+          throw error;
+      }
+  }, 
 };
 
 // --- HÀM PHỤ TRỢ ---

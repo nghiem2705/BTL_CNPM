@@ -48,7 +48,9 @@
             "cs_se"
         ],
         "strength": [],
-        "tutor": []
+        "tutor": [
+            "t_00002"
+        ]
     },
     "2213696": {
         "role": "student",
@@ -111,7 +113,7 @@
     },
     "t_00002": {
         "role": "tutor",
-        "name": "Nguyễn Văn A",
+        "name": "Nguyễn Văn B",
         "major": "ee",
         "rate": 4.2,
         "mail": "a@example.com",
