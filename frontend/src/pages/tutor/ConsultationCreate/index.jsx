@@ -187,7 +187,7 @@ const ConsultationCreate = () => {
                                         className={inputStyle}
                                         required
                                     />
-                                    <Calendar size={16} className="absolute right-3 top-3 text-gray-400 pointer-events-none" />
+                                    {/* <Calendar size={12} className="absolute right-3 top-3 text-gray-400 pointer-events-none" /> */}
                                 </div>
                             </div>
                             <div>
@@ -210,7 +210,7 @@ const ConsultationCreate = () => {
                                         value={formData.duration}
                                         onChange={handleChange}
                                         placeholder="Thời lượng (phút)"
-                                        className={`${inputStyle} mt-2`}
+                                        className={inputStyle}
                                     />
                                 </div>
                             </div>
@@ -246,7 +246,7 @@ const ConsultationCreate = () => {
                                         placeholder="Nhập địa chỉ"
                                         className={`${inputStyle} pl-8`}
                                     />
-                                    <LinkIcon size={14} className="absolute left-3 top-3 text-gray-400" />
+                                    <LinkIcon size={12} className="absolute left-3 top-3 text-gray-400" />
                                 </div>
                             </div>
                         ) : (
@@ -263,7 +263,7 @@ const ConsultationCreate = () => {
                                         placeholder="Nhập đường dẫn"
                                         className={`${inputStyle} pl-8`}
                                     />
-                                    <LinkIcon size={14} className="absolute left-3 top-3 text-gray-400" />
+                                    <LinkIcon size={12} className="absolute left-3 top-3 text-gray-400" />
                                 </div>
                             </div>
                         )}
