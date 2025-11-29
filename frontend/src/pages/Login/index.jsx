@@ -46,7 +46,7 @@ const SSOLogin = () => {
             navigate(`/tutor/${uID}`);
           }
           else {
-            navigate(`/student`)
+            navigate(`/student/${uID}`)
           }
         }
 

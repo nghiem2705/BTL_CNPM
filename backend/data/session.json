@@ -1,4 +1,19 @@
 {
+    "ss0": {
+        "session_id": "ss0",
+        "name": "test thêm tư vấn",
+        "tutor": "t_00002",
+        "students": [],
+        "date": "2025-12-18",
+        "time": "10:24",
+        "duration": 90,
+        "online": true,
+        "address": "",
+        "link": "",
+        "description": "aaaaa",
+        "note": "aastg",
+        "document": []
+    },
     "ss1": {
         "session_id": "ss1",
         "name": "Sample Session test 1",

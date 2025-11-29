@@ -8,8 +8,9 @@ import {
     Plus,
     X
 } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams} from 'react-router-dom';
+import { sessionApi } from '../../../api/TutorSession'; // Import API
 
 // Toggle Switch Component
 const ToggleSwitch = ({ isOn, onToggle }) => (
@@ -25,26 +26,28 @@ const ToggleSwitch = ({ isOn, onToggle }) => (
 
 const ConsultationCreate = () => {
     const navigate = useNavigate();
-
-    // Form state
-    const [formData, setFormData] = useState({
-        title: '',
-        specializations: [],
-        date: '',
-        startTime: '',
-        endTime: '',
-        duration: '',
-        location: '',
-        meetLink: '',
-        description: '',
-        note: '',
-        files: []
-    });
-
     const [locationToggle, setLocationToggle] = useState(true);
     const [specializationInput, setSpecializationInput] = useState('');
     const [isDragging, setIsDragging] = useState(false);
     const { uID } = useParams()
+
+    // Form state
+    const [formData, setFormData] = useState({
+        title: '',
+        tutor: uID, //default
+        student: [], // default
+        date: '',
+        startTime: '',
+        duration: 0,
+        description: '',
+        isOnline: locationToggle, 
+
+        meetLink: '', 
+        note: '',
+        
+        location: '',
+        files: []
+    });
 
     // Handle input changes
     const handleChange = (e) => {
@@ -53,74 +56,81 @@ const ConsultationCreate = () => {
     };
 
     // Handle specialization tags
-    const handleAddSpecialization = () => {
-        if (specializationInput.trim() && !formData.specializations.includes(specializationInput.trim())) {
-            setFormData({
-                ...formData,
-                specializations: [...formData.specializations, specializationInput.trim()]
-            });
-            setSpecializationInput('');
-        }
-    };
+    // const handleAddSpecialization = () => {
+    //     if (specializationInput.trim() && !formData.specializations.includes(specializationInput.trim())) {
+    //         setFormData({
+    //             ...formData,
+    //             specializations: [...formData.specializations, specializationInput.trim()]
+    //         });
+    //         setSpecializationInput('');
+    //     }
+    // };
 
-    const handleRemoveSpecialization = (index) => {
-        setFormData({
-            ...formData,
-            specializations: formData.specializations.filter((_, i) => i !== index)
-        });
-    };
+    // const handleRemoveSpecialization = (index) => {
+    //     setFormData({
+    //         ...formData,
+    //         specializations: formData.specializations.filter((_, i) => i !== index)
+    //     });
+    // };
 
     // Handle file upload
-    const handleFileUpload = (files) => {
-        const newFiles = Array.from(files).map(file => ({
-            name: file.name,
-            size: (file.size / 1024 / 1024).toFixed(2) + ' MB',
-            file: file
-        }));
-        setFormData({
-            ...formData,
-            files: [...formData.files, ...newFiles]
-        });
-    };
+    // const handleFileUpload = (files) => {
+    //     const newFiles = Array.from(files).map(file => ({
+    //         name: file.name,
+    //         size: (file.size / 1024 / 1024).toFixed(2) + ' MB',
+    //         file: file
+    //     }));
+    //     setFormData({
+    //         ...formData,
+    //         files: [...formData.files, ...newFiles]
+    //     });
+    // };
 
-    const handleRemoveFile = (index) => {
-        setFormData({
-            ...formData,
-            files: formData.files.filter((_, i) => i !== index)
-        });
-    };
+    // const handleRemoveFile = (index) => {
+    //     setFormData({
+    //         ...formData,
+    //         files: formData.files.filter((_, i) => i !== index)
+    //     });
+    // };
 
     // Drag and drop handlers
-    const handleDragOver = (e) => {
-        e.preventDefault();
-        setIsDragging(true);
-    };
+    // const handleDragOver = (e) => {
+    //     e.preventDefault();
+    //     setIsDragging(true);
+    // };
 
-    const handleDragLeave = () => {
-        setIsDragging(false);
-    };
+    // const handleDragLeave = () => {
+    //     setIsDragging(false);
+    // };
 
-    const handleDrop = (e) => {
-        e.preventDefault();
-        setIsDragging(false);
-        const files = e.dataTransfer.files;
-        if (files.length > 0) {
-            handleFileUpload(files);
-        }
-    };
+    // const handleDrop = (e) => {
+    //     e.preventDefault();
+    //     setIsDragging(false);
+    //     const files = e.dataTransfer.files;
+    //     if (files.length > 0) {
+    //         handleFileUpload(files);
+    //     }
+    // };
 
     // Form submission
     const handleSubmit = (e) => {
         e.preventDefault();
         // Validate required fields
-        if (!formData.title || !formData.date || !formData.startTime || !formData.endTime) {
+        if (!formData.title || !formData.date || !formData.startTime || !formData.duration) {
             alert('Vui lòng điền đầy đủ các trường bắt buộc (*)');
             return;
         }
         // Handle form submission
-        console.log('Form data:', formData);
-        alert('Tạo buổi tư vấn thành công!');
-        navigate('/consultation');
+        const confirmSave = window.confirm("Bạn có chắc chắn muốn lưu thay đổi?");
+        if (confirmSave) {
+            try {
+            sessionApi.create(formData);
+            alert('Tạo buổi tư vấn thành công!');
+            navigate('/tutor/'+uID +'/sessions/');
+            } catch (error) {
+                alert("Lỗi khi lưu dữ liệu!");
+            }
+        }
     };
 
     // Input style
@@ -162,48 +172,6 @@ const ConsultationCreate = () => {
                             />
                         </div>
 
-                        {/* Chuyên môn */}
-                        <div>
-                            <label className={labelStyle}>Chuyên môn</label>
-                            <div className="flex gap-2 mb-2">
-                                <input
-                                    type="text"
-                                    value={specializationInput}
-                                    onChange={(e) => setSpecializationInput(e.target.value)}
-                                    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddSpecialization())}
-                                    placeholder="Thêm"
-                                    className={inputStyle}
-                                />
-                                <button
-                                    type="button"
-                                    onClick={handleAddSpecialization}
-                                    className="bg-[#006D77] hover:bg-[#00565e] text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap"
-                                >
-                                    Thêm
-                                </button>
-                            </div>
-                            {/* Display specialization tags */}
-                            {formData.specializations.length > 0 && (
-                                <div className="flex flex-wrap gap-2">
-                                    {formData.specializations.map((spec, index) => (
-                                        <span
-                                            key={index}
-                                            className="bg-gray-100 text-gray-700 border border-gray-200 text-xs px-3 py-1 rounded-full font-medium flex items-center gap-2"
-                                        >
-                                            {spec}
-                                            <button
-                                                type="button"
-                                                onClick={() => handleRemoveSpecialization(index)}
-                                                className="text-gray-500 hover:text-red-500"
-                                            >
-                                                <X size={12} />
-                                            </button>
-                                        </span>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-
                         {/* Ngày học và Thời gian */}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
@@ -237,30 +205,22 @@ const ConsultationCreate = () => {
                                     />
                                     <span className="text-gray-400">-</span>
                                     <input
-                                        type="time"
-                                        name="endTime"
-                                        value={formData.endTime}
+                                        type="text"
+                                        name="duration"
+                                        value={formData.duration}
                                         onChange={handleChange}
-                                        className={inputStyle}
-                                        required
+                                        placeholder="Thời lượng (phút)"
+                                        className={`${inputStyle} mt-2`}
                                     />
                                 </div>
-                                <input
-                                    type="text"
-                                    name="duration"
-                                    value={formData.duration}
-                                    onChange={handleChange}
-                                    placeholder="Duration (e.g., 90 phút)"
-                                    className={`${inputStyle} mt-2`}
-                                />
                             </div>
                         </div>
 
-                        {/* Địa điểm */}
+                        {/* Online hay offline */}
                         <div>
                             <div className="flex justify-between items-center mb-1.5">
                                 <label className={labelStyle}>
-                                    <MapPin size={12} /> Địa điểm
+                                    <MapPin size={12} /> Hình thức
                                 </label>
                                 <div className="flex items-center gap-2 bg-gray-100 px-2 py-0.5 rounded-full border border-gray-200">
                                     <span className={`text-[10px] font-bold ${locationToggle ? 'text-green-600' : 'text-gray-500'}`}>
@@ -269,29 +229,27 @@ const ConsultationCreate = () => {
                                     <ToggleSwitch isOn={locationToggle} onToggle={setLocationToggle} />
                                 </div>
                             </div>
-                            {locationToggle ? (
-                                <input
-                                    type="text"
-                                    name="location"
-                                    value={formData.location}
-                                    onChange={handleChange}
-                                    placeholder="Nhập địa điểm"
-                                    className={inputStyle}
-                                />
-                            ) : (
-                                <input
-                                    type="text"
-                                    name="meetLink"
-                                    value={formData.meetLink}
-                                    onChange={handleChange}
-                                    placeholder="Nhập đường dẫn"
-                                    className={inputStyle}
-                                />
-                            )}
                         </div>
 
                         {/* Link tham gia (shown when location toggle is OFF) */}
-                        {!locationToggle && (
+                        {!locationToggle ? (
+                            <div>
+                                <label className={labelStyle}>
+                                    <LinkIcon size={12} /> Địa điểm (phòng học)
+                                </label>
+                                <div className="relative">
+                                    <input
+                                        type="text"
+                                        name="location"
+                                        value={formData.location}
+                                        onChange={handleChange}
+                                        placeholder="Nhập địa chỉ"
+                                        className={`${inputStyle} pl-8`}
+                                    />
+                                    <LinkIcon size={14} className="absolute left-3 top-3 text-gray-400" />
+                                </div>
+                            </div>
+                        ) : (
                             <div>
                                 <label className={labelStyle}>
                                     <LinkIcon size={12} /> Link tham gia
@@ -347,38 +305,11 @@ const ConsultationCreate = () => {
                         <div className="border border-gray-200 rounded-xl p-4 flex-grow bg-gray-50">
                             <h3 className="text-sm font-bold text-gray-800 mb-3">Tài liệu</h3>
 
-                            {/* Display uploaded files */}
-                            {formData.files.length > 0 && (
-                                <div className="space-y-2 mb-4">
-                                    {formData.files.map((file, index) => (
-                                        <div
-                                            key={index}
-                                            className="bg-white p-2.5 rounded-lg flex items-center gap-3 border border-gray-200 shadow-sm"
-                                        >
-                                            <div className="bg-blue-50 p-1.5 rounded">
-                                                <FileText className="text-blue-600" size={16} />
-                                            </div>
-                                            <div className="overflow-hidden flex-1">
-                                                <p className="text-xs font-bold text-gray-700 truncate">{file.name}</p>
-                                                <p className="text-[10px] text-gray-500">{file.size}</p>
-                                            </div>
-                                            <button
-                                                type="button"
-                                                onClick={() => handleRemoveFile(index)}
-                                                className="text-gray-400 hover:text-red-500"
-                                            >
-                                                <X size={14} />
-                                            </button>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-
                             {/* Drag and drop area */}
                             <div
-                                onDragOver={handleDragOver}
-                                onDragLeave={handleDragLeave}
-                                onDrop={handleDrop}
+                                // onDragOver={handleDragOver}
+                                // onDragLeave={handleDragLeave}
+                                // onDrop={handleDrop}
                                 className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${isDragging
                                     ? 'border-[#006D77] bg-blue-50'
                                     : 'border-gray-300 bg-gray-100'
@@ -392,7 +323,7 @@ const ConsultationCreate = () => {
                                         <input
                                             type="file"
                                             multiple
-                                            onChange={(e) => handleFileUpload(e.target.files)}
+                                            // onChange={(e) => handleFileUpload(e.target.files)}
                                             className="hidden"
                                         />
                                         Chọn file
@@ -406,6 +337,7 @@ const ConsultationCreate = () => {
                 {/* Submit Button */}
                 <div className="flex justify-end mt-6 pt-4 border-t border-gray-100">
                     <button
+                        // onClick= {}
                         type="submit"
                         className="bg-[#4CAF50] hover:bg-[#43a047] text-white px-6 py-2.5 rounded-lg font-medium text-sm transition-colors shadow-sm flex items-center gap-2"
                     >
