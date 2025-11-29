@@ -9,7 +9,7 @@ import {
     X
 } from 'lucide-react';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams} from 'react-router-dom';
 
 // Toggle Switch Component
 const ToggleSwitch = ({ isOn, onToggle }) => (
@@ -44,6 +44,7 @@ const ConsultationCreate = () => {
     const [locationToggle, setLocationToggle] = useState(true);
     const [specializationInput, setSpecializationInput] = useState('');
     const [isDragging, setIsDragging] = useState(false);
+    const { uID } = useParams()
 
     // Handle input changes
     const handleChange = (e) => {
@@ -130,7 +131,7 @@ const ConsultationCreate = () => {
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 animate-fade-in max-w-5xl mx-auto my-6">
             {/* Back button */}
             <button
-                onClick={() => navigate('/tutor/sessions')}
+                onClick={() => navigate(`/tutor/${uID}/sessions`)}
                 className="flex items-center gap-1 text-gray-500 hover:text-[#006D77] mb-4 text-sm font-medium transition-colors"
             >
                 <ChevronLeft size={20} /> Quay lại danh sách

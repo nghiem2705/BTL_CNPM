@@ -44,86 +44,86 @@ function App() {
 
 
           {/* TRANG TUTOR */}
-          <Route path="/tutor" element={
+          <Route path="/tutor/:uID" element={
               <Layout header={<TutorHeader />}> 
                   <Home /> 
               </Layout>
           } />
 
-          <Route path="/tutor/sessions" element={
+          <Route path="/tutor/:uID/sessions" element={
               <Layout header={<TutorHeader />}> 
                   <TutorConsultation /> 
               </Layout>
           } />
           
-          <Route path="/tutor/create" element={
+          <Route path="/tutor/:uID/create" element={
               <Layout header={<TutorHeader />}> 
                   <TutorConsultationCreate />
               </Layout>
           } />
 
-          <Route path="/tutor/library" element={
+          <Route path="/tutor/:uID/library" element={
               <Layout header={<TutorHeader />}> 
                   {/* Thêm trang chỗ này */}
               </Layout>
           } />
 
-          <Route path="/tutor/students" element={
+          <Route path="/tutor/:uID/students" element={
               <Layout header={<TutorHeader />}> 
                   {/* Thêm trang chỗ này */}
               </Layout>
           } />
 
-          <Route path="/tutor/profile" element={
+          <Route path="/tutor/:uID/profile" element={
               <Layout header={<TutorHeader />}> 
                   {/* Thêm trang chỗ này */}
               </Layout>
           } />
 
-          <Route path="/tutor/sessions/:id" element={
+          <Route path="/tutor/:uID/sessions/:id" element={
               <Layout header={<TutorHeader />}> 
                   <TutorConsultationDetail /> 
               </Layout>
           } />
 
           {/* TRANG STUDENT */}
-          <Route path="/student" element={
+          <Route path="/student/:uID" element={
               <Layout header={<StudentHeader />}> 
                   <Home /> 
               </Layout>
           } />
 
-          <Route path="/student/tutors" element={
+          <Route path="/student/:uID/tutors" element={
               <Layout header={<StudentHeader />}> 
                   <TutorMatch />
               </Layout>
           } />
 
-          <Route path="/student/library" element={
+          <Route path="/student/:uID/library" element={
               <Layout header={<StudentHeader />}> 
                   {/* Thêm trang chỗ này */}
               </Layout>
           } />
 
-          <Route path="/student/sessions/registered" element={
+          <Route path="/student/:uID/sessions/registered" element={
               <Layout header={<StudentHeader />}> 
                   <StudentConsultation />
               </Layout>
           } />
 
-          <Route path="/student/sessions/registered/:id" element={
+          <Route path="/student/:uID/sessions/registered/:id" element={
               <Layout header={<StudentHeader />}> 
                   <StudentConsultationDetail />
               </Layout>
           } />
 
-          <Route path="/student/sessions/register" element={
+          <Route path="/student/:uID/sessions/register" element={
               <Layout header={<StudentHeader />}> 
                   <StudentConsultationRegister/>
               </Layout>
           } />
 
-          <Route path="/student/profile" element={
+          <Route path="/student/:uID/profile" element={
               <Layout header={<StudentHeader />}> 
                   {/* Thêm trang chỗ này */}
               </Layout>

@@ -1,6 +1,6 @@
 // src/pages/Home/index.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { 
   Calendar, Clock, Search, Plus, Download, 
   ChevronDown, Check 
@@ -10,6 +10,7 @@ import { sessionApi } from '../../../api/TutorSession'; // Import dữ liệu gi
 
 const Home = () => {
   const navigate = useNavigate();
+  const { uID } = useParams()
   // Lấy dữ liệu trực tiếp từ file mock, không cần useEffect gọi API
   // const [sessions] = useState(mockSessions); 
   // const [searchText, setSearchText] = useState('');
@@ -205,7 +206,7 @@ const Home = () => {
                     {/* BÊN PHẢI: Buttons */}
                     <div className="flex items-center gap-2">
                       <button 
-                        onClick={() => navigate(`/tutor/sessions/${item.id}`)}
+                        onClick={() => navigate(`/tutor/${uID}/sessions/${item.id}`)}
                         className="bg-[#1e40af] hover:bg-blue-800 text-white text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors"
                       >
                         Xem chi tiết

@@ -35,7 +35,7 @@ const ConsultationDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [session, setSession] = useState(null);
-
+    const {uID} = useParams();
     useEffect(() => {
         // Find session by id
         const foundSession = mockRegisteredSessions.find(s => s.id === parseInt(id));
@@ -74,7 +74,7 @@ const ConsultationDetail = () => {
             <div className="max-w-6xl mx-auto px-4 py-6">
                 {/* Back Button */}
                 <button
-                    onClick={() => navigate('/student/sessions/registered')}
+                    onClick={() => navigate(`/student/${uID}/sessions/registered`)}
                     className="flex items-center gap-1 text-gray-500 hover:text-[#1E88E5] mb-4 text-sm font-medium transition-colors"
                 >
                     <ChevronLeft size={20} /> Quay lại danh sách
@@ -252,7 +252,7 @@ const ConsultationDetail = () => {
                             </p>
                             {/* View Profile Button */}
                             <button
-                                onClick={() => navigate(`/student/tutor/${tutor.name}`)}
+                                onClick={() => navigate(`/student/${uID}/tutor/${tutor.name}`)}
                                 className="w-full bg-[#1E88E5] hover:bg-[#1565C0] text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors"
                             >
                                 Xem hồ sơ

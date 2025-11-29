@@ -75,4 +75,4 @@ class InformationController(BaseController):
             return None
         
         user = users.get(uid_str, {})
-        return user
+        return uid_str, user

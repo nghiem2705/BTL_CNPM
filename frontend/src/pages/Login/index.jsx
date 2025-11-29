@@ -37,13 +37,16 @@ const SSOLogin = () => {
     setTimeout(async () => {
         try {
           const result = await SSOApi.login(username, password, role);
-
+          const uID = result.uID
+          console.log("Kết quả API trả về:", result); 
+          console.log("Kiểu dữ liệu:", typeof result);
+          console.log("uID:", uID)
           // localStorage.setItem('userInfo', JSON.stringify(result));
           if (result.role == "tutor") {
-            navigate('/tutor')
+            navigate(`/tutor/${uID}`);
           }
           else {
-            navigate('/student')
+            navigate(`/student`)
           }
         }
 

@@ -8,8 +8,9 @@ import {
     User
 } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , useParams} from 'react-router-dom';
 import { mockRegisteredSessions } from '../../../api/mock-data';
+
 
 const Consultation = () => {
     const navigate = useNavigate();
@@ -24,6 +25,7 @@ const Consultation = () => {
     const sortRef = useRef(null);
     const tutorRef = useRef(null);
     const itemsPerPage = 4;
+    const {uID} = useParams();
 
     // Available tutors
     const tutors = ['Tất cả', 'Nguyễn Văn B', 'Nguyễn Văn C'];
@@ -274,7 +276,7 @@ const Consultation = () => {
                                     {/* Right: Action Buttons */}
                                     <div className="flex items-center gap-2 ml-4">
                                         <button
-                                            onClick={() => navigate(`/student/sessions/registered/${session.id}`)}
+                                            onClick={() => navigate(`/student/${uID}/sessions/registered/${session.id}`)}
                                             className="bg-gray-600 hover:bg-gray-700 text-white text-xs font-bold px-4 py-2 rounded transition-colors"
                                         >
                                             Xem chi tiết

@@ -20,13 +20,13 @@ class InformationView(BaseView):
             )
         # print(request.data)
         # print(username, password, role)
-        user = self.controller.authenticate(username, password, role)
+        uid, user = self.controller.authenticate(username, password, role)
         if user:
             return Response({
                 "success": True,
                 "message": "Đăng nhập thành công",
                 "role": user.get('role'),
-                "uID": user.get('uID'), # Trả về ID để Frontend lưu lại dùng sau này
+                "uID": uid, # Trả về ID để Frontend lưu lại dùng sau này
                 "user": user            # Trả về toàn bộ info để hiển thị header
             }, status=status.HTTP_200_OK)
         else:
