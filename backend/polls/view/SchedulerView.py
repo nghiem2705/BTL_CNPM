@@ -14,67 +14,83 @@ class SchedulerView(BaseView):
     # get sessions list
     # require query parameters ?filter=...,keywork=...,status=...,page=...
     #return .sessions, .message
-    # def get(self, request, session_id = None) -> Response:
-    #     if session_id is not None:
-    #         session = self.controller.getSessionById(session_id)
-    #         if session is not None:
-    #             return Response({"session": session.to_dictionary(has_status=True), "message": f"Get Detail {session_id}"})
-    #         else:
-    #             return Response({"message": f"Session {session_id} not found"}, status=status.HTTP_404_NOT_FOUND)
-
-    #     page = int(request.query_params['page'])
-    #     keyword = request.query_params['keyword']
-    #     filter = int(request.query_params['filter'])
-    #     status = int(request.query_params['status'])
-    #     sessions_list = self.controller.getSessions(
-    #         page, keyword, filter, status)
-        
-    #     # print([{ss.session_id: ss.to_dictionary()} for ss in sessions_list])
-
-    #     into_dict = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions_list}
-    #     return Response({"sessions": into_dict, "message": f"Search for {keyword} having {status} status in page {page}. Sorted by {filter}"})
-
-    def get(self, request, session_id=None) -> Response:
-        # 1. Xử lý lấy chi tiết (Giữ nguyên)
+    def get(self, request, session_id = None) -> Response:
         if session_id is not None:
-            session = self.controller.getSessionById(session_id)
-            if session is not None:
-                return Response({"session": session.to_dictionary(has_status=True), "message": f"Get Detail {session_id}"})
-            else:
-                return Response({"message": f"Session {session_id} not found"}, status=status.HTTP_404_NOT_FOUND)
+            return self._handle_get_session_detail(session_id)
+        return self._handle_get_sessions_list(request)
 
-        # 2. Xử lý lấy danh sách (SỬA Ở ĐÂY)
-        try:
-            # Dùng .get('key', default_value) để tạo giá trị mặc định nếu Frontend không gửi lên
-            page = int(request.query_params.get('page', 1))         # Mặc định trang 1
-            keyword = request.query_params.get('keyword', '')       # Mặc định tìm rỗng
-            
-            # Đổi tên biến filter -> sort_option (tránh trùng tên hàm filter của python)
-            sort_option = int(request.query_params.get('filter', 0)) # Mặc định sắp xếp kiểu 0
-            
-            # Đổi tên biến status -> search_status (tránh trùng library status)
-            search_status = int(request.query_params.get('status', 0)) # Mặc định status 0
-            
-            # Gọi Controller
-            sessions_list = self.controller.getSessions(
-                page, keyword, sort_option, search_status
-            )
+    # POST
+    # /student/sessions/register/ --> register student to session
+    # /student/follow/<str:student_id>/<str:tutor_id>/ --> student follow tutor
+    # /sessions/ --> create new session
+    def post(self, request, student_id: str = None, tutor_id: str = None) -> Response:
+        path = request.path
+        if path.endswith('/student/sessions/register/'):
+            return self._handle_post_register(request)
+        if '/student/follow/' in path and student_id and tutor_id:
+            return self._handle_post_follow(student_id, tutor_id)
+        return self._handle_post_create_session(request)
 
-            # 3. Chuyển đổi dữ liệu trả về
-            # LƯU Ý: Frontend React thường thích nhận về LIST ([]), 
-            # nhưng code cũ của bạn đang trả về DICT ({ "ss1": {...} }).
-            # Nếu Frontend bạn đã dùng Object.entries() như mình chỉ thì giữ nguyên dòng dưới.
-            into_dict = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions_list}
-            
-            return Response({
-                "sessions": into_dict, 
-                "message": f"Search for '{keyword}' status {search_status} page {page}"
-            })
 
-        except Exception as e:
-            # Bắt lỗi nếu controller có vấn đề để server không bị sập (Error 500)
-            print("Lỗi server:", str(e))
-            return Response({"message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    # PUT
+    # /student/follow/<str:student_id>/<str:tutor_id>/ --> student follow tutor
+    # /sessions/<str:session_id>/ --> update session
+    def put(self, request, session_id=None, student_id: str = None, tutor_id: str = None) -> Response:
+        path = request.path
+        if '/student/follow/' in path and student_id and tutor_id:
+            return self._handle_post_follow(student_id, tutor_id)
+        return self._handle_put_update_session(request, session_id)
+
+    # DELETE
+    # /student/sessions/unregister/ --> unregister student from session
+    # /student/follow/<str:student_id>/<str:tutor_id>/ --> student unfollow tutor
+    # /sessions/<str:session_id>/ --> delete session
+    def delete(self, request, session_id=None, student_id: str = None, tutor_id: str = None) -> Response:
+        path = request.path
+        if path.endswith('/student/sessions/unregister/'):
+            return self._handle_delete_unregister(request)
+        if '/student/follow/' in path and student_id and tutor_id:
+            return self._handle_delete_unfollow(student_id, tutor_id)
+        return self._handle_delete_session(session_id)
+
+    # ===================== Handlers (GET) =====================
+    # /tutor/sessions/ --> get all sessions by tutor_id (query param)
+    def _handle_get_tutor_sessions(self, request) -> Response:
+        tutor_id = request.query_params.get('tutor_id')
+        if not tutor_id:
+            return Response({"error": "Missing tutor_id"}, status=status.HTTP_400_BAD_REQUEST)
+        sessions = self.controller.get_sessions_by_tutor(tutor_id)
+        data = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions}
+        return Response({"sessions": data, "count": len(sessions)})
+
+    # /student/sessions/registered/ --> get all sessions registered by student_id
+    def _handle_get_student_registered(self, request) -> Response:
+        student_id = request.query_params.get('student_id')
+        if not student_id:
+            return Response({"error": "Missing student_id"}, status=status.HTTP_400_BAD_REQUEST)
+        sessions = self.controller.get_sessions_registered_by_student(student_id)
+        data = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions}
+        return Response({"sessions": data, "count": len(sessions)})
+
+    # /sessions/<str:session_id>/ --> get session detail
+    def _handle_get_session_detail(self, session_id: str) -> Response:
+        session = self.controller.getSessionById(session_id)
+        if session is not None:
+            return Response({"session": session.to_dictionary(has_status=True), "message": f"Get Detail {session_id}"})
+        return Response({"message": f"Session {session_id} not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        page = int(request.query_params['page'])
+        keyword = request.query_params['keyword']
+        filter = int(request.query_params['filter'])
+        status = int(request.query_params['status'])
+        sessions_list = self.controller.getSessions(
+            page, keyword, filter, status)
+        
+        # print([{ss.session_id: ss.to_dictionary()} for ss in sessions_list])
+
+        into_dict = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions_list}
+        return Response({"sessions": into_dict, "message": f"Search for {keyword} having {status} status in page {page}. Sorted by {filter}"})
+    
     """Test rồi"""
     # POST sessions
     # create new sessions
@@ -85,9 +101,8 @@ class SchedulerView(BaseView):
         id = 0
         auto_gen_id = f"ss{id}"
         while self.controller.getSessionById(auto_gen_id) is not None:
-            id+=1
+            id += 1
             auto_gen_id = f"ss{id}"
-        
         session_id = auto_gen_id
         
         data = request.data
@@ -100,47 +115,54 @@ class SchedulerView(BaseView):
                         data['duration'],
                         data['online'],
                         data['address'],
-                        data['link'],
                         data['description'],
                         data['note'],
                         data['document'])
         valid = self.controller.addSession(new_session)
-        if valid: 
+        if valid:
             return Response({"message": f"Created {session_id}", "id": session_id}, status=status.HTTP_200_OK)
-        
-        return Response(
-            {"error": "Lịch dạy bị trùng!"}, 
-            status=status.HTTP_400_BAD_REQUEST
-        )
+        return Response({"error": "Lịch dạy bị trùng!"}, status=status.HTTP_400_BAD_REQUEST)
 
-    """Test rồi"""
-    # PUT sessions/<pk>
-    # need body and header json
-    # return .message
-    def put(self, request, session_id) -> Response:
+    # ===================== Handlers (PUT) =====================
+    # /sessions/<str:session_id>/ --> update session
+    def _handle_put_update_session(self, request, session_id: str) -> Response:
         data = request.data
-        session = self.controller.getSessionById(session_id)
-        tutor = session.tutor
-        students = session.students
         new_session = Session(session_id, 
                         data['name'],
-                        tutor,
-                        students,
+                        data['tutor'],
+                        data['students'],
                         data['date'],
                         data['time'],
                         data['duration'],
                         data['online'],
                         data['address'],
-                        data['link'],
                         data['description'],
                         data['note'],
                         data['document'])
         self.controller.updateSession(session_id, new_session)
         return Response({"message": f"Updated {session_id}"})
 
-    """Test rồi"""
-    # DELETE sessions/<pk>
-    # return .message
-    def delete(self, request, session_id) -> Response:
+    # ===================== Handlers (DELETE) =====================
+    # /student/sessions/unregister/
+    def _handle_delete_unregister(self, request) -> Response:
+        data = getattr(request, 'data', {}) or {}
+        student_id = data.get('student_id')
+        s_id = data.get('session_id')
+        if not student_id or not s_id:
+            return Response({"error": "Missing student_id or session_id"}, status=status.HTTP_400_BAD_REQUEST)
+        ok, msg = self.controller.unregister_student_from_session(student_id, s_id)
+        if ok:
+            return Response({"message": msg, "student_id": student_id, "session_id": s_id})
+        return Response({"message": msg}, status=status.HTTP_400_BAD_REQUEST)
+
+    # /student/follow/<str:student_id>/<str:tutor_id>/
+    def _handle_delete_unfollow(self, student_id: str, tutor_id: str) -> Response:
+        ok, msg = self.controller.student_unfollow_tutor(student_id, tutor_id)
+        if ok:
+            return Response({"message": msg, "student_id": student_id, "tutor_id": tutor_id})
+        return Response({"message": msg}, status=status.HTTP_400_BAD_REQUEST)
+
+    # /sessions/<str:session_id>/
+    def _handle_delete_session(self, session_id: str) -> Response:
         self.controller.removeSession(session_id)
         return Response({"message": f"Removed {session_id}"})

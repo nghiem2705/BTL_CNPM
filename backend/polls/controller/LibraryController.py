@@ -1,4 +1,4 @@
-import BaseController
+from .BaseController import BaseController
 
 class LibraryController(BaseController):
     def __init__(self):
