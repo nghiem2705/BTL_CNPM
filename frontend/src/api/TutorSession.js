@@ -157,7 +157,7 @@ export const sessionApi = {
             document: frontendData.files
         };
 
-        const response = await fetch(`${BASE_URL}/sessions/`, {
+        const response = await fetch(`${BASE_URL}/tutor/${frontendData.tutor}/sessions/`, {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(backendPayload)

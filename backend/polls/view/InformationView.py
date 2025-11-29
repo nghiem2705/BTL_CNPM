@@ -38,7 +38,9 @@ class InformationView(BaseView):
 
     # Xem thông tin cá nhân GET: /tutor/information?uID=<tutor_id>
     # Lấy danh sách sinh viên theo tutor GET: /tutor/<tutor_id>/students
-    def get(self, request, tutor_id=None) -> Response:
+    # Lấy danh sách tutor hệ thống đề xuất cho sinh viên GET: /student/<student_id>/tutors
+    def get(self, request, user_id=None) -> Response:
+        path = request.path
         # if uID requested -> return profile
         uID = request.query_params.get('uID')
         if uID:
@@ -48,9 +50,14 @@ class InformationView(BaseView):
             return Response({"profile": {}, "message": f"Profile {uID} not found"}, status=status.HTTP_404_NOT_FOUND)
 
         # if tutor param provided -> return students following that tutor
-        if tutor_id:
-            students = self.controller.getStudentsOfTutor(tutor_id)
-            return Response({"students": students, "message": f"Returned {len(students)} students following {tutor_id}"})
+        if user_id:
+            if path.endswith('/tutors/'): #
+                tutors = self.controller.getTutorListForStudent(user_id)
+                return Response({"tutors": tutors, "message": f"Returned {len(tutors)} tutors recommended for {user_id}"})
+
+            if path.endswith('/students/'):
+                students = self.controller.getStudentsOfTutor(user_id)
+                return Response({"students": students, "message": f"Returned {len(students)} students following {user_id}"})
 
         return Response({"message": "Missing parameters"}, status=400)
 

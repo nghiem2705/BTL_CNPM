@@ -20,7 +20,8 @@ urlpatterns = [
     # Information endpoints for tutor 
     path('tutor/information/', info.as_view(), name='tutor_information'),           # GET ?uID=<tutor_id>
     path('tutor/information/<str:uID>/', info.as_view(), name='tutor_update'),      # PUT profile
-    path('tutor/<str:tutor_id>/students/', info.as_view(), name='tutor_students'),  # GET students following tutor
+    path('tutor/<str:user_id>/students/', info.as_view(), name='tutor_students'),  # GET students following tutor
+    path('student/<str:user_id>/tutors/', info.as_view(), name='recommended_tutors'),  # GET tutors recommended for student
 
     # sheduler endpoints - trung
     path('tutor/sessions/', scheduler.as_view(), name='tutor_sessions'),
