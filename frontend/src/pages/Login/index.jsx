@@ -11,8 +11,9 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { User, Lock, Eye, EyeOff, GraduationCap, Loader } from 'lucide-react';
+import { SSOApi} from '../../api/Login'
 
-const Login = () => {
+const SSOLogin = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -33,19 +34,26 @@ const Login = () => {
 
     // --- GIẢ LẬP GỌI API ---
     // Sau này bạn sẽ thay đoạn này bằng API thật
-    setTimeout(() => {
-        if (username === 'admin' && password === '123') {
-            // Đăng nhập thành công -> Chuyển sang trang Dashboard
-            if (role === 'tutor') {
-                navigate('/tutor'); // Vào Dashboard Giảng viên (Có header xanh)
-            } else {
-                navigate('/student'); // Vào trang Sinh viên (Chưa làm thì cứ để đó)
-                alert("Đăng nhập thành công với vai trò Sinh Viên!");
-            } 
-        } else {
-            setError('Tên đăng nhập hoặc mật khẩu không đúng!');
-            setLoading(false);
+    setTimeout(async () => {
+        try {
+          const result = await SSOApi.login(username, password, role);
+
+          // localStorage.setItem('userInfo', JSON.stringify(result));
+          if (result.role == "tutor") {
+            navigate('/tutor')
+          }
+          else {
+            navigate('/student')
+          }
         }
+
+        catch (err) {
+          setError(err.message || 'Tên đăng nhập hoặc mật khẩu không đúng!');
+        }
+
+        finally {
+          setLoading(false);
+        } 
     }, 1000);
   };
 
@@ -147,4 +155,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SSOLogin;

@@ -111,6 +111,12 @@ function App() {
               </Layout>
           } />
 
+          <Route path="/student/sessions/registered/:id" element={
+              <Layout header={<StudentHeader />}> 
+                  <StudentConsultationDetail />
+              </Layout>
+          } />
+
           <Route path="/student/sessions/register" element={
               <Layout header={<StudentHeader />}> 
                   <StudentConsultationRegister/>

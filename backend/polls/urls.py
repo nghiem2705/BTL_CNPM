@@ -10,6 +10,9 @@ urlpatterns = [
     # init
     path('', views.index, name='index'),
     path('load-data/', views.load_data, name='load_data'),
+
+    # Login SSO
+    path('login/', info.as_view(), name='sso'),
     # scheduler service API
     path('sessions/', scheduler.as_view(), name='sessions_list'),
     path("sessions/<str:session_id>/", scheduler.as_view(), name="session-interaction"),

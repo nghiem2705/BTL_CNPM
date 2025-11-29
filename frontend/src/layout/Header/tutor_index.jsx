@@ -40,23 +40,23 @@ const TutorHeader = () => {
         <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
           
           <NavLink to="/tutor" end className={navLinkClass}>
-            Trang Chủ
+            Trang chủ
           </NavLink>
 
           <NavLink to="/tutor/library" className={navLinkClass}>
-            Thư Viện
+            Thư viện
           </NavLink>
 
           <NavLink to="/tutor/create" className={navLinkClass}>
-            Thêm Lịch
+            Thêm lịch
           </NavLink>
 
           <NavLink to="/tutor/sessions"  className={navLinkClass}>
-            Lịch Của Tôi
+            Lịch của tôi
           </NavLink>
 
           <NavLink to="/tutor/students" className={navLinkClass}>
-            Học Viên
+            Học viên
           </NavLink>
 
 

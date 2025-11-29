@@ -5,7 +5,7 @@ import {
   Calendar, Clock, Search, Plus, Download, 
   ChevronDown, Check 
 } from 'lucide-react';
-import { sessionApi } from '../../../api'; // Import dữ liệu giả ///// sửa chỗ này
+import { sessionApi } from '../../../api/TutorSession'; // Import dữ liệu giả ///// sửa chỗ này
 // import { mockSessions } from '../../api';
 
 const Home = () => {

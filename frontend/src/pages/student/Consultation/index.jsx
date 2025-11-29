@@ -274,7 +274,7 @@ const Consultation = () => {
                                     {/* Right: Action Buttons */}
                                     <div className="flex items-center gap-2 ml-4">
                                         <button
-                                            onClick={() => navigate(`/student/consultation/${session.id}`)}
+                                            onClick={() => navigate(`/student/sessions/registered/${session.id}`)}
                                             className="bg-gray-600 hover:bg-gray-700 text-white text-xs font-bold px-4 py-2 rounded transition-colors"
                                         >
                                             Xem chi tiết

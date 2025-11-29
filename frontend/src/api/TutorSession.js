@@ -1,12 +1,6 @@
-import axios from "axios";
-
-const api = axios.create({
-    baseURL: "http://localhost:8000/",
-    withCredentials: true,
-})
-
 const BASE_URL = 'http://127.0.0.1:8000';
 
+// Ở đây chứa các API liên quan tới Session trong trang tutor nhé ae
 export const sessionApi = {
   getAll: async () => {
     try {
@@ -160,4 +154,4 @@ const convertDateToDisplay = (dateStr) => {
     return `Thứ ${date.getDay() + 1}, ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 };
 
-export default api;
+// export default api;

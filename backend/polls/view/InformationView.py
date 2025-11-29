@@ -8,8 +8,33 @@ class InformationView(BaseView):
         super().__init__()
         self.controller = InformationController()
 
+    # post nay la SSO nhe ae
     def post(self, request) -> Response:
-        return Response({"message": "POST method not implemented"}, status=status.HTTP_501_NOT_IMPLEMENTED)
+        username = request.data.get('username')
+        password = request.data.get('password')
+        role = request.data.get('role')
+        
+        if not username or not password:
+            return Response({"message": "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu"}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        # print(request.data)
+        # print(username, password, role)
+        user = self.controller.authenticate(username, password, role)
+        if user:
+            return Response({
+                "success": True,
+                "message": "Đăng nhập thành công",
+                "role": user.get('role'),
+                "uID": user.get('uID'), # Trả về ID để Frontend lưu lại dùng sau này
+                "user": user            # Trả về toàn bộ info để hiển thị header
+            }, status=status.HTTP_200_OK)
+        else:
+            return Response({
+                "success": False,
+                "message": "Sai tên đăng nhập, mật khẩu hoặc vai trò không đúng!"
+            }, status=status.HTTP_401_UNAUTHORIZED)
+        # return Response({"message": "POST method not implemented"}, status=status.HTTP_501_NOT_IMPLEMENTED)
 
     # Xem thông tin cá nhân GET: /tutor/information?uID=<tutor_id>
     # Lấy danh sách sinh viên theo tutor GET: /tutor/<tutor_id>/students
