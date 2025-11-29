@@ -18,41 +18,40 @@ class InformationView(BaseView):
             return Response({"message": "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu"}, 
                 status=status.HTTP_400_BAD_REQUEST
             )
-        # print(request.data)
-        # print(username, password, role)
         uid, user = self.controller.authenticate(username, password, role)
         if user:
             return Response({
                 "success": True,
                 "message": "Đăng nhập thành công",
                 "role": user.get('role'),
-                "uID": uid, # Trả về ID để Frontend lưu lại dùng sau này
-                "user": user            # Trả về toàn bộ info để hiển thị header
+                "uID": uid, 
+                "user": user           
             }, status=status.HTTP_200_OK)
         else:
             return Response({
                 "success": False,
                 "message": "Sai tên đăng nhập, mật khẩu hoặc vai trò không đúng!"
             }, status=status.HTTP_401_UNAUTHORIZED)
-        # return Response({"message": "POST method not implemented"}, status=status.HTTP_501_NOT_IMPLEMENTED)
+
+
 
     # Xem thông tin cá nhân GET: /tutor/information?uID=<tutor_id>
     # Lấy danh sách sinh viên theo tutor GET: /tutor/<tutor_id>/students
-    def get(self, request, tutor_id=None) -> Response:
-        # if uID requested -> return profile
-        uID = request.query_params.get('uID')
-        if uID:
-            profile = self.controller.getProfile(uID)
-            if profile:
-                return Response({"profile": profile, "message": f"Found profile {uID}"})
-            return Response({"profile": {}, "message": f"Profile {uID} not found"}, status=status.HTTP_404_NOT_FOUND)
+    # Lấy danh sách tutor hệ thống đề xuất cho sinh viên GET: /student/<student_id>/tutors
+    def get(self, request, user_id=None) -> Response:
+        path = request.path
+        if user_id:
+            if path.endswith('/tutors/'): #
+                tutors = self.controller.getTutorListForStudent(user_id)
+                # print(tutors)
+                return Response({"tutors": tutors, "message": f"Returned {len(tutors)} tutors recommended for {user_id}"})
 
-        # if tutor param provided -> return students following that tutor
-        if tutor_id:
-            students = self.controller.getStudentsOfTutor(tutor_id)
-            return Response({"students": students, "message": f"Returned {len(students)} students following {tutor_id}"})
+            if path.endswith('/students/'):
+                students = self.controller.getStudentsOfTutor(user_id)
+                return Response({"students": students, "message": f"Returned {len(students)} students following {user_id}"})
 
         return Response({"message": "Missing parameters"}, status=400)
+
 
     # Chỉnh sửa thông tin cá nhân
     # PUT: update existing profile

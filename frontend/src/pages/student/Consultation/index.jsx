@@ -74,10 +74,10 @@ const Consultation = () => {
         // Filter by tab
         switch (activeTab) {
             case 'Đã kết thúc':
-                processed = processed.filter(s => s.status === 'finished');
+                processed = processed.filter(s => s.status === 2);
                 break;
             case 'Sắp diễn ra':
-                processed = processed.filter(s => s.status === 'upcoming');
+                processed = processed.filter(s => s.status === 3);
                 break;
             case 'Tháng này':
                 const currentMonth = new Date().getMonth();
@@ -149,19 +149,6 @@ const Consultation = () => {
             }
         }
     };
-    // const handleDelete = async (e, id, title) => {
-    //     e.stopPropagation(); 
-        
-    //     if (window.confirm(`Bạn có chắc chắn muốn hủy buổi: "${title}"?`)) {
-    //         try {
-    //             await sessionApi.delete(id); 
-    //             setSessions(prev => prev.filter(item => item.id !== id));
-    //             alert("Đã hủy thành công!");
-    //         } catch (error) {
-    //             alert("Lỗi khi xóa! Vui lòng thử lại.");
-    //         }
-    //     }
-    //   };
 
     // Handle evaluate
     const handleEvaluate = (sessionId) => {

@@ -1,7 +1,7 @@
 import json
 import os
 from .BaseController import BaseController
-from polls.entity.UserEntity import StudentEntity
+from polls.entity.UserEntity import *
 
 class InformationController(BaseController):
 
@@ -76,3 +76,37 @@ class InformationController(BaseController):
         
         user = users.get(uid_str, {})
         return uid_str, user
+    
+    # student/<stu_id>/tutors/
+    # get tutors list for student
+    def getTutorListForStudent(self, student_id: str, page: int = 1, filter_by: int = UserFilter.NOT_SET, keyword: str = "") -> list[dict]:
+        users = self.readUser() or {}
+        
+        student = users.get(student_id)
+        if (student is None):
+            return []
+        
+        tutors = []
+        for key, value in users.items():
+            if value.get("role") == "tutor":
+                tutors.append({key: value})
+
+        student_demand = student.get("demand")
+        matched_tutors = []
+        for tutor in tutors:
+            for key, value in tutor.items():
+                strengths = value.get("strength")
+                if (set(strengths) & set(student_demand)):
+                    # print(key)
+                    # print(strengths)
+                    registered = False
+                    if key in student.get("tutor"):
+                        registered = True
+                    to_return_value = value.copy()
+                    to_return_value["registered"] = registered
+                    to_return_value["id"] = key
+                    matched_tutors.append(to_return_value)
+                
+        # return {}\
+        # print(matched_tutors)
+        return matched_tutors

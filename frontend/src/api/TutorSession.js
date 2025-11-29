@@ -137,6 +137,39 @@ export const sessionApi = {
         throw error;
     }
   },
+
+  /// Thêm một buổi tư vấn mới
+  create: async (uID, frontendData) => {
+    try {
+        const backendPayload = {
+            name: frontendData.title,
+            tutor: frontendData.tutor,
+            student: frontendData.students,
+            date: frontendData.date,
+            time: frontendData.startTime,
+            duration: parseInt(frontendData.duration),
+            description: frontendData.description,
+            online: frontendData.isOnline, 
+    
+            link: frontendData.isOnline ? frontendData.meetLink : "", 
+            note: frontendData.note,
+          
+            address: frontendData.location,
+            document: frontendData.files
+        };
+
+        const response = await fetch(`${BASE_URL}/tutor/${frontendData.tutor}/sessions/`, {
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(backendPayload)
+        });
+        
+        if (!response.ok) throw new Error('Lỗi khi tạo mới');
+        return await response.json();
+    } catch (error) {
+        throw error;
+    }
+  },
 };
 
 // --- HÀM PHỤ TRỢ ---

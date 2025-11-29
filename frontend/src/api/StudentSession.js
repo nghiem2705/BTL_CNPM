@@ -68,7 +68,7 @@ export const studentSessionApi = {
         // Map sang Frontend
         return {
             id: item.session_id,
-            tutor: item.tutor,
+            tutor: item.tutor, // id
             title: item.name,
             date: item.date,
             displayDate: convertDateToDisplay(item.date),
@@ -101,6 +101,89 @@ export const studentSessionApi = {
           throw error;
       }
   }, 
+
+     getSessionDetail: async (uID, session_id) => {
+        const response = await fetch(`${BASE_URL}/student/${uID}/sessions/registered/${session_id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        if (!response.ok) throw new Error('Lỗi khi xóa');
+
+        return response.json();
+    },
+
+
+    // getTutorById: async (tutorId) => {
+    //     try {
+    //         const response = await fetch(`${BASE_URL}/tutor/${tutorId}/information/`, {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //         });
+
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! status: ${response.status}`);
+    //         }
+
+    //         const data = await response.json();
+    //         return {
+    //             success: true,
+    //             data: data
+    //         };
+    //     } catch (error) {
+    //         console.error('Error fetching tutor by ID:', error);
+    //         return {
+    //             success: false,
+    //             error: error.message
+    //         };
+    //     }
+    // }
+
+    getUnregisterSession: async (studentId) => {
+        try {
+        const response = await fetch(
+            `${BASE_URL}/student/${studentId}/sessions/register/`,
+            {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data; // { sessions: {...}, count: N }
+        } catch (error) {
+        console.error("Error fetching unregistered sessions:", error);
+        throw error;
+        }
+    },
+    registerSession: async (studentId, sessionId) => {
+        try {
+            // URL: /student/sessions/register/ (phải khớp backend)
+            // Backend mong đợi method POST và body gồm { student_id, session_id }
+            const response = await fetch(`${BASE_URL}/student/${studentId}/sessions/register/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    student_id: studentId,
+                    session_id: sessionId
+                })
+            });
+
+            if (!response.ok) throw new Error('Đăng ký thất bại');
+            return await response.json();
+        } catch (error) {
+            throw error;
+        }
+    }
 };
 
 // --- HÀM PHỤ TRỢ ---
