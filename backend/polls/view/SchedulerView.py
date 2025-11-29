@@ -9,20 +9,32 @@ class SchedulerView(BaseView):
         super().__init__()
         self.controller = SchedulerController()
 
-    # GET
-    # /tutor/sessions/ --> get all sessions by tutor_id (query param)
-    # /student/sessions/registered/ --> get all sessions registered by student_id
-    # /sessions/ --> get all sessions (with filters)
-    # /sessions/<str:session_id>/ --> get session detail
-    def get(self, request, session_id = None, follower_id: str = None, target_id: str = None) -> Response:
-        path = request.path
-        if path.endswith('/tutor/sessions/'):
-            return self._handle_get_tutor_sessions(request)
-        if path.endswith('/student/sessions/registered/'):
-            return self._handle_get_student_registered(request)
-        if session_id is not None:
-            return self._handle_get_session_detail(session_id)
-        return self._handle_get_sessions_list(request)
+    # GET    
+    # /student/<str:student_id>/sessions/register/ --> Lấy tất cả các buổi học mà student chưa đăng ký
+    # /student/<str:student_id>/sessions/registered/ --> Lấy tất cả các buổi học mà student đã đăng ký
+    # /student/<str:student_id>/sessions/registered/<str:session_id>/ --> student xem chi tiết buổi học đã đk
+    # /sessions/ --> get all sessions (with filters) #### Skip
+    # /tutor/<str:tutor_id>/sessions/ --> Lấy tất cả buổi học ma tutor đã tạo theo tutor_id
+    # /tutor/<str:tutor_id>/sessions/<str:session_id>/ --> tutor xem chi tiết buổi học đã tạo
+    def get(self, request, session_id=None, student_id: str=None, tutor_id: str=None) -> Response:
+        url_name = getattr(request.resolver_match, 'url_name', '') # Lấy tên của url pattern
+        # student view
+        # /student/<str:student_id>/sessions/register/ --> Lấy các buổi học mà student chưa đăng ký
+        if url_name == 'student_check_unregistered_sessions' and student_id:
+            return self._handle_get_student_unregistered(request, student_id)
+        # /student/<str:student_id>/sessions/registered/ --> Lấy các buổi học mà student đã đăng ký
+        if url_name == 'student_check_registered_sessions' and student_id:
+            return self._handle_get_student_registered(request, student_id)
+        # /student/<str:student_id>/sessions/registered/<str:session_id>/ --> student xem chi tiết buổi học đã đk
+        if url_name == 'student_check_detail_registered_session' and student_id and session_id:
+            return self._handle_get_student_session_detail(session_id)
+        # tutor view
+        # /tutor/<str:tutor_id>/sessions/ --> tutor xem list session đã tạo
+        if url_name == 'tutor_check_sessions_list' and tutor_id:
+            return self._handle_get_tutor_sessions_list(request, tutor_id)
+        # /tutor/<str:tutor_id>/sessions/<str:session_id>/ --> tutor xem chi tiết session đã tạo
+        if url_name == 'tutor_check_session_detail' and tutor_id and session_id:
+            return self._handle_get_tutor_session_detail(session_id)
 
     # POST
     # /student/sessions/register/ --> register student to session
@@ -35,7 +47,6 @@ class SchedulerView(BaseView):
         if '/student/follow/' in path and student_id and tutor_id:
             return self._handle_post_follow(student_id, tutor_id)
         return self._handle_post_create_session(request)
-
 
     # PUT
     # /student/follow/<str:student_id>/<str:tutor_id>/ --> student follow tutor
@@ -59,23 +70,31 @@ class SchedulerView(BaseView):
         return self._handle_delete_session(session_id)
 
     # ===================== Handlers (GET) =====================
-    # /tutor/sessions/ --> get all sessions by tutor_id (query param)
-    def _handle_get_tutor_sessions(self, request) -> Response:
-        tutor_id = request.query_params.get('tutor_id')
-        if not tutor_id:
-            return Response({"error": "Missing tutor_id"}, status=status.HTTP_400_BAD_REQUEST)
-        sessions = self.controller.get_sessions_by_tutor(tutor_id)
+    # /student/<str:student_id>/sessions/register/
+    def _handle_get_student_unregistered(self, request, student_id: str) -> Response:
+        sessions = self.controller.get_sessions_not_registered_by_student(student_id)
         data = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions}
         return Response({"sessions": data, "count": len(sessions)})
-
+    
     # /student/sessions/registered/ --> get all sessions registered by student_id
-    def _handle_get_student_registered(self, request) -> Response:
-        student_id = request.query_params.get('student_id')
-        if not student_id:
-            return Response({"error": "Missing student_id"}, status=status.HTTP_400_BAD_REQUEST)
+    def _handle_get_student_registered(self, request, student_id: str) -> Response:
         sessions = self.controller.get_sessions_registered_by_student(student_id)
         data = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions}
         return Response({"sessions": data, "count": len(sessions)})
+    
+    # /student/sessions/registered/<str:session_id>/ --> get session detail for student
+    def _handle_get_student_session_detail(self, session_id: str) -> Response:
+        return self._handle_get_session_detail(session_id)
+    
+    # /tutor/sessions/ --> tutor check his/her sessions list
+    def _handle_get_tutor_sessions_list(self, request, tutor_id: str) -> Response:
+        sessions = self.controller.get_sessions_by_tutor(tutor_id)
+        data = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions}
+        return Response({"sessions": data, "count": len(sessions)})
+    
+    # /tutor/sessions/<str:session_id>/ --> tutor check session detail
+    def _handle_get_tutor_session_detail(self, session_id: str) -> Response:
+        return self._handle_get_session_detail(session_id)
 
     # /sessions/<str:session_id>/ --> get session detail
     def _handle_get_session_detail(self, session_id: str) -> Response:

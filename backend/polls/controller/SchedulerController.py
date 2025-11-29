@@ -251,3 +251,7 @@ class SchedulerController(BaseController):
         if not self.write_users(users):
             return False, "Write failed"
         return True, "Unfollowed"
+    
+    def get_sessions_not_registered_by_student(self, student_id: str) -> list[Session]:
+        """Lấy tất cả các buổi học mà student chưa đăng ký theo student_id"""
+        return [ss for ss in self.all_sessions if ss.students is None or student_id not in ss.students]
