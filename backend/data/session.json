@@ -1,19 +1,4 @@
 {
-    "ss0": {
-        "session_id": "ss0",
-        "name": "test thêm tư vấn",
-        "tutor": "t_00002",
-        "students": [],
-        "date": "2025-12-18",
-        "time": "10:24",
-        "duration": 90,
-        "online": true,
-        "address": "",
-        "link": "",
-        "description": "aaaaa",
-        "note": "aastg",
-        "document": []
-    },
     "ss1": {
         "session_id": "ss1",
         "name": "Sample Session test 1",
@@ -24,7 +9,7 @@
         "duration": 60,
         "online": true,
         "address": "Zoom",
-        "link": "123-234-345",
+        "link": "https://meet.google.com/esg-cgra-qwx",
         "description": "test111111",
         "note": "No additional notes.",
         "document": []
