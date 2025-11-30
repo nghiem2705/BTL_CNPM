@@ -33,7 +33,7 @@ class Session:
         # compare time
         start_str = self.date + " " + self.time
         start_dt = datetime.strptime(start_str, "%Y-%m-%d %H:%M")
-        end_dt = start_dt + timedelta(minutes=self.duration)
+        end_dt = start_dt + timedelta(minutes=int(self.duration))
         now = datetime.now()
         if now < start_dt:
             return SessionStatus.COMING_SOON

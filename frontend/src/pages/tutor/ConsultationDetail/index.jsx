@@ -16,14 +16,14 @@ const ToggleSwitch = ({ isOn, onToggle, disabled }) => (
 );
 
 const ConsultationDetail = () => {
-  const { id } = useParams(); // Lấy ID từ URL
+  const { uID, id } = useParams(); // Lấy ID từ URL
   const navigate = useNavigate(); // Hàm để quay lại trang trước
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState(null);
   // const [locationToggle, setLocationToggle] = useState(true);
   const [loading, setLoading] = useState(true); // thêm setloading cho thật tí
-  const { uID } = useParams();
   
+  const labelStyle = "text-xs uppercase font-bold text-gray-500 mb-1.5 flex items-center gap-1";
 
   // Tìm dữ liệu dựa trên ID khi vào trang
   // useEffect(() => {
@@ -75,9 +75,10 @@ const ConsultationDetail = () => {
       if(confirmSave) {
           try {
              
-             await sessionApi.update(id, formData);
+             await sessionApi.update(uID, id, formData);
              alert("Lưu thành công!");
              setIsEditing(false);
+             window.location.reload();
           } catch (error) {
              alert("Lỗi khi lưu dữ liệu!");
           }
@@ -105,14 +106,27 @@ const ConsultationDetail = () => {
       {/* Header Detail */}
       <div className="flex justify-between items-start mb-6 border-b border-gray-100 pb-4">
         <div>
-          <h2 className="text-2xl font-bold text-[#102A43] tracking-tight">{formData.title}</h2>
+          {/*Tiêu đề */}
+          {isEditing ? (
+              <input
+                  type="text"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  className="text-2xl font-bold text-[#102A43] tracking-tight border-b border-gray-300 focus:outline-none focus:border-blue-500"
+              />
+          ) : (
+              <h2 className="text-2xl font-bold text-[#102A43] tracking-tight">
+                  {formData.title}
+              </h2>
+          )}
+          {/*trạng thái*/}
           <div className="flex gap-2 mt-2">
             {formData.status === 3 ? (
                 <span className="bg-blue-500 text-white text-[10px] font-bold px-2 py-1 rounded">Sắp diễn ra</span>
             ) : (
                 <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded">Đã kết thúc</span>
             )}
-            <span className="bg-gray-50 text-gray-600 border border-gray-200 text-xs px-3 py-1 rounded-full font-bold">Chuyên môn</span>
           </div>
         </div>
         
@@ -136,9 +150,25 @@ const ConsultationDetail = () => {
                 </div>
                 <div>
                     <label className="text-xs uppercase font-bold text-gray-500 mb-1.5 flex items-center gap-1"><Clock size={12} /> Thời gian</label>
-                    {isEditing ? (
-                        <div className="flex items-center gap-1"><input type="time" className={inputStyle} defaultValue={formData.startTime} /><span className="text-gray-400">-</span><input type="time" className={inputStyle} defaultValue={formData.endTime} /></div>
-                    ) : (<div className={inputStyle}>{formData.startTime} - {formData.endTime} ({formData.duration})</div>)}
+                      {isEditing ? (
+                        <div className="flex items-center gap-1">
+                          <input 
+                            type="time" 
+                            className={inputStyle} 
+                            defaultValue={formData.startTime} 
+                          />
+                          <span className="text-gray-400">-</span>
+                          <input 
+                            type="text"
+                            name="duration"
+                            value={formData.duration}
+                            onChange={handleChange}
+                            placeholder="Thời lượng (phút)"
+                            className={inputStyle}
+                            required
+                          />
+                        </div>
+                      ) : (<div className={inputStyle}>{formData.startTime} - {formData.endTime} ({formData.duration} phút)</div>)}
                 </div>
             </div>
 
@@ -158,61 +188,53 @@ const ConsultationDetail = () => {
                   </div>
                 </div>
               </div>
-      
+            </div>
 
-              {isEditing ? (
-                formData.isOnline ? (
-                    <select name="location" className={inputStyle} value={formData.location} onChange={handleChange}>
-                        <option value="Google Meet">Google Meet</option>
-                        <option value="Zoom">Zoom</option>
-                    </select>
-                ) : (
-                    <input type="text" name="location" className={inputStyle} value={formData.location} onChange={handleChange} placeholder="Nhập tên phòng, địa chỉ..." />
-                )
-              ) : (
-                <div className={`${inputStyle} font-medium text-[#006D77]`}>{formData.location || "Chưa xác định"}</div>
-              )}
-            </div>
-             
-             {/* <div>
-              <label className="text-xs uppercase font-bold text-gray-500 mb-1.5 flex items-center gap-1"><LinkIcon size={12} /> Link tham gia</label>
-               <div className="relative">
-                 {isEditing ? <input type="text" name="meetLink" className={`${inputStyle} pl-8 text-blue-600`} value={formData.meetLink || "Chưa có link"} /> : <div className={`${inputStyle} pl-8 text-blue-600 underline truncate`}>{formData.meetLink}</div>}
-                 <LinkIcon size={14} className="absolute left-3 top-3 text-gray-400" />
-               </div>
-            </div> */}
-            <div>
-              <label className="text-xs uppercase font-bold text-gray-500 mb-1.5 flex items-center gap-1"><LinkIcon size={12} /> Link tham gia</label>
-               <div className="relative">
-                 {isEditing ? (
-                    <input 
-                        type="text" 
-                        name="meetLink" 
-                        // Logic khóa: Nếu KHÔNG phải Online thì khóa lại
-                        disabled={!formData.isOnline} 
-                        
-                        // Logic giao diện: Nếu Offline thì xám, Online thì trắng
-                        className={`${inputStyle} pl-8 ${!formData.isOnline ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'text-blue-600 bg-white'}`}
-                        
-                        // Logic dữ liệu: Nếu Offline thì rỗng, Online thì hiện link
-                        value={!formData.isOnline ? "" : (formData.meetLink || "")} 
-                        
-                        onChange={handleChange} 
-                        placeholder={!formData.isOnline ? "Chỉ khả dụng khi chọn hình thức Online" : "Dán link họp vào đây..."}
-                    />
-                 ) : (
-                    // CHẾ ĐỘ XEM
-                    formData.isOnline ? (
-                        <a href={formData.meetLink} target="_blank" rel="noreferrer" className={`${inputStyle} pl-8 text-blue-600 underline truncate block hover:text-blue-800`}>
-                            {formData.meetLink || "Chưa cập nhật link"}
-                        </a>
-                    ) : (
-                        <div className={`${inputStyle} pl-8 text-gray-400 italic`}>Không có link (Offline)</div>
-                    )
-                 )}
-                 <LinkIcon size={14} className="absolute left-3 top-3 text-gray-400" />
-               </div>
-            </div>
+            {/* Link tham gia (shown when location toggle is OFF) */}
+            {!formData.isOnline ? (
+                <div>
+                    <label className={labelStyle}>
+                        <MapPin size={12} /> Địa điểm (phòng học)
+                    </label>
+                    {isEditing ? (
+                    <div className="relative">
+                        <input
+                            type="text"
+                            name="location"
+                            value={formData.location}
+                            onChange={handleChange}
+                            placeholder="Nhập địa chỉ"
+                            className={`${inputStyle} pl-8`}
+                        />
+                        <LinkIcon size={12} className="absolute left-3 top-3 text-gray-400" />
+                    </div>
+                    ): (
+                    <div className={`${inputStyle} font-medium text-[#006D77]`}>{formData.location || "Chưa xác định"}</div>
+                    )}
+                </div>
+            ) : (
+                <div>
+                    <label className={labelStyle}>
+                        <LinkIcon size={12} /> Link tham gia
+                    </label>
+                    {isEditing ? (
+                    <div className="relative">
+                        <input
+                            type="text"
+                            name="meetLink"
+                            value={formData.meetLink}
+                            onChange={handleChange}
+                            placeholder="Nhập đường dẫn"
+                            className={`${inputStyle} pl-8`}
+                        />
+                        <LinkIcon size={12} className="absolute left-3 top-3 text-gray-400" />
+                    </div>
+                    ): (
+                    <div className={`${inputStyle} font-medium text-[#006D77]`}>{formData.meetLink || "Chưa xác định"}</div>
+                    )}
+                </div>
+            )}
+
             <div>
               <label className="text-sm font-bold text-gray-800 mb-1.5 block">Mô tả chi tiết</label>
                {isEditing ? <textarea rows={4} className={inputStyle} defaultValue={formData.description} /> : <div className="bg-[#F1F5F9] rounded-lg p-3 text-sm text-gray-700 leading-relaxed min-h-[100px]">{formData.description}</div>}

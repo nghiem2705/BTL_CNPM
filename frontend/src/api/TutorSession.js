@@ -78,7 +78,7 @@ export const sessionApi = {
         displayDate: convertDateToDisplay(item.date),
         startTime: item.time,
         endTime: calculateEndTime(item.time, item.duration),
-        duration: item.duration + " phút",
+        duration: item.duration,
         status: item.status,
         isOnline: item.online,
         location: item.address,
@@ -106,15 +106,15 @@ export const sessionApi = {
       }
   },
   /// Thêm hàm UPDATE trong này rồi gọi trong ConsultationDetail.jsx nhé
-  update: async (id, frontendData) => {
+  update: async (tutor_id, id, frontendData) => {
     try {
         const backendPayload = {
             name: frontendData.title,
-            tutor: frontendData.tutor,
-            student: frontendData.students,
+            tutor: tutor_id,
+            student: frontendData.students || [],
             date: frontendData.date,
             time: frontendData.startTime,
-            duration: parseInt(frontendData.durationRaw || 60),
+            duration: frontendData.duration,
             description: frontendData.description,
             online: frontendData.isOnline, 
     
@@ -124,8 +124,9 @@ export const sessionApi = {
             address: frontendData.location,
             document: frontendData.files
         };
+        console.log(backendPayload);
 
-        const response = await fetch(`${BASE_URL}/sessions/${id}/`, {
+        const response = await fetch(`${BASE_URL}/tutor/${tutor_id}/sessions/${id}/`, {
             method: 'PUT', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(backendPayload)
@@ -157,7 +158,8 @@ export const sessionApi = {
             address: frontendData.location,
             document: frontendData.files
         };
-
+        
+        console.log(backendPayload);
         const response = await fetch(`${BASE_URL}/tutor/${frontendData.tutor}/sessions/`, {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' },

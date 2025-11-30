@@ -113,7 +113,7 @@ const ConsultationCreate = () => {
     // };
 
     // Form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         // Validate required fields
         if (!formData.title || !formData.date || !formData.startTime || !formData.duration) {
@@ -124,9 +124,9 @@ const ConsultationCreate = () => {
         const confirmSave = window.confirm("Bạn có chắc chắn muốn lưu thay đổi?");
         if (confirmSave) {
             try {
-            sessionApi.create(formData);
-            alert('Tạo buổi tư vấn thành công!');
-            navigate('/tutor/'+uID +'/sessions/');
+                await sessionApi.create(uID, formData);
+                alert('Tạo buổi tư vấn thành công!');
+                navigate('/tutor/'+uID +'/sessions/');
             } catch (error) {
                 alert("Lỗi khi lưu dữ liệu!");
             }
@@ -211,6 +211,7 @@ const ConsultationCreate = () => {
                                         onChange={handleChange}
                                         placeholder="Thời lượng (phút)"
                                         className={inputStyle}
+                                        required
                                     />
                                 </div>
                             </div>
@@ -235,7 +236,7 @@ const ConsultationCreate = () => {
                         {!locationToggle ? (
                             <div>
                                 <label className={labelStyle}>
-                                    <LinkIcon size={12} /> Địa điểm (phòng học)
+                                    <MapPin size={12} /> Địa điểm (phòng học)
                                 </label>
                                 <div className="relative">
                                     <input
