@@ -108,7 +108,18 @@ class SchedulerView(BaseView):
 
     def _handle_get_student_unregistered(self, student_id: str) -> Response:
         sessions = self.controller.get_sessions_not_registered_by_student(student_id)
-        data = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions}
+        
+        data = {}
+        for ss in sessions:
+            session_dict = ss.to_dictionary(has_status=True)
+            # Get tutor info
+            tutor_id = ss.tutor
+            tutor_info = self.controller.infoController.readUser().get(tutor_id, {})
+            session_dict['tutor'] = {
+                'id': tutor_id,
+                'name': tutor_info.get('name', tutor_id)
+            }
+            data[ss.session_id] = session_dict
 
         return Response({"sessions": data, "count": len(sessions)})
     

@@ -61,18 +61,25 @@ const ConsultationRegister = () => {
 
   // Extract tutors dynamically from sessions data
   const getTutorsList = () => {
-    const tutorSet = new Set();
+    const tutorMap = new Map();
     sessions.forEach((session) => {
-      if (session.tutor && session.tutor.name) {
-        tutorSet.add(session.tutor.name);
+      if (session.tutor) {
+        const tutorId =
+          typeof session.tutor === "object" ? session.tutor.id : session.tutor;
+        const tutorName =
+          typeof session.tutor === "object"
+            ? session.tutor.name
+            : session.tutor;
+        const tutorDisplay = `${tutorName} (${tutorId})`;
+        if (!tutorMap.has(tutorId)) {
+          tutorMap.set(tutorId, tutorDisplay);
+        }
       }
     });
-    return ["Tất cả", ...Array.from(tutorSet).sort()];
+    return ["Tất cả", ...Array.from(tutorMap.values()).sort()];
   };
 
-  const tutors = getTutorsList();
-
-  // --- 2. FETCH DATA TỪ BACKEND ---
+  const tutors = getTutorsList(); // --- 2. FETCH DATA TỪ BACKEND ---
   useEffect(() => {
     const fetchSessions = async () => {
       try {
@@ -179,7 +186,12 @@ const ConsultationRegister = () => {
 
     // Filter by tutor
     if (selectedTutor !== "Tất cả") {
-      processed = processed.filter((s) => s.tutor.name === selectedTutor);
+      processed = processed.filter((s) => {
+        const tutorId = typeof s.tutor === "object" ? s.tutor.id : s.tutor;
+        const tutorName = typeof s.tutor === "object" ? s.tutor.name : s.tutor;
+        const tutorDisplay = `${tutorName} (${tutorId})`;
+        return tutorDisplay === selectedTutor;
+      });
     }
 
     // Search
@@ -422,7 +434,9 @@ const ConsultationRegister = () => {
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
                           <span className="text-sm font-semibold text-gray-700">
-                            {session.tutor.name}
+                            {typeof session.tutor === "object"
+                              ? `${session.tutor.name} (${session.tutor.id})`
+                              : session.tutor}
                           </span>
                         </div>
                         <h3 className="font-bold text-base text-gray-900 mb-2">
