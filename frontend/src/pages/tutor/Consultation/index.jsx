@@ -87,12 +87,13 @@ const Home = () => {
 
   // 4. THÊM HÀM HỦY BUỔI NHA (hamf moi ) 
   //////
-  const handleDelete = async (e, id, title) => {
+  const handleDelete = async (e, tutor_id, id, title) => {
     e.stopPropagation(); 
     
     if (window.confirm(`Bạn có chắc chắn muốn hủy buổi: "${title}"?`)) {
         try {
-            await sessionApi.delete(id); 
+            // console.log(id);
+            await sessionApi.delete(tutor_id ,id); 
             setSessions(prev => prev.filter(item => item.id !== id));
             alert("Đã hủy thành công!");
         } catch (error) {
@@ -224,7 +225,7 @@ const Home = () => {
                       {/* <button className="bg-[#475569] hover:bg-gray-700 text-white text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors">
                         Hủy buổi
                       </button> */}
-                      <button onClick={(e) => handleDelete(e, item.id, item.title)} className="bg-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-600 text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors flex items-center gap-1 border border-gray-200">
+                      <button onClick={(e) => handleDelete(e, uID, item.id, item.title)} className="bg-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-600 text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors flex items-center gap-1 border border-gray-200">
                          Hủy buổi
                       </button>
 

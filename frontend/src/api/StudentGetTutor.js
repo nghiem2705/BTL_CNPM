@@ -43,4 +43,32 @@ export const studentTutorApi = {
         return []; 
         }
     },
+
+    followTutor: async (studentId, tutorId) => {
+        try {
+        const response = await fetch(`${BASE_URL}/student/${studentId}/follow/${tutorId}/`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'}
+        });
+
+            if (!response.ok) throw new Error('Đăng ký thất bại');
+            return await response.json();
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    unfollowTutor: async (studentId, tutorId) => {
+        try {
+        const response = await fetch(`${BASE_URL}/student/${studentId}/follow/${tutorId}/`, {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'}
+        });
+
+            if (!response.ok) throw new Error('Đăng ký thất bại');
+            return await response.json();
+        } catch (error) {
+            throw error;
+        }
+    }
 };

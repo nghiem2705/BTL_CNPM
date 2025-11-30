@@ -3,10 +3,6 @@
 const BASE_URL = 'http://127.0.0.1:8000';
 
 export const studentSessionApi = {
-    getUnregisterSession: async (/*trong này là tham số nè*/ ) => {
-        // try ....
-    },
-
     getRegisteredSession: async (uID) => {
         try {
             const response = await fetch(`${BASE_URL}/student/${uID}/sessions/registered`, {
@@ -51,6 +47,7 @@ export const studentSessionApi = {
         return []; 
         }
     },
+
     getSessionById: async (uID, id) => {
         try {
         const response = await fetch(`${BASE_URL}/student/${uID}/sessions/registered/${id}/`, {
@@ -90,19 +87,19 @@ export const studentSessionApi = {
     },
 
     deleteSession: async (uID, id) => {
-      try {
-        const response = await fetch(`${BASE_URL}/student/${uID}/sessions/registered/${id}/`, {
+        try {
+            const response = await fetch(`${BASE_URL}/student/${uID}/sessions/registered/${id}/`, {
             method: 'DELETE',
-        });
+            });
         
-        if (!response.ok) throw new Error('Lỗi khi xóa');
-        return true;
-      } catch (error) {
-          throw error;
-      }
-  }, 
+            if (!response.ok) throw new Error('Lỗi khi xóa');
+            return true;
+        } catch (error) {
+            throw error;
+        }
+    }, 
 
-     getSessionDetail: async (uID, session_id) => {
+    getSessionDetail: async (uID, session_id) => {
         const response = await fetch(`${BASE_URL}/student/${uID}/sessions/registered/${session_id}`, {
             method: "GET",
             headers: {
@@ -165,7 +162,9 @@ export const studentSessionApi = {
         throw error;
         }
     },
+
     registerSession: async (studentId, sessionId) => {
+        console.log(studentId, sessionId);
         try {
             // URL: /student/sessions/register/ (phải khớp backend)
             // Backend mong đợi method POST và body gồm { student_id, session_id }

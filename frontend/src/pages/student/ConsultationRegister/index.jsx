@@ -10,7 +10,7 @@ import {
   Loader // Thêm icon Loader
 } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 // Import API & Mock
 import { studentSessionApi } from "../../../api/StudentSession";
@@ -73,7 +73,7 @@ const ConsultationRegister = () => {
         if (result.sessions && typeof result.sessions === "object") {
           const sessionsList = Object.values(result.sessions).map(
             (session) => ({
-              id: session.id,
+              id: session.session_id,
               title: session.name,
               
               // Map các trường thời gian để hiển thị ra giao diện

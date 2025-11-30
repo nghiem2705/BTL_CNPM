@@ -1,6 +1,41 @@
 import { Mail, Phone } from "lucide-react";
+import { studentTutorApi } from '../../../../api/StudentGetTutor';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function TutorCard({ tutor }) {
+
+  // const navigate = useNavigate();
+  const { uID } = useParams()
+  const handleFollow = async (e, student_id, tutor_id, name) => {
+      e.stopPropagation(); 
+      
+      if (window.confirm(`Bạn có chắc chắn theo học Tutor: "${name}"?`)) {
+          try {
+              // console.log(id);
+              await studentTutorApi.followTutor(student_id, tutor_id); 
+              alert("Theo học thành công!");
+              window.location.reload();
+          } catch (error) {
+              alert("Lỗi khi thực thi! Vui lòng thử lại.");
+          }
+      }
+    };
+
+    const handleUnfollow = async (e, student_id, tutor_id, name) => {
+      e.stopPropagation(); 
+      
+      if (window.confirm(`Bạn có chắc chắn muốn hủy theo Tutor: "${name}"?`)) {
+          try {
+              // console.log(id);
+              await studentTutorApi.unfollowTutor(student_id, tutor_id); 
+              window.location.reload();
+              alert("Hủy đăng ký thành công!");
+          } catch (error) {
+              alert("Lỗi khi thực thi! Vui lòng thử lại.");
+          }
+      }
+    };
+
   return (
     <div className="border rounded-xl p-4 bg-white shadow-sm hover:shadow-md transition flex flex-col h-full">
       
@@ -45,9 +80,10 @@ export default function TutorCard({ tutor }) {
         {tutor.registered ? (
           <div className="flex gap-2">
             <button
-              className="w-full py-1.5 text-sm font-semibold rounded bg-gray-300 text-gray-700 cursor-default"
+              onClick = {(e) => handleUnfollow(e, uID, tutor.id, tutor.name)}
+              className="w-full py-1.5 text-sm font-semibold rounded bg-red-500 text-white hover:bg-red-700"
             >
-              Đã đăng ký
+              Hủy đăng ký
             </button>
 
             <button
@@ -58,6 +94,7 @@ export default function TutorCard({ tutor }) {
           </div>
         ) : (
           <button
+            onClick = {(e) => handleFollow(e, uID, tutor.id, tutor.name)}
             className="w-full py-1.5 text-sm font-semibold rounded bg-blue-600 text-white hover:bg-blue-700"
           >
             Đăng ký

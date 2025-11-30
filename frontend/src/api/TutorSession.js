@@ -93,9 +93,9 @@ export const sessionApi = {
     }
   },
   /// Thêm hàm DELETE trong này rồi gọi trong Home->index.jsx nhé
-  delete: async (id) => {
+  delete: async (tutor_id, session_id) => {
       try {
-        const response = await fetch(`${BASE_URL}/sessions/${id}/`, {
+        const response = await fetch(`${BASE_URL}/tutor/${tutor_id}/sessions/${session_id}/`, {
             method: 'DELETE',
         });
         

@@ -3,7 +3,6 @@ from rest_framework import status
 from .BaseView import BaseView
 from polls.controller.SchedulerController import *
 
-
 class SchedulerView(BaseView):
     def __init__(self):
         super().__init__()
@@ -18,7 +17,13 @@ class SchedulerView(BaseView):
         
         # Student get registered session
         if path.endswith('/sessions/registered/') and student_id != None:
-            return self._handle_get_student_registered(request, student_id)
+            return self._handle_get_student_registered(student_id)
+        
+        # Student get registered session
+        if path.endswith('/sessions/register/') and student_id != None:
+            print(path)
+
+            return self._handle_get_student_unregistered(student_id)
         
         # Student get detail registered session
         if session_id is not None:
@@ -32,12 +37,14 @@ class SchedulerView(BaseView):
     # POST
     def post(self, request, student_id: str = None, tutor_id: str = None) -> Response:
         path = request.path
+        print(path)
         # Student post register session
         if path.endswith('/sessions/register/') and student_id != None:
             return self._handle_post_register(request)
         
         # Student follow tutor
         if '/follow/' in path and student_id and tutor_id:
+            print("Follow tutor")
             return self._handle_post_follow(student_id, tutor_id)
         
         # Tutor create new session
@@ -47,6 +54,8 @@ class SchedulerView(BaseView):
     # PUT
     def put(self, request, session_id=None, student_id: str = None, tutor_id: str = None) -> Response:
         path = request.path
+
+        print(path)
         # Student follow tutor (Phuj)
         if '/follow/' in path and student_id and tutor_id:
             return self._handle_post_follow(student_id, tutor_id)
@@ -82,7 +91,7 @@ class SchedulerView(BaseView):
         return Response({"sessions": data, "count": len(sessions)})
 
     # /student/sessions/registered/ --> get all sessions registered by student_id
-    def _handle_get_student_registered(self, request, student_id) -> Response:
+    def _handle_get_student_registered(self, student_id) -> Response:
         # student_id = request.query_params.get('student_id')
         if not student_id:
             return Response({"error": "Missing student_id"}, status=status.HTTP_400_BAD_REQUEST)
@@ -100,9 +109,10 @@ class SchedulerView(BaseView):
     def _handle_get_student_unregistered(self, student_id: str) -> Response:
         sessions = self.controller.get_sessions_not_registered_by_student(student_id)
         data = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions}
+
         return Response({"sessions": data, "count": len(sessions)})
-    # /sessions/ --> get all sessions (with filters)
     
+    # /sessions/ --> get all sessions (with filters)
     def _handle_get_sessions_list(self, request) -> Response:
         page = int(request.query_params.get('page', 1))
         keyword = request.query_params.get('keyword', "")
@@ -209,6 +219,7 @@ class SchedulerView(BaseView):
 
     # /student/follow/<str:student_id>/<str:tutor_id>/
     def _handle_delete_unfollow(self, student_id: str, tutor_id: str) -> Response:
+        print("called")
         ok, msg = self.controller.student_unfollow_tutor(student_id, tutor_id)
         if ok:
             return Response({"message": msg, "student_id": student_id, "tutor_id": tutor_id})

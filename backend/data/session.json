@@ -2,8 +2,10 @@
     "ss0": {
         "session_id": "ss0",
         "name": "Tao buoi",
-        "tutor": "t_00002",
-        "students": [],
+        "tutor": "t_00001",
+        "students": [
+            "2312593"
+        ],
         "date": "2025-12-05",
         "time": "22:40",
         "duration": 150,
@@ -17,7 +19,7 @@
     "ss1": {
         "session_id": "ss1",
         "name": "Sample Session test 1",
-        "tutor": "t_00002",
+        "tutor": "t_00001",
         "students": [],
         "date": "2025-12-23",
         "time": "16:00",
@@ -108,21 +110,6 @@
         "link": "CS2. H6-101",
         "description": "Helokiti",
         "note": "11",
-        "document": []
-    },
-    "ss7": {
-        "session_id": "ss7",
-        "name": "Buổi 7",
-        "tutor": "t_00002",
-        "students": [],
-        "date": "2025-12-06",
-        "time": "12:55",
-        "duration": 1500,
-        "online": true,
-        "address": "",
-        "link": "",
-        "description": "aws",
-        "note": "123",
         "document": []
     }
 }

@@ -18,9 +18,6 @@ class SchedulerController(BaseController):
         self.update()
         self.infoController = InformationController()
 
-        # user data path
-        self.USER_PATH = ["data", "user.json"]
-
     def update(self):
         self.all_sessions = self.getAllSessions()
 
@@ -156,19 +153,6 @@ class SchedulerController(BaseController):
 
 ##################################################
     # Helpers
-    def read_users(self) -> dict:
-        try:
-            return super().readFile(self.USER_PATH) or {}
-        except Exception:
-            return {}
-
-    def write_users(self, data: dict) -> bool:
-        try:
-            super().writeFile(self.USER_PATH, data)
-            return True
-        except Exception:
-            return False
-
     def get_sessions_by_tutor(self, tutor_id: str) -> list[Session]:
         """Lấy tất cả các buổi học của tutor theo tutor_id"""
         return [ss for ss in self.all_sessions if ss.tutor == tutor_id]
@@ -212,7 +196,10 @@ class SchedulerController(BaseController):
         """
         if student_id == tutor_id:
             return False, "Cannot follow self"
-        users = self.read_users()
+        
+        users = self.infoController.readUser()
+        print(users)
+        print(student_id, tutor_id)
         if student_id not in users or tutor_id not in users:
             return False, "User not found"
 
@@ -221,18 +208,13 @@ class SchedulerController(BaseController):
         if student.get("role") != "student" or tutor.get("role") != "tutor":
             return False, "Invalid roles: require student->tutor"
 
-        student_tutors = student.get("tutors", [])
+        student_tutors = student.get("tutor", [])
         if tutor_id in student_tutors:
             return False, "Already following"
         student_tutors.append(tutor_id)
-        student["tutors"] = student_tutors
+        student["tutor"] = student_tutors
 
-        tutor_students = tutor.get("students", [])
-        if student_id not in tutor_students:
-            tutor_students.append(student_id)
-            tutor["students"] = tutor_students
-
-        if not self.write_users(users):
+        if not self.infoController.writeUser(users):
             return False, "Write failed"
         return True, "Followed"
 
@@ -243,7 +225,7 @@ class SchedulerController(BaseController):
         - Remove student_id from tutor's `students` list (if present)
         Enforces roles: follower must be student, target must be tutor.
         """
-        users = self.read_users()
+        users = self.infoController.readUser()
         if student_id not in users or tutor_id not in users:
             return False, "User not found"
         student = users[student_id]
@@ -251,21 +233,22 @@ class SchedulerController(BaseController):
         if student.get("role") != "student" or tutor.get("role") != "tutor":
             return False, "Invalid roles: require student->tutor"
 
-        student_tutors = student.get("tutors", [])
+        student_tutors = student.get("tutor", [])
         if tutor_id not in student_tutors:
             return False, "Not following"
         student_tutors.remove(tutor_id)
-        student["tutors"] = student_tutors
+        student["tutor"] = student_tutors
 
-        tutor_students = tutor.get("students", [])
-        if student_id in tutor_students:
-            tutor_students.remove(student_id)
-            tutor["students"] = tutor_students
-
-        if not self.write_users(users):
+        if not self.infoController.writeUser(users):
             return False, "Write failed"
         return True, "Unfollowed"
     
     def get_sessions_not_registered_by_student(self, student_id: str) -> list[Session]:
         """Lấy tất cả các buổi học mà student chưa đăng ký theo student_id"""
-        return [ss for ss in self.all_sessions if ss.students is None or student_id not in ss.students]
+        all_unregistered = [ss for ss in self.all_sessions if ss.students is None or student_id not in ss.students]
+
+        followed_tutors = self.infoController.readUser().get(student_id, None).get("tutor")
+
+        to_return = [ss for ss in all_unregistered if ss.tutor in followed_tutors]
+
+        return to_return
