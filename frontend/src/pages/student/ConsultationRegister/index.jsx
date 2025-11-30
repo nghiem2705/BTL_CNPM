@@ -7,10 +7,10 @@ import {
   Clock,
   Search,
   User,
-  Loader // Thêm icon Loader
+  Loader, // Thêm icon Loader
 } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 // Import API & Mock
 import { studentSessionApi } from "../../../api/StudentSession";
@@ -19,18 +19,20 @@ import ViewMorePopup from "../../../components/ViewMorePopup";
 
 // --- 1. HÀM HỖ TRỢ TÍNH TOÁN THỜI GIAN (THÊM MỚI) ---
 const calculateEndTime = (startTime, durationMinutes) => {
-    if (!startTime) return "";
-    const [hour, minute] = startTime.split(':').map(Number);
-    const totalMinutes = hour * 60 + minute + parseInt(durationMinutes || 0);
-    const newHour = Math.floor(totalMinutes / 60);
-    const newMinute = totalMinutes % 60;
-    return `${newHour}:${newMinute.toString().padStart(2, '0')}`;
+  if (!startTime) return "";
+  const [hour, minute] = startTime.split(":").map(Number);
+  const totalMinutes = hour * 60 + minute + parseInt(durationMinutes || 0);
+  const newHour = Math.floor(totalMinutes / 60);
+  const newMinute = totalMinutes % 60;
+  return `${newHour}:${newMinute.toString().padStart(2, "0")}`;
 };
 
 const convertDateToDisplay = (dateStr) => {
-    if(!dateStr) return "";
-    const date = new Date(dateStr);
-    return `Thứ ${date.getDay() + 1}, ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  if (!dateStr) return "";
+  const date = new Date(dateStr);
+  return `Thứ ${date.getDay() + 1}, ${date.getDate()}/${
+    date.getMonth() + 1
+  }/${date.getFullYear()}`;
 };
 
 const ConsultationRegister = () => {
@@ -39,7 +41,7 @@ const ConsultationRegister = () => {
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  
+
   // Filters & Pagination State
   const [searchText, setSearchText] = useState("");
   const [activeTab, setActiveTab] = useState("Tất cả");
@@ -48,17 +50,27 @@ const ConsultationRegister = () => {
   const [isTutorOpen, setIsTutorOpen] = useState(false);
   const [sortOption, setSortOption] = useState("date");
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   // Popup State
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedSession, setSelectedSession] = useState(null);
-  
+
   const sortRef = useRef(null);
   const tutorRef = useRef(null);
   const itemsPerPage = 4;
 
-  // Available tutors (Tạm thời hardcode hoặc lấy từ API sau)
-  const tutors = ["Tất cả", "Nguyễn Văn B", "Nguyễn Văn C"];
+  // Extract tutors dynamically from sessions data
+  const getTutorsList = () => {
+    const tutorSet = new Set();
+    sessions.forEach((session) => {
+      if (session.tutor && session.tutor.name) {
+        tutorSet.add(session.tutor.name);
+      }
+    });
+    return ["Tất cả", ...Array.from(tutorSet).sort()];
+  };
+
+  const tutors = getTutorsList();
 
   // --- 2. FETCH DATA TỪ BACKEND ---
   useEffect(() => {
@@ -75,18 +87,22 @@ const ConsultationRegister = () => {
             (session) => ({
               id: session.session_id,
               title: session.name,
-              
+
               // Map các trường thời gian để hiển thị ra giao diện
               date: session.date,
               displayDate: convertDateToDisplay(session.date), // Tính ngày đẹp (Thứ...)
-              
+
               startTime: session.time, // Giờ bắt đầu
               endTime: calculateEndTime(session.time, session.duration), // Tính giờ kết thúc
-              
+
               duration: session.duration,
-              
-              tutor: session.tutor,
-              
+              // tutor: session.tutor, //(code cũ)
+              // Handle tutor as either string or object
+              tutor:
+                typeof session.tutor === "object" && session.tutor !== null
+                  ? session.tutor
+                  : { id: session.tutor, name: session.tutor },
+
               online: session.online,
               address: session.address,
               description: session.description,
@@ -101,7 +117,7 @@ const ConsultationRegister = () => {
         console.error("Failed to fetch sessions:", err);
         setError(err.message || "Lỗi khi tải danh sách buổi học");
         // Fallback data mẫu nếu lỗi (tùy bạn có muốn giữ không)
-        // setSessions(mockSessionsRegister); 
+        // setSessions(mockSessionsRegister);
       } finally {
         setLoading(false);
       }
@@ -208,19 +224,18 @@ const ConsultationRegister = () => {
     if (!window.confirm("Bạn có chắc muốn đăng ký buổi này?")) return;
 
     try {
-        // Gọi API đăng ký thật
-        await studentSessionApi.registerSession(uID, sessionId);
-        
-        alert("Đăng ký thành công!");
-        
-        // Cập nhật giao diện: Loại bỏ session vừa đăng ký khỏi danh sách này
-        setSessions(prev => prev.filter(s => s.id !== sessionId));
-        
-        if (isPopupOpen) setIsPopupOpen(false);
+      // Gọi API đăng ký thật
+      await studentSessionApi.registerSession(uID, sessionId);
 
+      alert("Đăng ký thành công!");
+
+      // Cập nhật giao diện: Loại bỏ session vừa đăng ký khỏi danh sách này
+      setSessions((prev) => prev.filter((s) => s.id !== sessionId));
+
+      if (isPopupOpen) setIsPopupOpen(false);
     } catch (error) {
-        console.error(error);
-        alert("Đăng ký thất bại! Vui lòng thử lại.");
+      console.error(error);
+      alert("Đăng ký thất bại! Vui lòng thử lại.");
     }
   };
 
@@ -244,7 +259,6 @@ const ConsultationRegister = () => {
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 min-h-[600px]">
-        
         {/* LOADING */}
         {loading && (
           <div className="flex justify-center items-center min-h-[300px]">
@@ -421,7 +435,8 @@ const ConsultationRegister = () => {
                           </p>
                           <p className="flex items-center gap-1.5">
                             <Clock size={14} className="text-gray-500" />
-                            {session.startTime} - {session.endTime} ({session.duration} phút)
+                            {session.startTime} - {session.endTime} (
+                            {session.duration} phút)
                           </p>
                         </div>
                       </div>
@@ -435,13 +450,13 @@ const ConsultationRegister = () => {
                       >
                         Xem thêm
                       </button>
-                      
+
                       {/* Nút Đăng Ký luôn hiện vì đây là list chưa đăng ký */}
                       <button
-                          onClick={() => handleRegister(session.id)}
-                          className="bg-black hover:bg-gray-800 text-white text-xs font-bold px-4 py-2 rounded transition-colors"
+                        onClick={() => handleRegister(session.id)}
+                        className="bg-black hover:bg-gray-800 text-white text-xs font-bold px-4 py-2 rounded transition-colors"
                       >
-                          Đăng ký
+                        Đăng ký
                       </button>
                     </div>
                   </div>
@@ -453,7 +468,9 @@ const ConsultationRegister = () => {
             {totalPages > 1 && (
               <div className="flex items-center justify-center gap-2 pt-4 border-t border-gray-200">
                 <button
-                  onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(1, prev - 1))
+                  }
                   disabled={currentPage === 1}
                   className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
