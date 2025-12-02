@@ -55,7 +55,8 @@
         "name": "Session 3",
         "tutor": "t_00003",
         "students": [
-            "2312185"
+            "2312185",
+            "2312329"
         ],
         "date": "2025-10-18",
         "time": "13:00",
@@ -73,7 +74,9 @@
         "session_id": "ss4",
         "name": "Sample Session test 4",
         "tutor": "t_00002",
-        "students": [],
+        "students": [
+            "2312329"
+        ],
         "date": "2025-11-29",
         "time": "14:00",
         "duration": 1500,

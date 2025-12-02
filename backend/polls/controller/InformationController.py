@@ -78,35 +78,47 @@ class InformationController(BaseController):
         return uid_str, user
     
     # student/<stu_id>/tutors/
-    # get tutors list for student
-    def getTutorListForStudent(self, student_id: str, page: int = 1, filter_by: int = UserFilter.NOT_SET, keyword: str = "") -> list[dict]:
+    # get tutors list for student (return all tutors with filter)
+    # filter_status: "all", "registered", "unregistered"
+    # keyword: search by name or major
+    def getTutorListForStudent(self, student_id: str, filter_status: str = "all", keyword: str = "") -> list[dict]:
         users = self.readUser() or {}
         
         student = users.get(student_id)
         if (student is None):
             return []
         
-        tutors = []
+        # lấy tất cả tutors
+        all_tutors = []
         for key, value in users.items():
             if value.get("role") == "tutor":
-                tutors.append({key: value})
-
-        student_demand = student.get("demand")
-        matched_tutors = []
-        for tutor in tutors:
-            for key, value in tutor.items():
-                strengths = value.get("strength")
-                if (set(strengths) & set(student_demand)):
-                    # print(key)
-                    # print(strengths)
-                    registered = False
-                    if key in student.get("tutor"):
-                        registered = True
-                    to_return_value = value.copy()
-                    to_return_value["registered"] = registered
-                    to_return_value["id"] = key
-                    matched_tutors.append(to_return_value)
+                # kiểm tra xem tutor đã được đăng ký chưa
+                registered = False
+                if key in student.get("tutor", []):
+                    registered = True
                 
-        # return {}\
-        # print(matched_tutors)
-        return matched_tutors
+                to_return_value = value.copy()
+                to_return_value["registered"] = registered
+                to_return_value["id"] = key
+                all_tutors.append(to_return_value)
+        
+        # filter theo registered status
+        filtered_tutors = []
+        for tutor in all_tutors:
+            # filter theo status
+            if filter_status == "registered" and not tutor.get("registered"):
+                continue
+            if filter_status == "unregistered" and tutor.get("registered"):
+                continue
+            
+            # filter theo keyword (tìm trong name và major)
+            if keyword:
+                keyword_lower = keyword.lower()
+                name_match = keyword_lower in tutor.get("name", "").lower()
+                major_match = keyword_lower in tutor.get("major", "").lower()
+                if not (name_match or major_match):
+                    continue
+            
+            filtered_tutors.append(tutor)
+                
+        return filtered_tutors

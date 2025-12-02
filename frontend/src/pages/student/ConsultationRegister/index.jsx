@@ -29,9 +29,8 @@ const calculateEndTime = (startTime, durationMinutes) => {
 const convertDateToDisplay = (dateStr) => {
   if (!dateStr) return "";
   const date = new Date(dateStr);
-  return `Thứ ${date.getDay() + 1}, ${date.getDate()}/${
-    date.getMonth() + 1
-  }/${date.getFullYear()}`;
+  return `Thứ ${date.getDay() + 1}, ${date.getDate()}/${date.getMonth() + 1
+    }/${date.getFullYear()}`;
 };
 
 const ConsultationRegister = () => {
@@ -58,27 +57,38 @@ const ConsultationRegister = () => {
   const tutorRef = useRef(null);
   const itemsPerPage = 4;
 
-  // Extract tutors dynamically from sessions data
-  const getTutorsList = () => {
-    const tutorMap = new Map();
-    sessions.forEach((session) => {
-      if (session.tutor) {
-        const tutorId =
-          typeof session.tutor === "object" ? session.tutor.id : session.tutor;
-        const tutorName =
-          typeof session.tutor === "object"
-            ? session.tutor.name
-            : session.tutor;
-        const tutorDisplay = `${tutorName} (${tutorId})`;
-        if (!tutorMap.has(tutorId)) {
-          tutorMap.set(tutorId, tutorDisplay);
-        }
-      }
-    });
-    return ["Tất cả", ...Array.from(tutorMap.values()).sort()];
-  };
+  const [tutors, setTutors] = useState(['Tất cả']);
 
-  const tutors = getTutorsList(); // --- 2. FETCH DATA TỪ BACKEND ---
+  // Fetch all tutors once on mount (independent of filtered sessions)
+  useEffect(() => {
+    const fetchAllTutors = async () => {
+      if (!uID) return;
+
+      try {
+        // Fetch all unregistered sessions to get tutor list
+        const result = await studentSessionApi.getUnregisterSession(uID);
+
+        if (result.sessions && typeof result.sessions === 'object') {
+          const tutorMap = new Map();
+          Object.values(result.sessions).forEach((session) => {
+            if (session.tutor) {
+              const tutorId = typeof session.tutor === 'object' ? session.tutor.id : session.tutor;
+              const tutorName = typeof session.tutor === 'object' ? session.tutor.name : session.tutor;
+              const tutorDisplay = `${tutorName} (${tutorId})`;
+              if (!tutorMap.has(tutorId)) {
+                tutorMap.set(tutorId, tutorDisplay);
+              }
+            }
+          });
+          setTutors(['Tất cả', ...Array.from(tutorMap.values()).sort()]);
+        }
+      } catch (error) {
+        console.error('Error fetching tutors:', error);
+      }
+    };
+
+    fetchAllTutors();
+  }, [uID]);
   useEffect(() => {
     const fetchSessions = async () => {
       try {
@@ -150,11 +160,19 @@ const ConsultationRegister = () => {
   const getProcessedSessions = () => {
     let processed = [...sessions];
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    processed = processed.filter((s) => {
+      const sessionDate = new Date(s.date);
+      sessionDate.setHours(0, 0, 0, 0);
+      return sessionDate >= today;
+    });
+
     // Filter by tab
     switch (activeTab) {
       case "Hôm nay":
-        const today = new Date().toISOString().split("T")[0];
-        processed = processed.filter((s) => s.date === today);
+        const todayStr = new Date().toISOString().split("T")[0];
+        processed = processed.filter((s) => s.date === todayStr);
         break;
       case "Tuần này":
         const now = new Date();
@@ -230,17 +248,14 @@ const ConsultationRegister = () => {
     duration: "Sort by duration",
   };
 
-  // --- 5. XỬ LÝ ĐĂNG KÝ (GỌI API) ---
+  // 5. XỬ LÝ ĐĂNG KÝ 
   const handleRegister = async (sessionId) => {
     if (!window.confirm("Bạn có chắc muốn đăng ký buổi này?")) return;
 
     try {
-      // Gọi API đăng ký thật
       await studentSessionApi.registerSession(uID, sessionId);
-
       alert("Đăng ký thành công!");
 
-      // Cập nhật giao diện: Loại bỏ session vừa đăng ký khỏi danh sách này
       setSessions((prev) => prev.filter((s) => s.id !== sessionId));
 
       if (isPopupOpen) setIsPopupOpen(false);
@@ -308,11 +323,10 @@ const ConsultationRegister = () => {
                     setActiveTab(tab);
                     setCurrentPage(1);
                   }}
-                  className={`px-4 py-1.5 rounded text-xs font-bold transition-all ${
-                    activeTab === tab
-                      ? "bg-[#dbeafe] text-gray-800"
-                      : "text-gray-500 hover:bg-gray-100"
-                  }`}
+                  className={`px-4 py-1.5 rounded text-xs font-bold transition-all ${activeTab === tab
+                    ? "bg-[#dbeafe] text-gray-800"
+                    : "text-gray-500 hover:bg-gray-100"
+                    }`}
                 >
                   {tab}
                 </button>
@@ -330,9 +344,8 @@ const ConsultationRegister = () => {
                   <span>{selectedTutor}</span>
                   <ChevronDown
                     size={14}
-                    className={`transition-transform ${
-                      isTutorOpen ? "rotate-180" : ""
-                    }`}
+                    className={`transition-transform ${isTutorOpen ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
 
@@ -367,9 +380,8 @@ const ConsultationRegister = () => {
                   <span>{sortLabels[sortOption]}</span>
                   <ChevronDown
                     size={14}
-                    className={`transition-transform ${
-                      isSortOpen ? "rotate-180" : ""
-                    }`}
+                    className={`transition-transform ${isSortOpen ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
 
@@ -507,11 +519,10 @@ const ConsultationRegister = () => {
                       <button
                         key={pageNum}
                         onClick={() => setCurrentPage(pageNum)}
-                        className={`px-3 py-1.5 text-sm rounded transition-colors ${
-                          currentPage === pageNum
-                            ? "bg-blue-600 text-white font-semibold"
-                            : "text-gray-600 hover:bg-gray-100"
-                        }`}
+                        className={`px-3 py-1.5 text-sm rounded transition-colors ${currentPage === pageNum
+                          ? "bg-blue-600 text-white font-semibold"
+                          : "text-gray-600 hover:bg-gray-100"
+                          }`}
                       >
                         {pageNum}
                       </button>

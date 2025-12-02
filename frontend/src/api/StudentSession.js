@@ -3,101 +3,113 @@
 const BASE_URL = 'http://127.0.0.1:8000';
 
 export const studentSessionApi = {
-    getRegisteredSession: async (uID) => {
+    getRegisteredSession: async (uID, filters = {}) => {
         try {
-            const response = await fetch(`${BASE_URL}/student/${uID}/sessions/registered`, {
+            // Build query parameters
+            const params = new URLSearchParams();
+
+            if (filters.status) params.append('status', filters.status);
+            if (filters.month) params.append('month', 'true');
+            if (filters.tutor && filters.tutor !== 'Tất cả') params.append('tutor', filters.tutor);
+            if (filters.search) params.append('search', filters.search);
+            if (filters.sort) params.append('sort', filters.sort);
+
+            const queryString = params.toString();
+            const url = `${BASE_URL}/student/${uID}/sessions/registered${queryString ? '?' + queryString : ''}`;
+
+            const response = await fetch(url, {
                 method: 'GET',
-                headers: {'Content-Type': 'application/json'}
+                headers: { 'Content-Type': 'application/json' }
             });
             const rawData = await response.json();
 
-            const sessionsDict = rawData.sessions || rawData; 
+            const sessionsDict = rawData.sessions || rawData;
 
             const dataArray = Object.entries(sessionsDict).map(([key, value]) => {
 
                 if (typeof value !== 'object' || value === null) return null;
-                
+
                 return {
                     ...value,        // Lấy hết name, time, duration...
                     session_id: key  // Lấy key "ss2" gán vào biến session_id
                 };
-            }).filter(item => item !== null); 
+            }).filter(item => item !== null);
             return dataArray.map(item => ({
-                id: item.session_id,           
-                title: item.name,              
+                id: item.session_id,
+                title: item.name,
                 tutor: item.tutor,
                 date: item.date,
                 displayDate: convertDateToDisplay(item.date),
-                
-                startTime: item.time,          
-                endTime: calculateEndTime(item.time, item.duration), 
-                duration: (item.duration || 0) + " phút", 
-                
-                status: item.status, 
+
+                startTime: item.time,
+                endTime: calculateEndTime(item.time, item.duration),
+                duration: (item.duration || 0) + " phút",
+
+                status: item.status,
                 location: item.address,
                 meetLink: item.link,
                 description: item.description,
                 note: item.note,
                 files: []
             }));
-            
+
 
         } catch (error) {
-        console.error("Lỗi API:", error);
-        return []; 
+            console.error("Lỗi API:", error);
+            return [];
         }
     },
 
     getSessionById: async (uID, id) => {
         try {
-        const response = await fetch(`${BASE_URL}/student/${uID}/sessions/registered/${id}/`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        if (!response.ok) throw new Error('Không tìm thấy');
-        
-        const rootData = await response.json();
-        // Backend trả về: { session: {...data...}, message: "..." }
-        const item = rootData.session; // <--- LẤY ĐÚNG CÁI NÀY
-        console.log("Item", item)
-        // Map sang Frontend
-        return {
-            id: item.session_id,
-            tutor: item.tutor, // id
-            title: item.name,
-            date: item.date,
-            displayDate: convertDateToDisplay(item.date),
-            startTime: item.time,
-            endTime: calculateEndTime(item.time, item.duration),
-            duration: item.duration + " phút",
-            status: item.status,
-            isOnline: item.online,
-            location: item.address,
-            meetLink: item.link,
-            description: item.description,
-            note: item.note,
-            files: item.document
-        };
+            const response = await fetch(`${BASE_URL}/student/${uID}/sessions/registered/${id}/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (!response.ok) throw new Error('Không tìm thấy');
+
+            const rootData = await response.json();
+            // Backend trả về: { session: {...data...}, message: "..." }
+            const item = rootData.session; // <--- LẤY ĐÚNG CÁI NÀY
+            console.log("Item", item)
+            // Map sang Frontend
+            return {
+                id: item.session_id,
+                tutor: item.tutor, // id
+                title: item.name,
+                date: item.date,
+                displayDate: convertDateToDisplay(item.date),
+                startTime: item.time,
+                endTime: calculateEndTime(item.time, item.duration),
+                duration: item.duration + " phút",
+                status: item.status,
+                isOnline: item.online,
+                location: item.address,
+                meetLink: item.link,
+                description: item.description,
+                note: item.note,
+                files: item.document
+            };
         } catch (error) {
-        console.error("Lỗi getSessionById:", error);
-        throw error;
+            console.error("Lỗi getSessionById:", error);
+            throw error;
         }
     },
 
     deleteSession: async (uID, id) => {
         try {
             const response = await fetch(`${BASE_URL}/student/${uID}/sessions/registered/${id}/`, {
-            method: 'DELETE',
+                method: 'DELETE',
             });
-        
+
             if (!response.ok) throw new Error('Lỗi khi xóa');
             return true;
         } catch (error) {
             throw error;
         }
-    }, 
+    },
 
     getSessionDetail: async (uID, session_id) => {
         const response = await fetch(`${BASE_URL}/student/${uID}/sessions/registered/${session_id}`, {
@@ -141,25 +153,25 @@ export const studentSessionApi = {
 
     getUnregisterSession: async (studentId) => {
         try {
-        const response = await fetch(
-            `${BASE_URL}/student/${studentId}/sessions/register/`,
-            {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            const response = await fetch(
+                `${BASE_URL}/student/${studentId}/sessions/register/`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
-        );
 
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        return data; // { sessions: {...}, count: N }
+            const data = await response.json();
+            return data; // { sessions: {...}, count: N }
         } catch (error) {
-        console.error("Error fetching unregistered sessions:", error);
-        throw error;
+            console.error("Error fetching unregistered sessions:", error);
+            throw error;
         }
     },
 
@@ -196,7 +208,7 @@ const calculateEndTime = (startTime, durationMinutes) => {
 };
 
 const convertDateToDisplay = (dateStr) => {
-    if(!dateStr) return "";
+    if (!dateStr) return "";
     const date = new Date(dateStr);
     return `Thứ ${date.getDay() + 1}, ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 };

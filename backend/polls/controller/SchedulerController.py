@@ -161,6 +161,68 @@ class SchedulerController(BaseController):
         """Lấy tất cả các buổi học mà student đã đăng ký theo student_id"""
         return [ss for ss in self.all_sessions if student_id in (ss.students or [])]
 
+    def get_sessions_registered_by_student_filtered(
+        self, 
+        student_id: str, 
+        status_filter: int = None,
+        month_filter: bool = False,
+        tutor_name: str = None,
+        search_keyword: str = "",
+        sort_by: str = "date"
+    ) -> list[Session]:
+        """
+        Get registered sessions with filters
+        - status_filter: 2 (finished), 3 (upcoming), None (all)
+        - month_filter: True to filter by current month
+        - tutor_name: filter by tutor name (pass 'Tất cả' to skip)
+        - search_keyword: search in session title
+        - sort_by: 'date', 'title', or 'duration'
+        """
+        # get all registered sessions
+        filtered_sessions = self.get_sessions_registered_by_student(student_id)
+        
+        # apply status filter
+        if status_filter is not None:
+            filtered_sessions = [ss for ss in filtered_sessions if ss.status == status_filter]
+        
+        # apply month filter
+        if month_filter:
+            current_date = datetime.now()
+            current_month = current_date.month
+            current_year = current_date.year
+            filtered_sessions = [
+                ss for ss in filtered_sessions 
+                if ss.date and datetime.strptime(ss.date, "%Y-%m-%d").month == current_month 
+                and datetime.strptime(ss.date, "%Y-%m-%d").year == current_year
+            ]
+        
+        # apply tutor name filter
+        if tutor_name and tutor_name != 'Tất cả':
+            # get tutor info for each session to match by name
+            filtered_with_tutor = []
+            for ss in filtered_sessions:
+                tutor_info = self.infoController.readUser().get(ss.tutor, {})
+                if tutor_info.get('name', '') == tutor_name:
+                    filtered_with_tutor.append(ss)
+            filtered_sessions = filtered_with_tutor
+        
+        # apply search keyword
+        if search_keyword:
+            filtered_sessions = [
+                ss for ss in filtered_sessions 
+                if search_keyword.lower() in ss.name.lower()
+            ]
+        
+        # apply sorting
+        if sort_by == 'title':
+            filtered_sessions.sort(key=lambda x: x.name)
+        elif sort_by == 'duration':
+            filtered_sessions.sort(key=lambda x: x.duration, reverse=True)
+        else:  # default: date
+            filtered_sessions.sort(key=lambda x: x.date, reverse=True)
+        
+        return filtered_sessions
+
     def register_student_to_session(self, student_id: str, session_id: str) -> tuple[bool, str]:
         """Sinh viên đăng ký tham gia buổi học"""
         ss = self.getSessionById(session_id)

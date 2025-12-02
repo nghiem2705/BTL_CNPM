@@ -38,13 +38,27 @@ class InformationView(BaseView):
     # Xem thông tin cá nhân GET: /tutor/information?uID=<tutor_id>
     # Lấy danh sách sinh viên theo tutor GET: /tutor/<tutor_id>/students
     # Lấy danh sách tutor hệ thống đề xuất cho sinh viên GET: /student/<student_id>/tutors
-    def get(self, request, user_id=None) -> Response:
+    def get(self, request, user_id=None, tutor_id=None, student_id=None) -> Response:
         path = request.path
+        
+        # GET profile: /tutor/<id>/information/ OR /student/<id>/information/
+        if path.endswith('/information/'):
+            target_id = tutor_id if tutor_id else student_id
+            if target_id:
+                profile = self.controller.readUser().get(target_id)
+                if profile:
+                    return Response({"success": True, "profile": profile})
+                return Response({"success": False, "message": "User not found"}, status=404)
+            return Response({"message": "Missing user id parameter"}, status=400)
+        
         if user_id:
             if path.endswith('/tutors/'): #
-                tutors = self.controller.getTutorListForStudent(user_id)
-                # print(tutors)
-                return Response({"tutors": tutors, "message": f"Returned {len(tutors)} tutors recommended for {user_id}"})
+                # Lấy filter parameters từ query string
+                filter_status = request.GET.get('filter_status', 'all')  # all, registered, unregistered
+                keyword = request.GET.get('keyword', '')  # search keyword
+                
+                tutors = self.controller.getTutorListForStudent(user_id, filter_status, keyword)
+                return Response({"tutors": tutors, "message": f"Returned {len(tutors)} tutors for {user_id}"})
 
             if path.endswith('/students/'):
                 students = self.controller.getStudentsOfTutor(user_id)
@@ -55,14 +69,22 @@ class InformationView(BaseView):
 
     # Chỉnh sửa thông tin cá nhân
     # PUT: update existing profile
-    # endpoint: /tutor/information/<uID>
-    def put(self, request, uID) -> Response:
-        data = getattr(request, 'data', None)
+    # endpoint: /tutor/information/<uID>/
+    def put(self, request, uID=None, tutor_id=None, student_id=None) -> Response:
+        data = request.data
         if not data:
             return Response({"message": "Missing body"}, status=status.HTTP_400_BAD_REQUEST)
-        success = self.controller.updateProfile(uID, data)
+        
+        # Determine target_id
+        target_id = tutor_id if tutor_id else (student_id if student_id else uID)
+
+        success = self.controller.updateProfile(target_id, data)
+        
         if success:
-            return Response({"message": f"Updated {uID}"})
-        if not success:
-            return Response({"message": f"User {uID} not found or update failed"}, status=404)
-        return Response({"message": f"Failed to update {uID}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            # Return updated profile data
+            updated_profile = self.controller.readUser().get(target_id)
+            if updated_profile:
+                return Response({"success": True, "message": f"Updated {target_id}", "profile": updated_profile})
+            return Response({"success": True, "message": f"Updated {target_id}"})
+        
+        return Response({"success": False, "message": f"User {target_id} not found or update failed"}, status=404)

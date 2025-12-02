@@ -17,7 +17,7 @@ class SchedulerView(BaseView):
         
         # Student get registered session
         if path.endswith('/sessions/registered/') and student_id != None:
-            return self._handle_get_student_registered(student_id)
+            return self._handle_get_student_registered(request, student_id)
         
         # Student get registered session
         if path.endswith('/sessions/register/') and student_id != None:
@@ -91,12 +91,38 @@ class SchedulerView(BaseView):
         return Response({"sessions": data, "count": len(sessions)})
 
     # /student/sessions/registered/ --> get all sessions registered by student_id
-    def _handle_get_student_registered(self, student_id) -> Response:
-        # student_id = request.query_params.get('student_id')
+    def _handle_get_student_registered(self, request, student_id) -> Response:
         if not student_id:
             return Response({"error": "Missing student_id"}, status=status.HTTP_400_BAD_REQUEST)
-        sessions = self.controller.get_sessions_registered_by_student(student_id)
-        data = {ss.session_id: ss.to_dictionary(has_status=True) for ss in sessions}
+        
+        # Extract query parameters for filtering and sorting
+        status_filter = request.query_params.get('status')
+        if status_filter:
+            status_filter = int(status_filter)
+        
+        month_filter = request.query_params.get('month') == 'true'
+        tutor_name = request.query_params.get('tutor', 'Tất cả')
+        search = request.query_params.get('search', '')
+        sort_by = request.query_params.get('sort', 'date')
+        
+        # Call controller with filters
+        sessions = self.controller.get_sessions_registered_by_student_filtered(
+            student_id, status_filter, month_filter, tutor_name, search, sort_by
+        )
+        
+        # Map sessions with tutor info (like in _handle_get_student_unregistered)
+        data = {}
+        for ss in sessions:
+            session_dict = ss.to_dictionary(has_status=True)
+            # Get tutor info
+            tutor_id = ss.tutor
+            tutor_info = self.controller.infoController.readUser().get(tutor_id, {})
+            session_dict['tutor'] = {
+                'id': tutor_id,
+                'name': tutor_info.get('name', tutor_id)
+            }
+            data[ss.session_id] = session_dict
+        
         return Response({"sessions": data,  "count": len(sessions)})
 
     # /sessions/<str:session_id>/ --> get session detail

@@ -8,7 +8,7 @@ import {
     User
 } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate , useParams} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 // import { mockRegisteredSessions } from '../../../api/mock-data';
 import { studentSessionApi } from '../../../api/StudentSession';
 
@@ -28,10 +28,10 @@ const Consultation = () => {
     const sortRef = useRef(null);
     const tutorRef = useRef(null);
     const itemsPerPage = 4;
-    const {uID} = useParams();
+    const { uID } = useParams();
 
-    // Available tutors
-    const tutors = ['Tất cả', 'Nguyễn Văn B', 'Nguyễn Văn C'];
+    // Available tutors - dynamically populated from sessions
+    const [tutors, setTutors] = useState(['Tất cả']);
 
     // Close dropdowns when clicking outside
     useEffect(() => {
@@ -47,16 +47,45 @@ const Consultation = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // THÊM DATA BẰNG USEEFFECT NHA 
+    // Fetch all tutors once on mount (unfiltered) for dropdown
+    useEffect(() => {
+        const fetchAllTutors = async () => {
+            if (!uID) return;
+
+            try {
+                // Fetch without any filters to get ALL tutors
+                const allData = await studentSessionApi.getRegisteredSession(uID, {});
+                const uniqueTutorNames = [...new Set(allData.map(session => session.tutor.name).filter(Boolean))];
+                setTutors(['Tất cả', ...uniqueTutorNames.sort()]);
+            } catch (error) {
+                console.error("Lỗi khi lấy danh sách tutors:", error);
+            }
+        };
+
+        fetchAllTutors();
+    }, [uID]); // Only run once when uID changes
+
+    // Fetch data from backend whenever filters change
     useEffect(() => {
         const fetchStudentData = async () => {
-            if (!uID) return; // Nếu chưa có ID thì khoan chạy
-            
+            if (!uID) return;
+
             try {
                 setLoading(true);
-                // Gọi hàm dành riêng cho Student vừa viết ở api/index.js
-                const data = await studentSessionApi.getRegisteredSession(uID);
+
+                // Build filters object
+                const filters = {
+                    status: activeTab === 'Đã kết thúc' ? 2 : activeTab === 'Sắp diễn ra' ? 3 : null,
+                    month: activeTab === 'Tháng này',
+                    tutor: selectedTutor,
+                    search: searchText,
+                    sort: sortOption
+                };
+
+                const data = await studentSessionApi.getRegisteredSession(uID, filters);
                 setSessions(data);
+
+                setCurrentPage(1); // Reset to first page when filters change
             } catch (error) {
                 console.error("Lỗi:", error);
             } finally {
@@ -65,65 +94,12 @@ const Consultation = () => {
         };
 
         fetchStudentData();
-    }, [uID]);
+    }, [uID, activeTab, selectedTutor, searchText, sortOption]);
 
-    // Process sessions with filters
-    const getProcessedSessions = () => {
-        let processed = [...sessions];
-
-        // Filter by tab
-        switch (activeTab) {
-            case 'Đã kết thúc':
-                processed = processed.filter(s => s.status === 2);
-                break;
-            case 'Sắp diễn ra':
-                processed = processed.filter(s => s.status === 3);
-                break;
-            case 'Tháng này':
-                const currentMonth = new Date().getMonth();
-                const currentYear = new Date().getFullYear();
-                processed = processed.filter(s => {
-                    const sessionDate = new Date(s.date);
-                    return sessionDate.getMonth() === currentMonth && sessionDate.getFullYear() === currentYear;
-                });
-                break;
-            case 'Tất cả':
-            default:
-                break;
-        }
-
-        // Filter by tutor
-        if (selectedTutor !== 'Tất cả') {
-            processed = processed.filter(s => s.tutor.name === selectedTutor);
-        }
-
-        // Search
-        if (searchText) {
-            processed = processed.filter(s =>
-                s.title.toLowerCase().includes(searchText.toLowerCase())
-            );
-        }
-
-        // Sort
-        processed.sort((a, b) => {
-            switch (sortOption) {
-                case 'title':
-                    return a.title.localeCompare(b.title);
-                case 'duration':
-                    return parseInt(b.duration) - parseInt(a.duration);
-                case 'date':
-                default:
-                    return new Date(b.date) - new Date(a.date);
-            }
-        });
-
-        return processed;
-    };
-
-    const filteredSessions = getProcessedSessions();
-    const totalPages = Math.ceil(filteredSessions.length / itemsPerPage);
+    // Sessions are now filtered from backend, so we just paginate
+    const totalPages = Math.ceil(sessions.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const displayedSessions = filteredSessions.slice(startIndex, startIndex + itemsPerPage);
+    const displayedSessions = sessions.slice(startIndex, startIndex + itemsPerPage);
 
     // Sort labels
     const sortLabels = {
@@ -137,11 +113,11 @@ const Consultation = () => {
         // if (window.confirm('Bạn có chắc chắn muốn hủy buổi tư vấn này?')) {
         //     setSessions(FormData.filter(s => s.id !== id));
         // }
-        e.stopPropagation(); 
-        
+        e.stopPropagation();
+
         if (window.confirm(`Bạn có chắc chắn muốn hủy buổi: "${title}"?`)) {
             try {
-                await studentSessionApi.deleteSession(uID, id); 
+                await studentSessionApi.deleteSession(uID, id);
                 setSessions(prev => prev.filter(item => item.id !== id));
                 alert("Đã hủy buổi thành công!");
             } catch (error) {
@@ -315,24 +291,27 @@ const Consultation = () => {
                                         >
                                             Xem chi tiết
                                         </button>
-                                        {session.status === 'finished' ? (
-                                            <button
-                                                className="bg-gray-600 hover:bg-gray-700 text-white text-xs font-bold px-4 py-2 rounded transition-colors"
-                                                disabled
-                                            >
-                                                Đã kết thúc
-                                            </button>
-                                        ) : (
-                                            <button
-                                                onClick={(e) => handleCancel(e, uID, session.id, session.title)}
-                                                className="bg-gray-600 hover:bg-gray-700 text-white text-xs font-bold px-4 py-2 rounded transition-colors"
-                                            >
-                                                Hủy buổi
-                                            </button>
-                                        )}
+
+                                        {/* Hủy buổi button - enabled only for status 3 (COMING_SOON) */}
+                                        <button
+                                            onClick={(e) => handleCancel(e, uID, session.id, session.title)}
+                                            disabled={session.status !== 3}
+                                            className={`text-xs font-bold px-4 py-2 rounded transition-colors ${session.status === 3
+                                                    ? 'bg-gray-600 hover:bg-gray-700 text-white cursor-pointer'
+                                                    : 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-50'
+                                                }`}
+                                        >
+                                            Hủy buổi
+                                        </button>
+
+                                        {/* Đánh giá button - enabled only for status 2 (COMPLETED) */}
                                         <button
                                             onClick={() => handleEvaluate(session.id)}
-                                            className="bg-gray-300 hover:bg-gray-400 text-gray-700 text-xs font-bold px-4 py-2 rounded transition-colors flex items-center gap-1"
+                                            disabled={session.status !== 2}
+                                            className={`text-xs font-bold px-4 py-2 rounded transition-colors flex items-center gap-1 ${session.status === 2
+                                                    ? 'bg-gray-300 hover:bg-gray-400 text-gray-700 cursor-pointer'
+                                                    : 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50'
+                                                }`}
                                         >
                                             <Star size={14} />
                                             Đánh giá

@@ -13,32 +13,19 @@ export default function Tutors() {
   const { uID } = useParams()
   const [tutors, setTutors] = useState([]);
 
-  // fetch data
+  // fetch data - Gọi lại API khi filter thay đổi
   useEffect(() => {
-    const fetchRecommendedTutors = async (student_id) => {
+    const fetchRecommendedTutors = async (student_id, filterStatus, keyword) => {
       try {
-        const data = await studentTutorApi.getRecommendedTutor(student_id); 
-        // const mapped_data = data.map(obj => Object.values(obj)[0]);
+        const data = await studentTutorApi.getRecommendedTutor(student_id, filterStatus, keyword);
         console.log(data)
         setTutors(data);
       } catch (error) {
         console.error("Lỗi tải danh sách:", error);
       }
-    }; 
-    fetchRecommendedTutors(uID);
-  }, [uID]);
-
-  // ??
-  const filtered = tutors.filter(t => {
-    const matchesSearch =
-      t.name.toLowerCase().includes(search.toLowerCase()) ||
-      t.major.toLowerCase().includes(search.toLowerCase());
-
-    if (activeTab === "registered") return t.registered && matchesSearch;
-    if (activeTab === "unregistered") return !t.registered && matchesSearch;
-
-    return matchesSearch// all
-  });
+    };
+    fetchRecommendedTutors(uID, activeTab, search);
+  }, [uID, activeTab, search]); // Re-fetch khi filter thay đổi
 
   // show tutor card
   return (
@@ -46,12 +33,12 @@ export default function Tutors() {
       {/* Header row */}
       <div className="flex justify-between items-center mb-4">
         <TabsFilter active={activeTab} onChange={setActiveTab} />
-        <SummaryBox count={filtered.length} />
+        <SummaryBox count={tutors.length} />
       </div>
 
       <SearchBar value={search} onChange={setSearch} />
 
-      <TutorGrid tutors={filtered} />
+      <TutorGrid tutors={tutors} />
     </div>
   );
 }
