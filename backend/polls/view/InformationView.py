@@ -18,7 +18,9 @@ class InformationView(BaseView):
             return Response({"message": "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu"}, 
                 status=status.HTTP_400_BAD_REQUEST
             )
-        uid, user = self.controller.authenticate(username, password, role)
+        
+        uid, user, error_type = self.controller.authenticate(username, password, role)
+        
         if user:
             return Response({
                 "success": True,
@@ -28,9 +30,16 @@ class InformationView(BaseView):
                 "user": user           
             }, status=status.HTTP_200_OK)
         else:
+            # Provide specific error messages
+            error_messages = {
+                "user_not_found": "Tên đăng nhập không tồn tại!",
+                "wrong_password": "Mật khẩu không đúng!"
+            }
+            message = error_messages.get(error_type, "Sai tên đăng nhập hoặc mật khẩu!")
+            
             return Response({
                 "success": False,
-                "message": "Sai tên đăng nhập, mật khẩu hoặc vai trò không đúng!"
+                "message": message
             }, status=status.HTTP_401_UNAUTHORIZED)
 
 

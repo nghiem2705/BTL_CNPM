@@ -15,6 +15,7 @@ import { useParams } from "react-router-dom";
 import { studentSessionApi } from "../../../api/StudentSession";
 import { mockSessionsRegister } from "../../../api/mock-data"; // Giữ lại làm fallback nếu cần
 import ViewMorePopup from "../../../components/ViewMorePopup";
+import { formatApiError } from "../../../utils/validation";
 
 // --- 1. HÀM HỖ TRỢ TÍNH TOÁN THỜI GIAN (THÊM MỚI) ---
 const calculateEndTime = (startTime, durationMinutes) => {
@@ -29,8 +30,9 @@ const calculateEndTime = (startTime, durationMinutes) => {
 const convertDateToDisplay = (dateStr) => {
   if (!dateStr) return "";
   const date = new Date(dateStr);
-  return `Thứ ${date.getDay() + 1}, ${date.getDate()}/${date.getMonth() + 1
-    }/${date.getFullYear()}`;
+  return `Thứ ${date.getDay() + 1}, ${date.getDate()}/${
+    date.getMonth() + 1
+  }/${date.getFullYear()}`;
 };
 
 const ConsultationRegister = () => {
@@ -57,7 +59,7 @@ const ConsultationRegister = () => {
   const tutorRef = useRef(null);
   const itemsPerPage = 4;
 
-  const [tutors, setTutors] = useState(['Tất cả']);
+  const [tutors, setTutors] = useState(["Tất cả"]);
 
   // Fetch all tutors once on mount (independent of filtered sessions)
   useEffect(() => {
@@ -68,22 +70,28 @@ const ConsultationRegister = () => {
         // Fetch all unregistered sessions to get tutor list
         const result = await studentSessionApi.getUnregisterSession(uID);
 
-        if (result.sessions && typeof result.sessions === 'object') {
+        if (result.sessions && typeof result.sessions === "object") {
           const tutorMap = new Map();
           Object.values(result.sessions).forEach((session) => {
             if (session.tutor) {
-              const tutorId = typeof session.tutor === 'object' ? session.tutor.id : session.tutor;
-              const tutorName = typeof session.tutor === 'object' ? session.tutor.name : session.tutor;
+              const tutorId =
+                typeof session.tutor === "object"
+                  ? session.tutor.id
+                  : session.tutor;
+              const tutorName =
+                typeof session.tutor === "object"
+                  ? session.tutor.name
+                  : session.tutor;
               const tutorDisplay = `${tutorName} (${tutorId})`;
               if (!tutorMap.has(tutorId)) {
                 tutorMap.set(tutorId, tutorDisplay);
               }
             }
           });
-          setTutors(['Tất cả', ...Array.from(tutorMap.values()).sort()]);
+          setTutors(["Tất cả", ...Array.from(tutorMap.values()).sort()]);
         }
       } catch (error) {
-        console.error('Error fetching tutors:', error);
+        console.error("Error fetching tutors:", error);
       }
     };
 
@@ -248,11 +256,12 @@ const ConsultationRegister = () => {
     duration: "Sort by duration",
   };
 
-  // 5. XỬ LÝ ĐĂNG KÝ 
+  // 5. XỬ LÝ ĐĂNG KÝ
   const handleRegister = async (sessionId) => {
     if (!window.confirm("Bạn có chắc muốn đăng ký buổi này?")) return;
 
     try {
+      setLoading(true);
       await studentSessionApi.registerSession(uID, sessionId);
       alert("Đăng ký thành công!");
 
@@ -260,8 +269,11 @@ const ConsultationRegister = () => {
 
       if (isPopupOpen) setIsPopupOpen(false);
     } catch (error) {
-      console.error(error);
-      alert("Đăng ký thất bại! Vui lòng thử lại.");
+      console.error("Register error:", error);
+      const errorMessage = formatApiError(error);
+      alert("Đăng ký thất bại! " + errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -323,10 +335,11 @@ const ConsultationRegister = () => {
                     setActiveTab(tab);
                     setCurrentPage(1);
                   }}
-                  className={`px-4 py-1.5 rounded text-xs font-bold transition-all ${activeTab === tab
-                    ? "bg-[#dbeafe] text-gray-800"
-                    : "text-gray-500 hover:bg-gray-100"
-                    }`}
+                  className={`px-4 py-1.5 rounded text-xs font-bold transition-all ${
+                    activeTab === tab
+                      ? "bg-[#dbeafe] text-gray-800"
+                      : "text-gray-500 hover:bg-gray-100"
+                  }`}
                 >
                   {tab}
                 </button>
@@ -344,8 +357,9 @@ const ConsultationRegister = () => {
                   <span>{selectedTutor}</span>
                   <ChevronDown
                     size={14}
-                    className={`transition-transform ${isTutorOpen ? "rotate-180" : ""
-                      }`}
+                    className={`transition-transform ${
+                      isTutorOpen ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
 
@@ -380,8 +394,9 @@ const ConsultationRegister = () => {
                   <span>{sortLabels[sortOption]}</span>
                   <ChevronDown
                     size={14}
-                    className={`transition-transform ${isSortOpen ? "rotate-180" : ""
-                      }`}
+                    className={`transition-transform ${
+                      isSortOpen ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
 
@@ -519,10 +534,11 @@ const ConsultationRegister = () => {
                       <button
                         key={pageNum}
                         onClick={() => setCurrentPage(pageNum)}
-                        className={`px-3 py-1.5 text-sm rounded transition-colors ${currentPage === pageNum
-                          ? "bg-blue-600 text-white font-semibold"
-                          : "text-gray-600 hover:bg-gray-100"
-                          }`}
+                        className={`px-3 py-1.5 text-sm rounded transition-colors ${
+                          currentPage === pageNum
+                            ? "bg-blue-600 text-white font-semibold"
+                            : "text-gray-600 hover:bg-gray-100"
+                        }`}
                       >
                         {pageNum}
                       </button>

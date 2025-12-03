@@ -136,6 +136,9 @@ class SchedulerController(BaseController):
             # chinh no
             if session.session_id == new_session.session_id:
                 continue
+            # Khac tutor - không cần check conflict
+            if session.tutor != new_session.tutor:
+                continue
             # Khac ngay
             if session.date != new_session.date:
                 continue
@@ -232,6 +235,32 @@ class SchedulerController(BaseController):
             ss.students = []
         if student_id in ss.students:
             return False, "Already registered"
+        
+        # Check for schedule conflict with student's other sessions
+        new_start_str = ss.date + " " + ss.time
+        new_startime = datetime.strptime(new_start_str, "%Y-%m-%d %H:%M")
+        new_endtime = new_startime + timedelta(minutes=ss.duration)
+        
+        # Get all sessions already registered by this student
+        registered_sessions = self.get_sessions_registered_by_student(student_id)
+        
+        for existing_ss in registered_sessions:
+            # Skip if same session (shouldn't happen but be safe)
+            if existing_ss.session_id == session_id:
+                continue
+            # Skip if different date
+            if existing_ss.date != ss.date:
+                continue
+            
+            # Check time overlap
+            existing_start_str = existing_ss.date + " " + existing_ss.time
+            existing_start = datetime.strptime(existing_start_str, "%Y-%m-%d %H:%M")
+            existing_end = existing_start + timedelta(minutes=existing_ss.duration)
+            
+            # If there's overlap, reject registration
+            if new_startime < existing_end and existing_start < new_endtime:
+                return False, f"Trùng lịch với buổi học '{existing_ss.name}' ({existing_ss.time})"
+        
         ss.students.append(student_id)
         self.writeSession()
         

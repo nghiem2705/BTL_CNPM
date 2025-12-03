@@ -176,7 +176,7 @@ export const studentSessionApi = {
     },
 
     registerSession: async (studentId, sessionId) => {
-        console.log(studentId, sessionId);
+        console.log('Registering session:', studentId, sessionId);
         try {
             // URL: /student/sessions/register/ (phải khớp backend)
             // Backend mong đợi method POST và body gồm { student_id, session_id }
@@ -189,9 +189,13 @@ export const studentSessionApi = {
                 })
             });
 
-            if (!response.ok) throw new Error('Đăng ký thất bại');
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || errorData.error || 'Đăng ký thất bại');
+            }
             return await response.json();
         } catch (error) {
+            console.error('Register session error:', error);
             throw error;
         }
     }
