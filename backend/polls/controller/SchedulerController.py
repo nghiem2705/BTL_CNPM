@@ -276,6 +276,11 @@ class SchedulerController(BaseController):
         student_tutors.append(tutor_id)
         student["tutor"] = student_tutors
 
+        tutor_students = tutor.get("students", [])
+        if student_id not in tutor_students:
+            tutor_students.append(student_id)
+            tutor["students"] = tutor_students
+
         if not self.infoController.writeUser(users):
             return False, "Write failed"
         return True, "Followed"
@@ -300,6 +305,11 @@ class SchedulerController(BaseController):
             return False, "Not following"
         student_tutors.remove(tutor_id)
         student["tutor"] = student_tutors
+    
+        tutor_students = tutor.get("students", [])
+        if student_id in tutor_students:
+            tutor_students.remove(student_id)
+            tutor["students"] = tutor_students
 
         if not self.infoController.writeUser(users):
             return False, "Write failed"

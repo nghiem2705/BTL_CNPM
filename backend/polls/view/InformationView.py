@@ -46,14 +46,16 @@ class InformationView(BaseView):
             target_id = tutor_id if tutor_id else student_id
             if target_id:
                 profile = self.controller.readUser().get(target_id)
-                if profile:
-                    return Response({"success": True, "profile": profile})
+                if profile and student_id:
+                    return Response({"success": True, "profile": profile, "statistics": self.controller.getStatistics(student_id)})
+                if profile and tutor_id:
+                    return Response({"success": True, "profile": profile, "statistics": self.controller.getStatistics(tutor_id)})
                 return Response({"success": False, "message": "User not found"}, status=404)
-            return Response({"message": "Missing user id parameter"}, status=400)
+            return Response({"success": False, "message": "Missing user id parameter"}, status=400)
         
         if user_id:
             if path.endswith('/tutors/'): #
-                # Lấy filter parameters từ query string
+                # Lấy filter param từ query string
                 filter_status = request.GET.get('filter_status', 'all')  # all, registered, unregistered
                 keyword = request.GET.get('keyword', '')  # search keyword
                 

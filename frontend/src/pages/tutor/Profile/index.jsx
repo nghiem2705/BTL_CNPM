@@ -67,6 +67,7 @@ const TutorProfile = () => {
                     ...response.data.profile,
                     uID: currentUserId
                 });
+                setStatistics(response.data.statistics);
             } else {
                 console.error('Failed to fetch profile:', response.error);
                 // Fallback to mock data
@@ -501,7 +502,7 @@ const TutorProfile = () => {
                             {/* Completed Sessions */}
                             <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
                                 <div className="flex items-center justify-between mb-2">
-                                    <span className="text-sm font-medium text-gray-600">Đã hoàn thành</span>
+                                    <span className="text-sm font-medium text-gray-600">Đã kết thúc</span>
                                     <Award className="text-green-600" size={20} />
                                 </div>
                                 <p className="text-3xl font-bold text-gray-800">{statistics.completedSessions}</p>
@@ -542,7 +543,7 @@ const TutorProfile = () => {
                             {/* Total Hours */}
                             <div className="p-4 bg-gradient-to-br from-teal-50 to-teal-100 rounded-lg">
                                 <div className="flex items-center justify-between mb-2">
-                                    <span className="text-sm font-medium text-gray-600">Tổng giờ học</span>
+                                    <span className="text-sm font-medium text-gray-600">Tổng giờ dạy</span>
                                     <Calendar className="text-teal-600" size={20} />
                                 </div>
                                 <p className="text-3xl font-bold text-gray-800">{statistics.totalHours}h</p>

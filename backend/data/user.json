@@ -40,17 +40,18 @@
         "name": "Bùi Trọng Nguyên",
         "major": "cs",
         "rate": 4.2,
-        "mail": "nguyen.bui@gmail.com",
+        "mail": "nguyen.bui0000@gmail.com",
         "phone": "0215800130",
-        "description": "Auto generated profile.",
+        "description": "Helo",
         "demand": [
             "soft_lead",
             "cs_se"
         ],
         "strength": [],
         "tutor": [
-            "t_00002",
-            "t_00003"
+            "t_00003",
+            "t_00001",
+            "t_00002"
         ]
     },
     "2213696": {
@@ -114,18 +115,21 @@
     },
     "t_00002": {
         "role": "tutor",
-        "name": "Nguyễn Văn B",
+        "name": "Nguyễn Văn BC",
         "major": "ee",
         "rate": 4.2,
         "mail": "a@example.com",
         "phone": "0387181895",
-        "description": "Auto generated profile.",
+        "description": "Auto generated profile. KNN unsupervised",
         "demand": [],
         "strength": [
             "ee_circuit",
             "cs_algo",
             "cs_ml",
             "aa"
+        ],
+        "students": [
+            "2312329"
         ]
     },
     "t_00003": {

@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 from .BaseController import BaseController
 from polls.entity.UserEntity import *
 
@@ -7,7 +8,7 @@ class InformationController(BaseController):
 
     USER_PATH = ["data", "user.json"]
     SSO_PATH = ["data", "sso", "user.json"]
-
+    SESSION_PATH = ["data", "session.json"]
     def __init__(self):
         super().__init__()
 
@@ -21,6 +22,12 @@ class InformationController(BaseController):
     def readSSO_User(self):
         try:
             return super().readFile(self.SSO_PATH) or {}
+        except Exception:
+            return {}
+
+    def readSession(self):
+        try:
+            return super().readFile(self.SESSION_PATH) or {}
         except Exception:
             return {}
 
@@ -122,3 +129,98 @@ class InformationController(BaseController):
             filtered_tutors.append(tutor)
                 
         return filtered_tutors
+
+    def getStatistics(self, user_id: str) -> dict:
+        user = self.readUser().get(user_id)
+        if not user:
+            return {}
+        
+        statistics = {
+            "totalSessions": self.getTotalSessions(user_id),
+            "completedSessions": self.getCompletedSessions(user_id),
+            "upcomingSessions": self.getTotalSessions(user_id) - self.getCompletedSessions(user_id),
+            "totalHours": self.getTotalHours(user_id),
+        }
+
+        if user_id.startswith("t_"):
+            statistics["totalStudents"] = self.getTotalStudents(user_id)
+            statistics["averageRating"] = user.get("rate", 0)
+        return statistics
+
+    def getTotalSessions(self, user_id: str) -> int:
+        sessions = self.readSession()
+        count = 0
+        if user_id.startswith("t_"):
+            # tutor
+            for session_id, session in sessions.items():
+                if user_id == session.get("tutor", ""):
+                    count += 1
+        elif user_id.startswith("2") or user_id.startswith("1"):
+            # student
+            for session_id, session in sessions.items():
+                if user_id in session.get("students", []):
+                    count += 1
+        return count
+
+    def getCompletedSessions(self, user_id: str) -> int:
+        sessions = self.readSession()
+        count = 0
+        today = datetime.now().date()
+        
+        if user_id.startswith("t_"):
+            # tutor
+            for session_id, session in sessions.items():
+                if user_id == session.get("tutor", ""):
+                    # Check if session date is in the past
+                    try:
+                        session_date = datetime.strptime(session.get("date", ""), "%Y-%m-%d").date()
+                        if session_date < today:
+                            count += 1
+                    except:
+                        pass
+        elif user_id.startswith("2") or user_id.startswith("1"):
+            # student
+            for session_id, session in sessions.items():
+                if user_id in session.get("students", []):
+                    # Check if session date is in the past
+                    try:
+                        session_date = datetime.strptime(session.get("date", ""), "%Y-%m-%d").date()
+                        if session_date < today:
+                            count += 1
+                    except:
+                        pass
+        return count
+
+    def getTotalHours(self, user_id: str) -> int:
+        sessions = self.readSession()
+        total_minutes = 0
+        
+        if user_id.startswith("t_"):
+            # tutor
+            for session_id, session in sessions.items():
+                if user_id == session.get("tutor", ""):
+                    duration = session.get("duration", 0)
+                    # Handle both int and string duration
+                    try:
+                        total_minutes += int(duration)
+                    except:
+                        pass
+        elif user_id.startswith("2") or user_id.startswith("1"):
+            # student
+            for session_id, session in sessions.items():
+                if user_id in session.get("students", []):
+                    duration = session.get("duration", 0)
+                    # Handle both int and string duration
+                    try:
+                        total_minutes += int(duration)
+                    except:
+                        pass
+        
+        # Convert minutes to hours (rounded)
+        return round(total_minutes / 60)
+
+    def getTotalStudents(self, user_id: str) -> int:
+        user = self.readUser().get(user_id)
+        if not user:
+            return 0
+        return len(user.get("students", []))

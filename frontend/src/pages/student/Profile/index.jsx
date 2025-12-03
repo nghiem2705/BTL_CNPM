@@ -68,6 +68,7 @@ const StudentProfile = () => {
                     uID: currentUserId,
                     role: 'student' // Ensure role is student
                 });
+                setStatistics(response.data.statistics);
             } else {
                 console.error('Failed to fetch profile:', response.error);
                 // Fallback to mock data
