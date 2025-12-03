@@ -88,6 +88,8 @@ class InformationController(BaseController):
         if (student is None):
             return []
         
+        student_demand = student.get("demand")
+
         # lấy tất cả tutors
         all_tutors = []
         for key, value in users.items():
@@ -96,11 +98,23 @@ class InformationController(BaseController):
                 registered = False
                 if key in student.get("tutor", []):
                     registered = True
-                
                 to_return_value = value.copy()
                 to_return_value["registered"] = registered
+
+                # khởi tạo matched point
+                strengths = value.get("strength")
+                insertion_ = set(strengths) & set(student_demand)
+                if (insertion_):
+                    matched_demands = len(insertion_)
+                    tutor_rating = value.get("rate", 0)
+                    tutor_match_point = matched_demands *2 + tutor_rating
+                    to_return_value["matched"] = tutor_match_point
+                else:
+                    to_return_value["matched"] = -1
+
                 to_return_value["id"] = key
                 all_tutors.append(to_return_value)
+
         
         # filter theo registered status
         filtered_tutors = []
@@ -109,6 +123,8 @@ class InformationController(BaseController):
             if filter_status == "registered" and not tutor.get("registered"):
                 continue
             if filter_status == "unregistered" and tutor.get("registered"):
+                continue
+            if filter_status == "matched" and tutor.get("matched", -1) == -1:
                 continue
             
             # filter theo keyword (tìm trong name và major)
@@ -121,4 +137,8 @@ class InformationController(BaseController):
             
             filtered_tutors.append(tutor)
                 
+        # sort theo matched point giảm dần
+        if filter_status == "matched":
+            filtered_tutors.sort(key=lambda x: x.get("matched", -1),  reverse=True)
+
         return filtered_tutors

@@ -1,6 +1,7 @@
 export default function TabsFilter({ active, onChange }) {
   const tabs = [
     { key: "all", label: "Tất cả" },
+    { key: "matched", label: "Đề Xuất" },
     { key: "registered", label: "Đã đăng ký" },
     { key: "unregistered", label: "Chưa đăng ký" }
   ];
