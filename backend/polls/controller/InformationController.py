@@ -82,6 +82,8 @@ class InformationController(BaseController):
     # filter_status: "all", "registered", "unregistered"
     # keyword: search by name or major
     def getTutorListForStudent(self, student_id: str, filter_status: str = "all", keyword: str = "") -> list[dict]:
+        knn_threshold = 5
+        
         users = self.readUser() or {}
         
         student = users.get(student_id)
@@ -107,7 +109,7 @@ class InformationController(BaseController):
                 if (insertion_):
                     matched_demands = len(insertion_)
                     tutor_rating = value.get("rate", 0)
-                    tutor_match_point = matched_demands *2 + tutor_rating
+                    tutor_match_point = matched_demands *2 + tutor_rating # Hàm lượng giá
                     to_return_value["matched"] = tutor_match_point
                 else:
                     to_return_value["matched"] = -1
@@ -140,5 +142,6 @@ class InformationController(BaseController):
         # sort theo matched point giảm dần
         if filter_status == "matched":
             filtered_tutors.sort(key=lambda x: x.get("matched", -1),  reverse=True)
+            return filtered_tutors[:knn_threshold]
 
         return filtered_tutors
