@@ -347,7 +347,24 @@ class InformationController(BaseController):
         return round(total_minutes / 60)
 
     def getTotalStudents(self, user_id: str) -> int:
-        user = self.readUser().get(user_id)
-        if not user:
+        tutor = self.readFile(self.USER_PATH).get(user_id, None)
+        if not tutor:
             return 0
-        return len(user.get("students", []))
+        
+        users = self.readUser()
+        
+        # Get student IDs from tutor's students list (if exists)
+        student_ids_from_tutor = tutor.get("students", [])
+        
+        # Also find students who have this tutor in their tutor list (for data consistency)
+        student_ids_from_students = []
+        for student_id, student_data in users.items():
+            if student_data.get("role") == "student":
+                student_tutors = student_data.get("tutor", [])
+                if user_id in student_tutors:
+                    student_ids_from_students.append(student_id)
+        
+        # Combine both lists and remove duplicates
+        all_student_ids = list(set(student_ids_from_tutor + student_ids_from_students))
+
+        return len(all_student_ids)
