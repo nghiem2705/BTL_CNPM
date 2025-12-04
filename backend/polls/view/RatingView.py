@@ -1,4 +1,4 @@
-import BaseView
+from .BaseView import BaseView
 
 class RatingView(BaseView):
     def __init__(self):

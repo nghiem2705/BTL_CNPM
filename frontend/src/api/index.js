@@ -1,163 +1,115 @@
-import axios from "axios";
+// src/api/index.js
 
-const api = axios.create({
-    baseURL: "http://localhost:8000/",
-    withCredentials: true,
-})
+const BASE_URL = "http://localhost:8000/"; // Django backend URL
 
-const BASE_URL = 'http://127.0.0.1:8000';
-
-export const sessionApi = {
-  getAll: async () => {
-    try {
-      const response = await fetch(`${BASE_URL}/sessions/`, {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'}
-      });
-      const rawData = await response.json();
-
-      // --- BƯỚC 1: TÌM ĐÚNG CHỖ CHỨA DỮ LIỆU ---
-      // Nếu backend trả về { sessions: {...} } thì lấy cái bên trong.
-      // Nếu trả về trực tiếp {...} thì dùng luôn.
-      const sessionsDict = rawData.sessions || rawData; 
-
-      // --- BƯỚC 2: CHUYỂN DICTIONARY THÀNH LIST ---
-      // Object.entries giúp lấy luôn cả Key "ss2" làm ID
-      const dataArray = Object.entries(sessionsDict).map(([key, value]) => {
-          // Bỏ qua nếu value không phải là object (để lọc bỏ mấy cái dòng message vớ vẩn)
-          if (typeof value !== 'object' || value === null) return null;
-          
-          return {
-            ...value,        // Lấy hết name, time, duration...
-            session_id: key  // Lấy key "ss2" gán vào biến session_id
-          };
-      }).filter(item => item !== null); // Lọc bỏ mấy cái null
-
-      // --- BƯỚC 3: MAP SANG GIAO DIỆN ---
-      return dataArray.map(item => ({
-        id: item.session_id,           
-        title: item.name,              
-        
-        date: item.date,
-        displayDate: convertDateToDisplay(item.date),
-        
-        startTime: item.time,          
-        endTime: calculateEndTime(item.time, item.duration), 
-        
-        // Thêm kiểm tra để không bị "undefined phút"
-        duration: (item.duration || 0) + " phút", 
-        
-        status: "upcoming", 
-        location: item.address,
-        meetLink: item.link, // Xử lý nếu online là boolean
-        description: item.description,
-        note: item.note,
-        files: []
-      }));
-
-    } catch (error) {
-      console.error("Lỗi API:", error);
-      return []; 
-    }
-  },
-
-  getById: async (id) => {
-    try {
-      const response = await fetch(`${BASE_URL}/sessions/${id}/`, {
-        method: 'GET',
+export async function getSessionList(page, filter, status, keyword) {
+    const response = await fetch(`${BASE_URL}/sessions/?page=${page}&keyword=${keyword}&filter=${filter}&status=${status}`, {
+        method: "GET",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         }
-      });
-      if (!response.ok) throw new Error('Không tìm thấy');
-      
-      const rootData = await response.json();
-      // Backend trả về: { session: {...data...}, message: "..." }
-      const item = rootData.session; // <--- LẤY ĐÚNG CÁI NÀY
-      
-      // Map sang Frontend
-      return {
-        id: item.session_id,
-        title: item.name,
-        date: item.date,
-        displayDate: convertDateToDisplay(item.date),
-        startTime: item.time,
-        endTime: calculateEndTime(item.time, item.duration),
-        duration: item.duration + " phút",
-        status: item.status,
-        isOnline: item.online,
-        location: item.address,
-        meetLink: item.link,
-        description: item.description,
-        note: item.note,
-        files: item.document
-      };
-    } catch (error) {
-      console.error("Lỗi getById:", error);
-      throw error;
-    }
-  },
-  /// Thêm hàm DELETE trong này rồi gọi trong Home->index.jsx nhé
-  delete: async (id) => {
-      try {
-        const response = await fetch(`${BASE_URL}/sessions/${id}/`, {
-            method: 'DELETE',
-        });
+    });
+    return response.json();
+}
+
+export async function getSessionDetail(uID, session_id) {
+    const response = await fetch(`${BASE_URL}/tutor/${uID}/sessions/${session_id}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    return response.json();
+}
+
+// map_data is expected to be a Map object
+// having key-value pairs to be sent in the request body
+export async function createNewSession(session_id, map_data) {
+    const obj = Object.fromEntries(map_data);
+
+    const response = await fetch(`${BASE_URL}/sessions/${session_id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
         
-        if (!response.ok) throw new Error('Lỗi khi xóa');
-        return true;
-      } catch (error) {
-          throw error;
-      }
-  },
-  /// Thêm hàm UPDATE trong này rồi gọi trong ConsultationDetail.jsx nhé
-  update: async (id, frontendData) => {
-    try {
-        const backendPayload = {
-            name: frontendData.title,
-            tutor: frontendData.tutor,
-            student: frontendData.students,
-            date: frontendData.date,
-            time: frontendData.startTime,
-            duration: parseInt(frontendData.durationRaw || 60),
-            description: frontendData.description,
-            online: frontendData.isOnline, 
-    
-            link: frontendData.isOnline ? frontendData.meetLink : "", 
-            note: frontendData.note,
-          
-            address: frontendData.location,
-            document: frontendData.files
-        };
+        body: JSON.stringify(obj)
+    });
+    return response.json();
+}
 
-        const response = await fetch(`${BASE_URL}/sessions/${id}/`, {
-            method: 'PUT', 
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(backendPayload)
-        });
+// map_data is expected to be a Map object
+// having key-value pairs to be sent in the request body
+export async function updateSession(session_id, map_data) {
+    const obj = Object.fromEntries(map_data);
+
+    const response = await fetch(`${BASE_URL}/sessions/${session_id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
         
-        if (!response.ok) throw new Error('Lỗi khi lưu');
-        return await response.json();
-    } catch (error) {
-        throw error;
-    }
+        body: JSON.stringify(obj)
+    });
+    return response.json();
+}
+
+export async function removeSession(session_id) {
+
+    const response = await fetch(`${BASE_URL}/sessions/${session_id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    });
+    return response.json();
+}
+
+
+export const mockSessions = [
+  {
+    id: 1,
+    title: "Ứng dụng đại số trong công nghệ",
+    date: "2025-11-05",
+    displayDate: "Thứ tư, 5/11/2025",
+    startTime: "10:00",
+    endTime: "11:30",
+    duration: "90 phút",
+    status: "upcoming", 
+    location: "Google Meet",
+    meetLink: "https://meet.google.com/gfs-iocr-yks",
+    description: "Giúp người học hiểu rõ vai trò và ứng dụng của đại số...",
+    note: "Nhớ xem trước tài liệu chương 1 nhé các em!",
+    files: [{ name: "Slide_Chuong_1.pdf", size: "2.3 MB" }]
   },
-};
-
-// --- HÀM PHỤ TRỢ ---
-const calculateEndTime = (startTime, durationMinutes) => {
-    if (!startTime) return "";
-    const [hour, minute] = startTime.split(':').map(Number);
-    const totalMinutes = hour * 60 + minute + parseInt(durationMinutes || 0);
-    const newHour = Math.floor(totalMinutes / 60);
-    const newMinute = totalMinutes % 60;
-    return `${newHour}:${newMinute.toString().padStart(2, '0')}`;
-};
-
-const convertDateToDisplay = (dateStr) => {
-    if(!dateStr) return "";
-    const date = new Date(dateStr);
-    return `Thứ ${date.getDay() + 1}, ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-};
-
-export default api;
+  {
+    id: 2,
+    title: "Nhập môn Trí tuệ nhân tạo (AI Basics)",
+    date: "2025-10-29",
+    displayDate: "Thứ tư, 29/10/2025",
+    startTime: "07:00",
+    endTime: "08:30",
+    duration: "90 phút",
+    status: "finished",
+    location: "Google Meet",
+    meetLink: "",
+    description: "Giới thiệu các khái niệm cơ bản về AI...",
+    note: "Đã tổng kết điểm danh.",
+    files: []
+  },
+  {
+    id: 3,
+    title: "Lập trình Web Frontend với ReactJS",
+    date: "2025-12-01",
+    displayDate: "Thứ hai, 01/12/2025",
+    startTime: "13:00",
+    endTime: "16:00",
+    duration: "180 phút",
+    status: "upcoming", 
+    location: "Phòng 201-H6",
+    meetLink: "",
+    description: "Hướng dẫn thực hành ReactJS...",
+    note: "Yêu cầu mang laptop...",
+    files: [{ name: "React_Cheatsheet.pdf", size: "1.5 MB" }]
+  }
+];

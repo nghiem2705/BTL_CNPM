@@ -1,4 +1,4 @@
-import BaseController
+from .BaseController import BaseController
 
 class RatingController(BaseController):
     def __init__(self):

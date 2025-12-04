@@ -6,7 +6,8 @@ import {
   ChevronLeft, X, Plus, Download, CheckCircle
 } from 'lucide-react';
 // import { mockSessions } from '../api'; // Import dữ liệu giả
-import { sessionApi } from '../../../api'; // Import API
+import { sessionApi } from '../../../api/TutorSession'; // Import API
+import { validateSessionForm, displayValidationErrors, formatApiError } from '../../../utils/validation';
 
 // --- HELPER COMPONENTS --- (giữ nguyên)
 const ToggleSwitch = ({ isOn, onToggle, disabled }) => (
@@ -16,13 +17,16 @@ const ToggleSwitch = ({ isOn, onToggle, disabled }) => (
 );
 
 const ConsultationDetail = () => {
-  const { id } = useParams(); // Lấy ID từ URL
+  const { uID, id } = useParams(); // Lấy ID từ URL
   const navigate = useNavigate(); // Hàm để quay lại trang trước
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState(null);
   // const [locationToggle, setLocationToggle] = useState(true);
   const [loading, setLoading] = useState(true); // thêm setloading cho thật tí
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
+  const labelStyle = "text-xs uppercase font-bold text-gray-500 mb-1.5 flex items-center gap-1";
 
   // Tìm dữ liệu dựa trên ID khi vào trang
   // useEffect(() => {
@@ -36,7 +40,7 @@ const ConsultationDetail = () => {
       const fetchDetail = async () => {
         try {
           setLoading(true);
-          const data = await sessionApi.getById(id);
+          const data = await sessionApi.getById(uID, id);
           setFormData(data);
           
           // Tự động bật/tắt toggle dựa trên địa điểm
@@ -70,16 +74,45 @@ const ConsultationDetail = () => {
   //     }
   // };
   const handleSave = async () => {
+      // Clear previous errors
+      setErrors({});
+      
+      // Prepare data for validation
+      const dataToValidate = {
+          title: formData.title,
+          date: formData.date,
+          startTime: formData.startTime,
+          duration: parseInt(formData.duration),
+          isOnline: formData.isOnline,
+          meetLink: formData.isOnline ? formData.meetLink : '',
+          location: !formData.isOnline ? formData.location : ''
+      };
+      
+      // Validate form data
+      const validation = validateSessionForm(dataToValidate);
+      
+      if (!validation.valid) {
+          setErrors(validation.errors);
+          alert(displayValidationErrors(validation.errors));
+          return;
+      }
+      
       const confirmSave = window.confirm("Bạn có chắc chắn muốn lưu thay đổi?");
-      if(confirmSave) {
-          try {
-             
-             await sessionApi.update(id, formData);
-             alert("Lưu thành công!");
-             setIsEditing(false);
-          } catch (error) {
-             alert("Lỗi khi lưu dữ liệu!");
-          }
+      if(!confirmSave) return;
+      
+      setIsSubmitting(true);
+      
+      try {
+         await sessionApi.update(uID, id, formData);
+         alert("Lưu thành công!");
+         setIsEditing(false);
+         window.location.reload();
+      } catch (error) {
+         console.error("Lỗi khi lưu dữ liệu:", error);
+         const errorMessage = formatApiError(error);
+         alert("Lỗi khi lưu dữ liệu: " + errorMessage);
+      } finally {
+         setIsSubmitting(false);
       }
     };
   // 4. HÀM LOGIC ONLINE/OFFLINE (hàm này mới -> có sửa html ở chỗ location với link)
@@ -97,28 +130,56 @@ const ConsultationDetail = () => {
     <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 animate-fade-in max-w-5xl mx-auto my-6">
       
       {/* Nút Quay lại */}
-      <button onClick={() => navigate('/tutor/sessions/')} className="flex items-center gap-1 text-gray-500 hover:text-[#006D77] mb-4 text-sm font-medium transition-colors">
+      <button onClick={() => navigate(`/tutor/${uID}/sessions/`)} className="flex items-center gap-1 text-gray-500 hover:text-[#006D77] mb-4 text-sm font-medium transition-colors">
         <ChevronLeft size={20} /> Quay lại danh sách
       </button>
 
       {/* Header Detail */}
       <div className="flex justify-between items-start mb-6 border-b border-gray-100 pb-4">
         <div>
-          <h2 className="text-2xl font-bold text-[#102A43] tracking-tight">{formData.title}</h2>
+          {/*Tiêu đề */}
+          {isEditing ? (
+              <input
+                  type="text"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  className="text-2xl font-bold text-[#102A43] tracking-tight border-b border-gray-300 focus:outline-none focus:border-blue-500"
+              />
+          ) : (
+              <h2 className="text-2xl font-bold text-[#102A43] tracking-tight">
+                  {formData.title}
+              </h2>
+          )}
+          {/*trạng thái*/}
           <div className="flex gap-2 mt-2">
             {formData.status === 3 ? (
                 <span className="bg-blue-500 text-white text-[10px] font-bold px-2 py-1 rounded">Sắp diễn ra</span>
             ) : (
                 <span className="bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded">Đã kết thúc</span>
             )}
-            <span className="bg-gray-50 text-gray-600 border border-gray-200 text-xs px-3 py-1 rounded-full font-bold">Chuyên môn</span>
           </div>
         </div>
         
         {isEditing ? (
           <div className="flex gap-2">
-             <button onClick={() => setIsEditing(false)} className="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-3 py-1.5 rounded-lg font-medium text-xs transition-colors">Hủy</button>
-             <button onClick={handleSave} className="bg-[#006D77] hover:bg-[#00565e] text-white px-3 py-1.5 rounded-lg font-medium text-xs transition-colors flex items-center gap-1"><CheckCircle size={14}/> Lưu</button>
+             <button 
+               onClick={() => {
+                 setIsEditing(false);
+                 setErrors({});
+               }} 
+               className="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 px-3 py-1.5 rounded-lg font-medium text-xs transition-colors"
+               disabled={isSubmitting}
+             >
+               Hủy
+             </button>
+             <button 
+               onClick={handleSave} 
+               className={`bg-[#006D77] hover:bg-[#00565e] text-white px-3 py-1.5 rounded-lg font-medium text-xs transition-colors flex items-center gap-1 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+               disabled={isSubmitting}
+             >
+               <CheckCircle size={14}/> {isSubmitting ? 'Đang lưu...' : 'Lưu'}
+             </button>
           </div>
         ) : (
           <button onClick={() => setIsEditing(true)} className="bg-red-500 hover:bg-red-600 text-white px-4 py-1.5 rounded-lg font-medium text-xs transition-colors shadow-sm">Chỉnh sửa</button>
@@ -131,13 +192,56 @@ const ConsultationDetail = () => {
             <div className="grid grid-cols-2 gap-4">
                 <div>
                     <label className="text-xs uppercase font-bold text-gray-500 mb-1.5 flex items-center gap-1"><Calendar size={12} /> Ngày học</label>
-                    {isEditing ? <input type="date" name="date" className={inputStyle} defaultValue={formData.date} onChange={handleChange} /> : <div className={inputStyle}>{formData.displayDate}</div>}
+                    {isEditing ? (
+                      <>
+                        <input 
+                          type="date" 
+                          name="date" 
+                          className={`${inputStyle} ${errors.date ? 'border-red-500' : ''}`} 
+                          defaultValue={formData.date} 
+                          onChange={handleChange} 
+                        />
+                        {errors.date && <p className="text-red-500 text-xs mt-1">{errors.date}</p>}
+                      </>
+                    ) : (
+                      <div className={inputStyle}>{formData.displayDate}</div>
+                    )}
                 </div>
                 <div>
                     <label className="text-xs uppercase font-bold text-gray-500 mb-1.5 flex items-center gap-1"><Clock size={12} /> Thời gian</label>
-                    {isEditing ? (
-                        <div className="flex items-center gap-1"><input type="time" className={inputStyle} defaultValue={formData.startTime} /><span className="text-gray-400">-</span><input type="time" className={inputStyle} defaultValue={formData.endTime} /></div>
-                    ) : (<div className={inputStyle}>{formData.startTime} - {formData.endTime} ({formData.duration})</div>)}
+                      {isEditing ? (
+                        <>
+                          <div className="flex items-center gap-1">
+                            <input 
+                              type="time" 
+                              name="startTime"
+                              className={`${inputStyle} ${errors.startTime ? 'border-red-500' : ''}`} 
+                              defaultValue={formData.startTime}
+                              onChange={handleChange}
+                            />
+                            <span className="text-gray-400">-</span>
+                            <input 
+                              type="number"
+                              name="duration"
+                              value={formData.duration}
+                              onChange={handleChange}
+                              placeholder="Phút"
+                              min="15"
+                              max="480"
+                              step="5"
+                              className={`${inputStyle} ${errors.duration ? 'border-red-500' : ''}`}
+                              required
+                            />
+                          </div>
+                          {(errors.startTime || errors.duration || errors.dateTime) && (
+                            <p className="text-red-500 text-xs mt-1">
+                              {errors.startTime || errors.duration || errors.dateTime}
+                            </p>
+                          )}
+                        </>
+                      ) : (
+                        <div className={inputStyle}>{formData.startTime} - {formData.endTime} ({formData.duration} phút)</div>
+                      )}
                 </div>
             </div>
 
@@ -157,61 +261,59 @@ const ConsultationDetail = () => {
                   </div>
                 </div>
               </div>
-      
+            </div>
 
-              {isEditing ? (
-                formData.isOnline ? (
-                    <select name="location" className={inputStyle} value={formData.location} onChange={handleChange}>
-                        <option value="Google Meet">Google Meet</option>
-                        <option value="Zoom">Zoom</option>
-                    </select>
-                ) : (
-                    <input type="text" name="location" className={inputStyle} value={formData.location} onChange={handleChange} placeholder="Nhập tên phòng, địa chỉ..." />
-                )
-              ) : (
-                <div className={`${inputStyle} font-medium text-[#006D77]`}>{formData.location || "Chưa xác định"}</div>
-              )}
-            </div>
-             
-             {/* <div>
-              <label className="text-xs uppercase font-bold text-gray-500 mb-1.5 flex items-center gap-1"><LinkIcon size={12} /> Link tham gia</label>
-               <div className="relative">
-                 {isEditing ? <input type="text" name="meetLink" className={`${inputStyle} pl-8 text-blue-600`} value={formData.meetLink || "Chưa có link"} /> : <div className={`${inputStyle} pl-8 text-blue-600 underline truncate`}>{formData.meetLink}</div>}
-                 <LinkIcon size={14} className="absolute left-3 top-3 text-gray-400" />
-               </div>
-            </div> */}
-            <div>
-              <label className="text-xs uppercase font-bold text-gray-500 mb-1.5 flex items-center gap-1"><LinkIcon size={12} /> Link tham gia</label>
-               <div className="relative">
-                 {isEditing ? (
-                    <input 
-                        type="text" 
-                        name="meetLink" 
-                        // Logic khóa: Nếu KHÔNG phải Online thì khóa lại
-                        disabled={!formData.isOnline} 
-                        
-                        // Logic giao diện: Nếu Offline thì xám, Online thì trắng
-                        className={`${inputStyle} pl-8 ${!formData.isOnline ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'text-blue-600 bg-white'}`}
-                        
-                        // Logic dữ liệu: Nếu Offline thì rỗng, Online thì hiện link
-                        value={!formData.isOnline ? "" : (formData.meetLink || "")} 
-                        
-                        onChange={handleChange} 
-                        placeholder={!formData.isOnline ? "Chỉ khả dụng khi chọn hình thức Online" : "Dán link họp vào đây..."}
-                    />
-                 ) : (
-                    // CHẾ ĐỘ XEM
-                    formData.isOnline ? (
-                        <a href={formData.meetLink} target="_blank" rel="noreferrer" className={`${inputStyle} pl-8 text-blue-600 underline truncate block hover:text-blue-800`}>
-                            {formData.meetLink || "Chưa cập nhật link"}
-                        </a>
-                    ) : (
-                        <div className={`${inputStyle} pl-8 text-gray-400 italic`}>Không có link (Offline)</div>
-                    )
-                 )}
-                 <LinkIcon size={14} className="absolute left-3 top-3 text-gray-400" />
-               </div>
-            </div>
+            {/* Link tham gia (shown when location toggle is OFF) */}
+            {!formData.isOnline ? (
+                <div>
+                    <label className={labelStyle}>
+                        <MapPin size={12} /> Địa điểm (phòng học)
+                    </label>
+                    {isEditing ? (
+                    <>
+                      <div className="relative">
+                        <input
+                            type="text"
+                            name="location"
+                            value={formData.location}
+                            onChange={handleChange}
+                            placeholder="Nhập địa chỉ"
+                            className={`${inputStyle} pl-8 ${errors.location ? 'border-red-500' : ''}`}
+                        />
+                        <MapPin size={12} className="absolute left-3 top-3 text-gray-400" />
+                      </div>
+                      {errors.location && <p className="text-red-500 text-xs mt-1">{errors.location}</p>}
+                    </>
+                    ): (
+                    <div className={`${inputStyle} font-medium text-[#006D77]`}>{formData.location || "Chưa xác định"}</div>
+                    )}
+                </div>
+            ) : (
+                <div>
+                    <label className={labelStyle}>
+                        <LinkIcon size={12} /> Link tham gia
+                    </label>
+                    {isEditing ? (
+                    <>
+                      <div className="relative">
+                        <input
+                            type="url"
+                            name="meetLink"
+                            value={formData.meetLink}
+                            onChange={handleChange}
+                            placeholder="Nhập đường dẫn (ví dụ: https://meet.google.com/...)"
+                            className={`${inputStyle} pl-8 ${errors.meetLink ? 'border-red-500' : ''}`}
+                        />
+                        <LinkIcon size={12} className="absolute left-3 top-3 text-gray-400" />
+                      </div>
+                      {errors.meetLink && <p className="text-red-500 text-xs mt-1">{errors.meetLink}</p>}
+                    </>
+                    ): (
+                    <div className={`${inputStyle} font-medium text-[#006D77]`}>{formData.meetLink || "Chưa xác định"}</div>
+                    )}
+                </div>
+            )}
+
             <div>
               <label className="text-sm font-bold text-gray-800 mb-1.5 block">Mô tả chi tiết</label>
                {isEditing ? <textarea rows={4} className={inputStyle} defaultValue={formData.description} /> : <div className="bg-[#F1F5F9] rounded-lg p-3 text-sm text-gray-700 leading-relaxed min-h-[100px]">{formData.description}</div>}

@@ -8,12 +8,15 @@ import {
     User
 } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { mockRegisteredSessions } from '../../../api/mock-data';
+import { useNavigate, useParams } from 'react-router-dom';
+// import { mockRegisteredSessions } from '../../../api/mock-data';
+import { studentSessionApi } from '../../../api/StudentSession';
+
 
 const Consultation = () => {
     const navigate = useNavigate();
-    const [sessions, setSessions] = useState(mockRegisteredSessions);
+    // const [sessions, setSessions] = useState(mockRegisteredSessions);
+    const [sessions, setSessions] = useState([]);
     const [searchText, setSearchText] = useState('');
     const [activeTab, setActiveTab] = useState('Tất cả');
     const [selectedTutor, setSelectedTutor] = useState('Tất cả');
@@ -21,12 +24,14 @@ const Consultation = () => {
     const [isTutorOpen, setIsTutorOpen] = useState(false);
     const [sortOption, setSortOption] = useState('date');
     const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(true);
     const sortRef = useRef(null);
     const tutorRef = useRef(null);
     const itemsPerPage = 4;
+    const { uID } = useParams();
 
-    // Available tutors
-    const tutors = ['Tất cả', 'Nguyễn Văn B', 'Nguyễn Văn C'];
+    // Available tutors - dynamically populated from sessions
+    const [tutors, setTutors] = useState(['Tất cả']);
 
     // Close dropdowns when clicking outside
     useEffect(() => {
@@ -42,63 +47,59 @@ const Consultation = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // Process sessions with filters
-    const getProcessedSessions = () => {
-        let processed = [...sessions];
+    // Fetch all tutors once on mount (unfiltered) for dropdown
+    useEffect(() => {
+        const fetchAllTutors = async () => {
+            if (!uID) return;
 
-        // Filter by tab
-        switch (activeTab) {
-            case 'Đã kết thúc':
-                processed = processed.filter(s => s.status === 'finished');
-                break;
-            case 'Sắp diễn ra':
-                processed = processed.filter(s => s.status === 'upcoming');
-                break;
-            case 'Tháng này':
-                const currentMonth = new Date().getMonth();
-                const currentYear = new Date().getFullYear();
-                processed = processed.filter(s => {
-                    const sessionDate = new Date(s.date);
-                    return sessionDate.getMonth() === currentMonth && sessionDate.getFullYear() === currentYear;
-                });
-                break;
-            case 'Tất cả':
-            default:
-                break;
-        }
-
-        // Filter by tutor
-        if (selectedTutor !== 'Tất cả') {
-            processed = processed.filter(s => s.tutor.name === selectedTutor);
-        }
-
-        // Search
-        if (searchText) {
-            processed = processed.filter(s =>
-                s.title.toLowerCase().includes(searchText.toLowerCase())
-            );
-        }
-
-        // Sort
-        processed.sort((a, b) => {
-            switch (sortOption) {
-                case 'title':
-                    return a.title.localeCompare(b.title);
-                case 'duration':
-                    return parseInt(b.duration) - parseInt(a.duration);
-                case 'date':
-                default:
-                    return new Date(b.date) - new Date(a.date);
+            try {
+                // Fetch without any filters to get ALL tutors
+                const allData = await studentSessionApi.getRegisteredSession(uID, {});
+                const uniqueTutorNames = [...new Set(allData.map(session => session.tutor.name).filter(Boolean))];
+                setTutors(['Tất cả', ...uniqueTutorNames.sort()]);
+            } catch (error) {
+                console.error("Lỗi khi lấy danh sách tutors:", error);
             }
-        });
+        };
 
-        return processed;
-    };
+        fetchAllTutors();
+    }, [uID]); // Only run once when uID changes
 
-    const filteredSessions = getProcessedSessions();
-    const totalPages = Math.ceil(filteredSessions.length / itemsPerPage);
+    // Fetch data from backend whenever filters change
+    useEffect(() => {
+        const fetchStudentData = async () => {
+            if (!uID) return;
+
+            try {
+                setLoading(true);
+
+                // Build filters object
+                const filters = {
+                    status: activeTab === 'Đã kết thúc' ? 2 : activeTab === 'Sắp diễn ra' ? 3 : null,
+                    month: activeTab === 'Tháng này',
+                    tutor: selectedTutor,
+                    search: searchText,
+                    sort: sortOption
+                };
+
+                const data = await studentSessionApi.getRegisteredSession(uID, filters);
+                setSessions(data);
+
+                setCurrentPage(1); // Reset to first page when filters change
+            } catch (error) {
+                console.error("Lỗi:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchStudentData();
+    }, [uID, activeTab, selectedTutor, searchText, sortOption]);
+
+    // Sessions are now filtered from backend, so we just paginate
+    const totalPages = Math.ceil(sessions.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
-    const displayedSessions = filteredSessions.slice(startIndex, startIndex + itemsPerPage);
+    const displayedSessions = sessions.slice(startIndex, startIndex + itemsPerPage);
 
     // Sort labels
     const sortLabels = {
@@ -108,16 +109,27 @@ const Consultation = () => {
     };
 
     // Handle cancel session
-    const handleCancel = (sessionId) => {
-        if (window.confirm('Bạn có chắc chắn muốn hủy buổi tư vấn này?')) {
-            setSessions(sessions.filter(s => s.id !== sessionId));
+    const handleCancel = async (e, uID, id, title) => {
+        // if (window.confirm('Bạn có chắc chắn muốn hủy buổi tư vấn này?')) {
+        //     setSessions(FormData.filter(s => s.id !== id));
+        // }
+        e.stopPropagation();
+
+        if (window.confirm(`Bạn có chắc chắn muốn hủy buổi: "${title}"?`)) {
+            try {
+                await studentSessionApi.deleteSession(uID, id);
+                setSessions(prev => prev.filter(item => item.id !== id));
+                alert("Đã hủy buổi thành công!");
+            } catch (error) {
+                alert("Lỗi khi xóa! Vui lòng thử lại.");
+            }
         }
     };
 
     // Handle evaluate
-    const handleEvaluate = (sessionId) => {
+    const handleEvaluate = () => {
         // Navigate to evaluation page or open modal
-        navigate(`/student/consultation/${sessionId}/evaluate`);
+        navigate(`/student/${uID}/sessions/registered/#`);
     };
 
     return (
@@ -274,29 +286,32 @@ const Consultation = () => {
                                     {/* Right: Action Buttons */}
                                     <div className="flex items-center gap-2 ml-4">
                                         <button
-                                            onClick={() => navigate(`/student/consultation/${session.id}`)}
+                                            onClick={() => navigate(`/student/${uID}/sessions/registered/${session.id}`)}
                                             className="bg-gray-600 hover:bg-gray-700 text-white text-xs font-bold px-4 py-2 rounded transition-colors"
                                         >
                                             Xem chi tiết
                                         </button>
-                                        {session.status === 'finished' ? (
-                                            <button
-                                                className="bg-gray-600 hover:bg-gray-700 text-white text-xs font-bold px-4 py-2 rounded transition-colors"
-                                                disabled
-                                            >
-                                                Đã kết thúc
-                                            </button>
-                                        ) : (
-                                            <button
-                                                onClick={() => handleCancel(session.id)}
-                                                className="bg-gray-600 hover:bg-gray-700 text-white text-xs font-bold px-4 py-2 rounded transition-colors"
-                                            >
-                                                Hủy buổi
-                                            </button>
-                                        )}
+
+                                        {/* Hủy buổi button - enabled only for status 3 (COMING_SOON) */}
                                         <button
-                                            onClick={() => handleEvaluate(session.id)}
-                                            className="bg-gray-300 hover:bg-gray-400 text-gray-700 text-xs font-bold px-4 py-2 rounded transition-colors flex items-center gap-1"
+                                            onClick={(e) => handleCancel(e, uID, session.id, session.title)}
+                                            disabled={session.status !== 3}
+                                            className={`text-xs font-bold px-4 py-2 rounded transition-colors ${session.status === 3
+                                                ? 'bg-gray-600 hover:bg-gray-700 text-white cursor-pointer'
+                                                : 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-50'
+                                                }`}
+                                        >
+                                            Hủy buổi
+                                        </button>
+
+                                        {/* Đánh giá button - enabled only for status 2 (COMPLETED) */}
+                                        <button
+                                            onClick={() => handleEvaluate()}
+                                            disabled={session.status !== 2}
+                                            className={`text-xs font-bold px-4 py-2 rounded transition-colors flex items-center gap-1 ${session.status === 2
+                                                ? 'bg-gray-300 hover:bg-gray-400 text-gray-700 cursor-pointer'
+                                                : 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50'
+                                                }`}
                                         >
                                             <Star size={14} />
                                             Đánh giá

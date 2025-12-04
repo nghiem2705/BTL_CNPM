@@ -6,8 +6,8 @@ import Login from '../pages/Login/index';
 // Định nghĩa các route công khai
 const publicRoutes = [
     // { path: '/tutor/sessions/', component: Session },
-    { path: '/tutor', component: Home},
-    { path: '/student', component: Home},
+    // { path: '/tutor', component: Home},
+    // { path: '/student', component: Home},
     { path: '/', component: Login}
     // Sau này có Login hay NotFound thì thêm vào đây
 ];
