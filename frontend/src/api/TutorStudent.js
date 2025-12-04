@@ -11,7 +11,7 @@ export const tutorStudentApi = {
             });
             
             if (!response.ok) {
-                throw new Error('Failed to fetch students');
+                throw new Error('Failed to fetch students')
             }
             
             const data = await response.json();
