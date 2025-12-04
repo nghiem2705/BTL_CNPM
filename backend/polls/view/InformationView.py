@@ -33,7 +33,10 @@ class InformationView(BaseView):
             # Provide specific error messages
             error_messages = {
                 "user_not_found": "Tên đăng nhập không tồn tại!",
-                "wrong_password": "Mật khẩu không đúng!"
+                "wrong_password": "Mật khẩu không đúng!",
+
+                "role_mismatch": "Tài khoản này không có quyền truy cập trang này!"
+
             }
             message = error_messages.get(error_type, "Sai tên đăng nhập hoặc mật khẩu!")
             

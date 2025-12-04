@@ -165,6 +165,8 @@ class InformationController(BaseController):
                     d_role = "tutor"
                 elif uid_str.startswith("1") or uid_str.startswith("2"):
                     d_role = "student"
+                if d_role != role:
+                    return None, None, "role_mismatch"
 
                 break
         

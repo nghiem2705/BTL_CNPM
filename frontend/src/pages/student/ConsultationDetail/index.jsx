@@ -45,7 +45,7 @@ const ConsultationDetail = () => {
         const s = parseInt(status);
         switch (s) {
             case 1:
-                return <span className="bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded">Đang xử lý</span>;
+                return <span className="bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded">Đang diễn ra</span>;
             case 2:
                 return <span className="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded">Đã kết thúc</span>;
             case 3:
