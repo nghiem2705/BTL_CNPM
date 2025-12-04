@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Layout from './layout';
 import PublicHeader from './layout/Header/public_header';
 import TutorHeader from './layout/Header/tutor_index';
-import StudentHeader from './layout/Header/student_index'
+import StudentHeader from './layout/Header/student_index';
 
 // Import Tutor page
 import TutorConsultationDetail from './pages/tutor/ConsultationDetail'; // Import trang mới
