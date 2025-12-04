@@ -49,13 +49,94 @@ class InformationController(BaseController):
         users[uID].update(new_data)
         return self.writeFile(self.USER_PATH, users)    
 
-    # Get students following a tutor
+    # Get students following a tutor with detailed information
     def getStudentsOfTutor(self, tutor_id: str) -> list[dict]:
         tutor = self.readFile(self.USER_PATH).get(tutor_id, None)
         if not tutor:
             return []
-        student_list = tutor.get("students", [])
-        return student_list
+        
+        users = self.readUser()
+        sessions = self.readSession()
+        today = datetime.now().date()
+        
+        # Get student IDs from tutor's students list (if exists)
+        student_ids_from_tutor = tutor.get("students", [])
+        
+        # Also find students who have this tutor in their tutor list (for data consistency)
+        student_ids_from_students = []
+        for student_id, student_data in users.items():
+            if student_data.get("role") == "student":
+                student_tutors = student_data.get("tutor", [])
+                if tutor_id in student_tutors:
+                    student_ids_from_students.append(student_id)
+        
+        # Combine both lists and remove duplicates
+        all_student_ids = list(set(student_ids_from_tutor + student_ids_from_students))
+        
+        result = []
+        for student_id in all_student_ids:
+            student = users.get(student_id)
+            if not student:
+                continue
+            
+            # Find first session date with this tutor
+            first_session_date = None
+            total_duration_minutes = 0
+            
+            for session_id, session in sessions.items():
+                if session.get("tutor") == tutor_id and student_id in session.get("students", []):
+                    # Get first session date
+                    try:
+                        session_date = datetime.strptime(session.get("date", ""), "%Y-%m-%d").date()
+                        if first_session_date is None or session_date < first_session_date:
+                            first_session_date = session_date
+                        
+                        # Calculate total duration
+                        duration = session.get("duration", 0)
+                        try:
+                            total_duration_minutes += int(duration)
+                        except:
+                            pass
+                    except:
+                        pass
+            
+            # Calculate study duration
+            study_duration_days = 0
+            study_duration_months = 0
+            if first_session_date:
+                delta = today - first_session_date
+                study_duration_days = delta.days
+                study_duration_months = round(study_duration_days / 30)
+            
+            # Format dates
+            start_date_str = None
+            if first_session_date:
+                start_date_str = first_session_date.strftime("%d/%m/%Y")
+            
+            # Format study duration
+            duration_str = ""
+            if study_duration_months > 0:
+                duration_str = f"{study_duration_months} tháng"
+            elif study_duration_days > 0:
+                duration_str = f"{study_duration_days} ngày"
+            else:
+                duration_str = "Mới bắt đầu"
+            
+            student_info = {
+                "id": student_id,
+                "name": student.get("name", ""),
+                "major": student.get("major", ""),
+                "rate": student.get("rate", 0),
+                "mail": student.get("mail", ""),
+                "phone": student.get("phone", ""),
+                "startDate": start_date_str,
+                "studyDuration": duration_str,
+                "totalHours": round(total_duration_minutes / 60),
+                "totalSessions": self.getTotalSessions(student_id)
+            }
+            result.append(student_info)
+        
+        return result
     
     def authenticate(self, username: str, password: str , role: str) -> bool:
         sso_users = self.readSSO_User() or {}

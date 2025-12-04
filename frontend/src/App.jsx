@@ -12,6 +12,7 @@ import TutorConsultationDetail from './pages/tutor/ConsultationDetail'; // Impor
 import TutorConsultation from "./pages/tutor/Consultation";
 import TutorConsultationCreate from "./pages/tutor/ConsultationCreate";
 import TutorProfile from "./pages/tutor/Profile";
+import TutorStudent from "./pages/tutor/Student";
 
 // Import Student page
 import StudentConsultation from "./pages/student/Consultation";
@@ -72,7 +73,7 @@ function App() {
 
                 <Route path="/tutor/:uID/students" element={
                     <Layout header={<TutorHeader />}>
-                        {/* Thêm trang chỗ này */}
+                        <TutorStudent />
                     </Layout>
                 } />
 
