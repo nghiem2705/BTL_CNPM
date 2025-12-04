@@ -11,6 +11,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams} from 'react-router-dom';
 import { sessionApi } from '../../../api/TutorSession'; // Import API
+import { validateSessionForm, displayValidationErrors, formatApiError } from '../../../utils/validation';
 
 // Toggle Switch Component
 const ToggleSwitch = ({ isOn, onToggle }) => (
@@ -30,6 +31,8 @@ const ConsultationCreate = () => {
     const [specializationInput, setSpecializationInput] = useState('');
     const [isDragging, setIsDragging] = useState(false);
     const { uID } = useParams()
+    const [errors, setErrors] = useState({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Form state
     const [formData, setFormData] = useState({
@@ -115,21 +118,53 @@ const ConsultationCreate = () => {
     // Form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Validate required fields
-        if (!formData.title || !formData.date || !formData.startTime || !formData.duration) {
-            alert('Vui lòng điền đầy đủ các trường bắt buộc (*)');
+        
+        // Clear previous errors
+        setErrors({});
+        
+        // Prepare form data for validation
+        const dataToValidate = {
+            title: formData.title,
+            date: formData.date,
+            startTime: formData.startTime,
+            duration: formData.duration,
+            isOnline: locationToggle,
+            meetLink: locationToggle ? formData.meetLink : '',
+            location: !locationToggle ? formData.location : ''
+        };
+        
+        // Validate form data
+        const validation = validateSessionForm(dataToValidate);
+        
+        if (!validation.valid) {
+            setErrors(validation.errors);
+            alert(displayValidationErrors(validation.errors));
             return;
         }
-        // Handle form submission
-        const confirmSave = window.confirm("Bạn có chắc chắn muốn lưu thay đổi?");
-        if (confirmSave) {
-            try {
-                await sessionApi.create(uID, formData);
-                alert('Tạo buổi tư vấn thành công!');
-                navigate('/tutor/'+uID +'/sessions/');
-            } catch (error) {
-                alert("Lỗi khi lưu dữ liệu!");
-            }
+        
+        // Confirm submission
+        const confirmSave = window.confirm("Bạn có chắc chắn muốn tạo buổi tư vấn này?");
+        if (!confirmSave) return;
+        
+        setIsSubmitting(true);
+        
+        try {
+            // Prepare data for API
+            const submitData = {
+                ...formData,
+                isOnline: locationToggle,
+                duration: parseInt(formData.duration)
+            };
+            
+            await sessionApi.create(uID, submitData);
+            alert('Tạo buổi tư vấn thành công!');
+            navigate('/tutor/' + uID + '/sessions/');
+        } catch (error) {
+            console.error("Lỗi khi tạo buổi tư vấn:", error);
+            const errorMessage = formatApiError(error);
+            alert('Lỗi khi tạo buổi tư vấn: ' + errorMessage);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -167,9 +202,10 @@ const ConsultationCreate = () => {
                                 value={formData.title}
                                 onChange={handleChange}
                                 placeholder="Nhập tiêu đề"
-                                className={inputStyle}
+                                className={`${inputStyle} ${errors.title ? 'border-red-500' : ''}`}
                                 required
                             />
+                            {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title}</p>}
                         </div>
 
                         {/* Ngày học và Thời gian */}
@@ -184,11 +220,12 @@ const ConsultationCreate = () => {
                                         name="date"
                                         value={formData.date}
                                         onChange={handleChange}
-                                        className={inputStyle}
+                                        className={`${inputStyle} ${errors.date ? 'border-red-500' : ''}`}
                                         required
                                     />
                                     {/* <Calendar size={12} className="absolute right-3 top-3 text-gray-400 pointer-events-none" /> */}
                                 </div>
+                                {errors.date && <p className="text-red-500 text-xs mt-1">{errors.date}</p>}
                             </div>
                             <div>
                                 <label className={labelStyle}>
@@ -200,20 +237,28 @@ const ConsultationCreate = () => {
                                         name="startTime"
                                         value={formData.startTime}
                                         onChange={handleChange}
-                                        className={inputStyle}
+                                        className={`${inputStyle} ${errors.startTime ? 'border-red-500' : ''}`}
                                         required
                                     />
                                     <span className="text-gray-400">-</span>
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="duration"
                                         value={formData.duration}
                                         onChange={handleChange}
-                                        placeholder="Thời lượng (phút)"
-                                        className={inputStyle}
+                                        placeholder="Phút"
+                                        min="15"
+                                        max="480"
+                                        step="5"
+                                        className={`${inputStyle} ${errors.duration ? 'border-red-500' : ''}`}
                                         required
                                     />
                                 </div>
+                                {(errors.startTime || errors.duration || errors.dateTime) && (
+                                    <p className="text-red-500 text-xs mt-1">
+                                        {errors.startTime || errors.duration || errors.dateTime}
+                                    </p>
+                                )}
                             </div>
                         </div>
 
@@ -236,7 +281,7 @@ const ConsultationCreate = () => {
                         {!locationToggle ? (
                             <div>
                                 <label className={labelStyle}>
-                                    <MapPin size={12} /> Địa điểm (phòng học)
+                                    <MapPin size={12} /> Địa điểm (phòng học) <span className="text-red-500">*</span>
                                 </label>
                                 <div className="relative">
                                     <input
@@ -245,10 +290,11 @@ const ConsultationCreate = () => {
                                         value={formData.location}
                                         onChange={handleChange}
                                         placeholder="Nhập địa chỉ"
-                                        className={`${inputStyle} pl-8`}
+                                        className={`${inputStyle} pl-8 ${errors.location ? 'border-red-500' : ''}`}
                                     />
-                                    <LinkIcon size={12} className="absolute left-3 top-3 text-gray-400" />
+                                    <MapPin size={12} className="absolute left-3 top-3 text-gray-400" />
                                 </div>
+                                {errors.location && <p className="text-red-500 text-xs mt-1">{errors.location}</p>}
                             </div>
                         ) : (
                             <div>
@@ -257,15 +303,16 @@ const ConsultationCreate = () => {
                                 </label>
                                 <div className="relative">
                                     <input
-                                        type="text"
+                                        type="url"
                                         name="meetLink"
                                         value={formData.meetLink}
                                         onChange={handleChange}
-                                        placeholder="Nhập đường dẫn"
-                                        className={`${inputStyle} pl-8`}
+                                        placeholder="Nhập đường dẫn (ví dụ: https://meet.google.com/...)"
+                                        className={`${inputStyle} pl-8 ${errors.meetLink ? 'border-red-500' : ''}`}
                                     />
                                     <LinkIcon size={12} className="absolute left-3 top-3 text-gray-400" />
                                 </div>
+                                {errors.meetLink && <p className="text-red-500 text-xs mt-1">{errors.meetLink}</p>}
                             </div>
                         )}
 
@@ -340,9 +387,10 @@ const ConsultationCreate = () => {
                     <button
                         // onClick= {}
                         type="submit"
-                        className="bg-[#4CAF50] hover:bg-[#43a047] text-white px-6 py-2.5 rounded-lg font-medium text-sm transition-colors shadow-sm flex items-center gap-2"
+                        disabled={isSubmitting}
+                        className={`bg-[#4CAF50] hover:bg-[#43a047] text-white px-6 py-2.5 rounded-lg font-medium text-sm transition-colors shadow-sm flex items-center gap-2 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
-                        <Plus size={16} /> Thêm mới
+                        <Plus size={16} /> {isSubmitting ? 'Đang tạo...' : 'Thêm mới'}
                     </button>
                 </div>
             </form>

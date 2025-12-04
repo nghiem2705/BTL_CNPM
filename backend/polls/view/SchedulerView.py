@@ -193,6 +193,73 @@ class SchedulerView(BaseView):
         session_id = auto_gen_id
         try:
             data = request.data
+            
+            # Validate required fields
+            required_fields = ['name', 'tutor', 'date', 'time', 'duration', 'online', 'address', 'description']
+            missing_fields = [field for field in required_fields if field not in data]
+            if missing_fields:
+                return Response(
+                    {"error": f"Missing required fields: {', '.join(missing_fields)}"}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Validate duration
+            try:
+                duration = int(data['duration'])
+                if duration < 15:
+                    return Response(
+                        {"error": "Thời lượng phải ít nhất 15 phút"}, 
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                if duration > 480:
+                    return Response(
+                        {"error": "Thời lượng không được vượt quá 8 giờ (480 phút)"}, 
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+            except (ValueError, TypeError):
+                return Response(
+                    {"error": "Thời lượng phải là số nguyên"}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Validate date format and ensure it's not in the past
+            from datetime import datetime
+            try:
+                session_date = datetime.strptime(data['date'], '%Y-%m-%d')
+                if session_date.date() < datetime.now().date():
+                    return Response(
+                        {"error": "Ngày học không được ở quá khứ"}, 
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+            except ValueError:
+                return Response(
+                    {"error": "Định dạng ngày không hợp lệ (YYYY-MM-DD)"}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Validate time format
+            import re
+            if not re.match(r'^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$', data['time']):
+                return Response(
+                    {"error": "Định dạng giờ không hợp lệ (HH:MM)"}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Validate online/link constraint
+            if data.get('online', False) is True:
+                link = data.get('link', '').strip()
+                if not link:
+                    return Response(
+                        {"error": "Link họp online không được để trống khi chọn chế độ online"}, 
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                # Optional: Validate URL format
+                if not (link.startswith('http://') or link.startswith('https://')):
+                    return Response(
+                        {"error": "Link không hợp lệ"}, 
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+            
             new_session = Session(
                 session_id,
                 data['name'],
@@ -200,16 +267,19 @@ class SchedulerView(BaseView):
                 [],
                 data['date'],
                 data['time'],
-                data['duration'],
+                duration,
                 data['online'],
                 data['address'],
-                data['address'],
+                data.get('link', data['address']),
                 data['description'],
-                data['note'],
-                data['document']
+                data.get('note', ''),
+                data.get('document', [])
             )
         except KeyError as e:
             return Response({"error": f"Missing field: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"error": f"Invalid data: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
+        
         valid = self.controller.addSession(new_session)
         if valid:
             return Response({"message": f"Created {session_id}", "id": session_id}, status=status.HTTP_200_OK)
@@ -218,27 +288,113 @@ class SchedulerView(BaseView):
     # ===================== Handlers (PUT) =====================
     # /sessions/<str:session_id>/ --> update session
     def _handle_put_update_session(self, request, session_id: str) -> Response:
-        data = request.data
-        session = self.controller.getSessionById(session_id)
-        tutor = session.tutor
-        students = session.students
-        new_session = Session(
-            session_id,
-            data['name'],
-            tutor,
-            students,
-            data['date'],
-            data['time'],
-            data['duration'],
-            data['online'],
-            data['address'],
-            data['link'],
-            data['description'],
-            data['note'],
-            data['document']
-        )
-        self.controller.updateSession(session_id, new_session)
-        return Response({"message": f"Updated {session_id}"})
+        try:
+            data = request.data
+            session = self.controller.getSessionById(session_id)
+            
+            if session is None:
+                return Response(
+                    {"error": f"Session {session_id} not found"}, 
+                    status=status.HTTP_404_NOT_FOUND
+                )
+            
+            # Validate required fields
+            required_fields = ['name', 'date', 'time', 'duration', 'online', 'description']
+            missing_fields = [field for field in required_fields if field not in data]
+            if missing_fields:
+                return Response(
+                    {"error": f"Missing required fields: {', '.join(missing_fields)}"}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Validate duration
+            try:
+                duration = int(data['duration'])
+                if duration < 15:
+                    return Response(
+                        {"error": "Thời lượng phải ít nhất 15 phút"}, 
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                if duration > 480:
+                    return Response(
+                        {"error": "Thời lượng không được vượt quá 8 giờ (480 phút)"}, 
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+            except (ValueError, TypeError):
+                return Response(
+                    {"error": "Thời lượng phải là số nguyên"}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Validate date format
+            from datetime import datetime
+            try:
+                session_date = datetime.strptime(data['date'], '%Y-%m-%d')
+                if session_date.date() < datetime.now().date():
+                    return Response(
+                        {"error": "Ngày học không được ở quá khứ"}, 
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+            except ValueError:
+                return Response(
+                    {"error": "Định dạng ngày không hợp lệ (YYYY-MM-DD)"}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Validate time format
+            import re
+            if not re.match(r'^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$', data['time']):
+                return Response(
+                    {"error": "Định dạng giờ không hợp lệ (HH:MM)"}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Validate online/link constraint
+            if data.get('online', False) is True:
+                link = data.get('link', '').strip()
+                if not link:
+                    return Response(
+                        {"error": "Link họp online không được để trống khi chọn chế độ online"}, 
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                # Optional: Validate URL format
+                if not (link.startswith('http://') or link.startswith('https://')):
+                    return Response(
+                        {"error": "Link phải là URL hợp lệ (http:// hoặc https://)"}, 
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+            
+            tutor = session.tutor
+            students = session.students
+            new_session = Session(
+                session_id,
+                data['name'],
+                tutor,
+                students,
+                data['date'],
+                data['time'],
+                duration,
+                data['online'],
+                data.get('address', ''),
+                data.get('link', ''),
+                data['description'],
+                data.get('note', ''),
+                data.get('document', [])
+            )
+            
+            # Check for schedule conflicts
+            if not self.controller.checkDate(new_session):
+                return Response(
+                    {"error": "Lịch dạy bị trùng!"}, 
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            self.controller.updateSession(session_id, new_session)
+            return Response({"message": f"Updated {session_id}"})
+        except KeyError as e:
+            return Response({"error": f"Missing field: {str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"error": f"Update failed: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # ===================== Handlers (DELETE) =====================
     # /student/sessions/unregister/

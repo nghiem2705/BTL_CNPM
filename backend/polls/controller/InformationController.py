@@ -57,32 +57,42 @@ class InformationController(BaseController):
         student_list = tutor.get("students", [])
         return student_list
     
-    def authenticate(self, username: str, password: str , role: str) -> bool:
+    def authenticate(self, username: str, password: str , role: str) -> tuple:
+        """
+        Returns: (uid, user, error_type)
+        - error_type: None (success), "user_not_found", "wrong_password"
+        """
         sso_users = self.readSSO_User() or {}
         users = self.readUser() or {}
 
         d_role = ""
         uid_str = ""
+        username_found = False
+        
         for uid, user_info in sso_users.items():
-            # print(user_info)
-            
-            if user_info.get('username') == username and user_info.get('password') == password:
+            # Check if username exists
+            if user_info.get('username') == username:
+                username_found = True
                 uid_str = str(uid)
-                d_role = ""
-
+                
+                # Check password
+                if user_info.get('password') != password:
+                    return None, None, "wrong_password"
+                
+                # Determine role
                 if uid_str.startswith("t_"):
                     d_role = "tutor"
                 elif uid_str.startswith("1") or uid_str.startswith("2"):
                     d_role = "student"
 
                 break
-        if not uid_str:
-            return None
-        if role is True and role != d_role:
-            return None
+        
+        # Username not found
+        if not username_found:
+            return None, None, "user_not_found"
         
         user = users.get(uid_str, {})
-        return uid_str, user
+        return uid_str, user, None
     
     # student/<stu_id>/tutors/
     # get tutors list for student (return all tutors with filter)
@@ -217,25 +227,38 @@ class InformationController(BaseController):
     def getTotalHours(self, user_id: str) -> int:
         sessions = self.readSession()
         total_minutes = 0
+        today = datetime.now().date()
         
         if user_id.startswith("t_"):
             # tutor
             for session_id, session in sessions.items():
                 if user_id == session.get("tutor", ""):
-                    duration = session.get("duration", 0)
-                    # Handle both int and string duration
+                    # Only count hours from completed sessions (past dates)
                     try:
-                        total_minutes += int(duration)
+                        session_date = datetime.strptime(session.get("date", ""), "%Y-%m-%d").date()
+                        if session_date < today:
+                            duration = session.get("duration", 0)
+                            # Handle both int and string duration
+                            try:
+                                total_minutes += int(duration)
+                            except:
+                                pass
                     except:
                         pass
         elif user_id.startswith("2") or user_id.startswith("1"):
             # student
             for session_id, session in sessions.items():
                 if user_id in session.get("students", []):
-                    duration = session.get("duration", 0)
-                    # Handle both int and string duration
+                    # Only count hours from completed sessions (past dates)
                     try:
-                        total_minutes += int(duration)
+                        session_date = datetime.strptime(session.get("date", ""), "%Y-%m-%d").date()
+                        if session_date < today:
+                            duration = session.get("duration", 0)
+                            # Handle both int and string duration
+                            try:
+                                total_minutes += int(duration)
+                            except:
+                                pass
                     except:
                         pass
         

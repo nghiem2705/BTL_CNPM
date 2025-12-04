@@ -114,7 +114,7 @@ export const sessionApi = {
             student: frontendData.students || [],
             date: frontendData.date,
             time: frontendData.startTime,
-            duration: frontendData.duration,
+            duration: parseInt(frontendData.duration),
             description: frontendData.description,
             online: frontendData.isOnline, 
     
@@ -132,9 +132,13 @@ export const sessionApi = {
             body: JSON.stringify(backendPayload)
         });
         
-        if (!response.ok) throw new Error('Lỗi khi lưu');
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.error || errorData.message || 'Lỗi khi lưu');
+        }
         return await response.json();
     } catch (error) {
+        console.error('Update error:', error);
         throw error;
     }
   },
@@ -145,7 +149,7 @@ export const sessionApi = {
         const backendPayload = {
             name: frontendData.title,
             tutor: frontendData.tutor,
-            student: frontendData.students,
+            student: frontendData.students || [],
             date: frontendData.date,
             time: frontendData.startTime,
             duration: parseInt(frontendData.duration),
@@ -156,19 +160,23 @@ export const sessionApi = {
             note: frontendData.note,
           
             address: frontendData.location,
-            document: frontendData.files
+            document: frontendData.files || []
         };
         
-        console.log(backendPayload);
+        console.log('Creating session with payload:', backendPayload);
         const response = await fetch(`${BASE_URL}/tutor/${frontendData.tutor}/sessions/`, {
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(backendPayload)
         });
         
-        if (!response.ok) throw new Error('Lỗi khi tạo mới');
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.error || errorData.message || 'Lỗi khi tạo mới');
+        }
         return await response.json();
     } catch (error) {
+        console.error('Create error:', error);
         throw error;
     }
   },
