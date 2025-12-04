@@ -346,7 +346,7 @@ class InformationController(BaseController):
                         pass
         
         # Convert minutes to hours (rounded)
-        return round(total_minutes / 60)
+        return int(total_minutes*100 / 60)/100
 
     def getTotalStudents(self, user_id: str) -> int:
         tutor = self.readFile(self.USER_PATH).get(user_id, None)
