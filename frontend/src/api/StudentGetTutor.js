@@ -29,12 +29,11 @@ export const studentTutorApi = {
             return dataArray.map(item => ({
                 id: item.id,
                 name: item.name,
-                major: item.major,
                 mail: item.mail,
                 phone: item.phone,
-                strength: item.strength,
                 description: item.description,
                 rate: item.rate,
+                matched: item.matched,
                 registered: item.registered
             }));
 

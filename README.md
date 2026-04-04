@@ -235,6 +235,9 @@ BTL_CNPM/
 │   │   ├── session.json          # Session schedules (16 sessions)
 │   │   ├── grade.json            # Student grades
 │   │   ├── rate.json             # Session ratings
+│   │   ├── domain_mapping.json   # Domain → domain_skills mapping (reference)
+│   │   ├── library/
+│   │   │   └── book.json         # Book data
 │   │   └── sso/
 │   │       └── user.json         # Authentication credentials
 │   ├── init_project/             # Django settings
@@ -266,6 +269,8 @@ BTL_CNPM/
 │   │   │   ├── UserEntity.py
 │   │   │   ├── SessionEntity.py
 │   │   │   └── GradingEntity.py
+│   │   ├── services/             # AI / ML services
+│   │   │   └── RecommendationService.py  # NearestNeighbors recommendation
 │   │   └── migrations/           # Database migrations
 │   └── tests/                    # Backend tests
 │       └── postman_test_collection.json
@@ -291,8 +296,11 @@ BTL_CNPM/
         ├── utils/                # Utility functions
         │   └── validation.js     # Form validation (8 functions)
         ├── components/           # Reusable components
+        │   ├── Survey/
+        │   │   └── StudentSurvey.jsx  # AI matching survey
         │   └── ViewMorePopup/
         ├── layout/               # Layout components
+        │   ├── index.jsx
         │   ├── Header/
         │   │   ├── student_index.jsx
         │   │   └── tutor_index.jsx
@@ -307,6 +315,15 @@ BTL_CNPM/
         │   │   ├── Home/
         │   │   ├── Profile/
         │   │   ├── TutorMatch/   # Find tutors
+        │   │   │   ├── index.jsx
+        │   │   │   ├── Tutors.jsx
+        │   │   │   └── components/
+        │   │   │       ├── TutorCard.jsx
+        │   │   │       ├── TutorDetailModal.jsx
+        │   │   │       ├── TutorGrid.jsx
+        │   │   │       ├── SearchBar.jsx
+        │   │   │       ├── TabsFilter.jsx
+        │   │   │       └── SummaryBox.jsx
         │   │   ├── Consultation/ # View sessions
         │   │   ├── ConsultationDetail/
         │   │   └── ConsultationRegister/

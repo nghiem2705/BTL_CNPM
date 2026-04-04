@@ -1,10 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // import Header from './Header';
 import { GraduationCap } from 'lucide-react';
+import StudentSurvey from '../components/Survey/StudentSurvey';
+import { profileApi } from '../api/ProfileApi';
 
 const Layout = ({ children, header }) => {
+  const [showSurvey, setShowSurvey] = useState(false);
+  const [uID, setUID] = useState(null);
+
+  useEffect(() => {
+    try {
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      if (userInfo && userInfo.role === 'student' && userInfo.uID) {
+        setUID(userInfo.uID);
+        // Check if features.hard_filters is missing or empty
+        const features = userInfo.user?.description?.features || {};
+        if (!features.hard_filters || !features.hard_filters.format) {
+          setShowSurvey(true);
+        }
+      }
+    } catch (e) {
+      console.error("Error reading userInfo for survey check", e);
+    }
+  }, []);
+
+  const handleSurveySuccess = async () => {
+    setShowSurvey(false);
+    // Refresh local storage so survey doesn't pop up again
+    if (uID) {
+        try {
+            const res = await profileApi.getStudentProfile(uID);
+            if (res.success) {
+                const storedInfo = JSON.parse(localStorage.getItem('userInfo')) || {};
+                storedInfo.user = res.data.profile;
+                localStorage.setItem('userInfo', JSON.stringify(storedInfo));
+            }
+        } catch (e) {}
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-[#F8F9FA] font-sans text-[#334E68]">
+      {showSurvey && uID && <StudentSurvey uID={uID} onSuccess={handleSurveySuccess} />}
+
       {/* <Header />  chỗ này thay bằng biến để trong app.jsx gọi hàm */}
       <div className="w-full z-50">
          {header}

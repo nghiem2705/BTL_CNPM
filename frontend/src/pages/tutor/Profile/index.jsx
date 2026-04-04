@@ -16,11 +16,13 @@ import {
     GraduationCap
 } from 'lucide-react';
 import { profileApi } from '../../../api/ProfileApi';
+import StudentSurvey from '../../../components/Survey/StudentSurvey';
 
 const TutorProfile = () => {
     const navigate = useNavigate();
     const { uID } = useParams();  // Get uID from URL params
     const [isEditing, setIsEditing] = useState(false);
+    const [isSurveyOpen, setIsSurveyOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
 
@@ -323,137 +325,54 @@ const TutorProfile = () => {
                                 </label>
                                 {isEditing ? (
                                     <textarea
-                                        value={profileData.description}
-                                        onChange={(e) => setProfileData({ ...profileData, description: e.target.value })}
+                                        value={typeof profileData.description === 'string' ? profileData.description : (profileData.description?.text || '')}
+                                        onChange={(e) => {
+                                            setProfileData({
+                                                ...profileData,
+                                                description: typeof profileData.description === 'string'
+                                                    ? e.target.value
+                                                    : { ...profileData.description, text: e.target.value }
+                                            });
+                                        }}
                                         className={inputStyle}
                                         rows={4}
                                         placeholder="Nhập giới thiệu về bản thân..."
                                     />
                                 ) : (
                                     <div className={`${inputStyle} min-h-[100px]`}>
-                                        {profileData.description || 'Chưa có giới thiệu'}
+                                        {typeof profileData.description === 'string' ? (profileData.description || 'Chưa có giới thiệu') : (profileData.description?.text || 'Chưa có giới thiệu')}
                                     </div>
                                 )}
                             </div>
 
-                            {/* Môn học quan tâm / Điểm mạnh */}
+                            {/* Đặc trưng giảng dạy (Khảo sát AI) */}
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                                    <BookOpen size={16} className="text-gray-500" />
-                                    {profileData.role === 'tutor' ? 'Điểm mạnh / Chuyên môn' : 'Môn học quan tâm'}
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                    Đặc trưng Kỹ năng Giảng dạy (Dành cho AI Tìm kiếm)
                                 </label>
-                                {isEditing ? (
-                                    <div>
-                                        <div className="flex gap-2 mb-2">
-                                            <input
-                                                type="text"
-                                                value={newSubject}
-                                                onChange={(e) => setNewSubject(e.target.value)}
-                                                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddSubject())}
-                                                className="flex-1 border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#006D77]/20"
-                                                placeholder="Thêm môn học/chuyên môn"
-                                            />
-                                            <button
-                                                onClick={handleAddSubject}
-                                                className="bg-[#006D77] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#00565e] transition-colors"
-                                            >
-                                                Thêm
-                                            </button>
-                                        </div>
-                                        <div className="flex flex-wrap gap-2">
-                                            {(profileData.strength || []).map((subject, index) => (
-                                                <span
-                                                    key={index}
-                                                    className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2"
-                                                >
-                                                    {subject}
-                                                    <button
-                                                        onClick={() => handleRemoveSubject(index)}
-                                                        className="hover:text-red-600"
-                                                    >
-                                                        <X size={14} />
-                                                    </button>
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div className="flex flex-wrap gap-2">
-                                        {(profileData.strength || []).length > 0 ? (
-                                            profileData.strength.map((subject, index) => (
-                                                <span
-                                                    key={index}
-                                                    className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium"
-                                                >
-                                                    {subject}
-                                                </span>
-                                            ))
-                                        ) : (
-                                            <span className="text-gray-400 italic">Chưa có thông tin</span>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Nhu cầu thêm (cho student) */}
-                            {profileData.role === 'student' && (
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                        Nhu cầu thêm
-                                    </label>
-                                    {isEditing ? (
-                                        <div>
-                                            <div className="flex gap-2 mb-2">
-                                                <input
-                                                    type="text"
-                                                    value={newDemand}
-                                                    onChange={(e) => setNewDemand(e.target.value)}
-                                                    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddDemand())}
-                                                    className="flex-1 border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#006D77]/20"
-                                                    placeholder="Thêm nhu cầu"
-                                                />
-                                                <button
-                                                    onClick={handleAddDemand}
-                                                    className="bg-[#006D77] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#00565e] transition-colors"
-                                                >
-                                                    Thêm
-                                                </button>
-                                            </div>
-                                            <div className="flex flex-wrap gap-2">
-                                                {(profileData.demand || []).map((demand, index) => (
-                                                    <span
-                                                        key={index}
-                                                        className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2"
-                                                    >
-                                                        {demand}
-                                                        <button
-                                                            onClick={() => handleRemoveDemand(index)}
-                                                            className="hover:text-red-600"
-                                                        >
-                                                            <X size={14} />
-                                                        </button>
-                                                    </span>
-                                                ))}
-                                            </div>
+                                <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl">
+                                    {profileData.description?.features?.hard_filters ? (
+                                        <div className="space-y-2 text-sm text-gray-700">
+                                            <p><span className="font-semibold">Lĩnh vực chuyên môn:</span> {
+                                                Array.isArray(profileData.description.features.hard_skills?.domain) 
+                                                  ? profileData.description.features.hard_skills.domain.join(', ')
+                                                  : profileData.description.features.hard_skills?.domain || 'Chưa rõ'
+                                            }</p>
+                                            <p><span className="font-semibold">Hình thức dạy:</span> {profileData.description.features.hard_filters.format} ({profileData.description.features.hard_filters.class_size})</p>
+                                            <p><span className="font-semibold">Phương pháp dạy:</span> {(profileData.description.features.hard_skills?.method || []).join(', ')}</p>
                                         </div>
                                     ) : (
-                                        <div className="flex flex-wrap gap-2">
-                                            {(profileData.demand || []).length > 0 ? (
-                                                profileData.demand.map((demand, index) => (
-                                                    <span
-                                                        key={index}
-                                                        className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium"
-                                                    >
-                                                        {demand}
-                                                    </span>
-                                                ))
-                                            ) : (
-                                                <span className="text-gray-400 italic">Chưa có thông tin</span>
-                                            )}
-                                        </div>
+                                        <p className="text-gray-500 italic text-sm mb-3">Hồ sơ kỹ năng còn trống. Hãy cập nhật để Sinh viên có thể tìm thấy bạn.</p>
                                     )}
+                                    
+                                    <button
+                                        onClick={() => setIsSurveyOpen(true)}
+                                        className="mt-3 bg-[#006D77] hover:bg-[#00565e] text-white px-4 py-2 rounded-lg text-sm font-bold transition-all shadow-md"
+                                    >
+                                        Cập nhật Kỹ năng (Khảo sát AI)
+                                    </button>
                                 </div>
-                            )}
+                            </div>
 
                             {/* Action Buttons */}
                             {isEditing && (
@@ -567,8 +486,27 @@ const TutorProfile = () => {
                             )}
                         </div>
                     </div>
-                </div>
             </div>
+        </div>
+            {isSurveyOpen && (
+                <StudentSurvey 
+                    uID={currentUserId}
+                    role="tutor"
+                    isEditing={true}
+                    initialFeatures={profileData.description?.features || null}
+                    onClose={() => setIsSurveyOpen(false)}
+                    onSuccess={(updatedFeatures) => {
+                        setProfileData({
+                            ...profileData,
+                            description: {
+                                ...profileData.description,
+                                features: updatedFeatures
+                            }
+                        });
+                        setIsSurveyOpen(false);
+                    }}
+                />
+            )}
         </div>
     );
 };

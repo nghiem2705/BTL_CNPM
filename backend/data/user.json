@@ -2,17 +2,13 @@
     "2312593": {
         "role": "student",
         "name": "Nguyễn Thành Phát",
-        "major": "cs",
         "rate": 3.4,
         "mail": "phat.nguyen@gmail.com",
         "phone": "0498207847",
-        "description": "Sinh viên năm 3 ngành Khoa học Máy tính, đang tìm hiểu về Machine Learning và kỹ thuật phần mềm. Muốn cải thiện kỹ năng giao tiếp và làm việc nhóm để chuẩn bị cho môi trường làm việc chuyên nghiệp. Tham gia các dự án nhóm về AI và phát triển ứng dụng. Mong muốn nhận được sự hướng dẫn về soft skills và technical skills để phát triển toàn diện.",
-        "demand": [
-            "soft_comm",
-            "cs_se",
-            "cs_ml"
-        ],
-        "strength": [],
+        "description": {
+            "text": "Sinh viên năm 3 ngành Khoa học Máy tính, đang tìm hiểu về Machine Learning và kỹ thuật phần mềm. Muốn cải thiện kỹ năng giao tiếp và làm việc nhóm để chuẩn bị cho môi trường làm việc chuyên nghiệp. Tham gia các dự án nhóm về AI và phát triển ứng dụng. Mong muốn nhận được sự hướng dẫn về soft skills và technical skills để phát triển toàn diện.",
+            "features": {}
+        },
         "tutor": [
             "t_00001",
             "t_00006"
@@ -21,16 +17,13 @@
     "2312185": {
         "role": "student",
         "name": "Phan Trọng Bảo Nam",
-        "major": "cs",
         "rate": 3.9,
         "mail": "nam.phan@gmail.com",
         "phone": "0211229050",
-        "description": "Sinh viên năm 3 ngành Khoa học Máy tính, có năng lực làm việc nhóm, tinh thần học hỏi và luôn hoàn thành nhiệm vụ xuất sắc",
-        "demand": [
-            "ch_thermo",
-            "cs_se"
-        ],
-        "strength": [],
+        "description": {
+            "text": "Sinh viên năm 3 ngành Khoa học Máy tính, có năng lực làm việc nhóm, tinh thần học hỏi và luôn hoàn thành nhiệm vụ xuất sắc",
+            "features": {}
+        },
         "tutor": [
             "t_00003",
             "t_00004",
@@ -42,56 +35,128 @@
     "2312329": {
         "role": "student",
         "name": "Bùi Trọng Nguyên",
-        "major": "cs",
         "rate": 4.2,
         "mail": "nguyen.bui@gmail.com",
         "phone": "0215800130",
-        "description": "Sinh viên năm 3 ngành Khoa học Máy tính, đam mê lập trình và phát triển phần mềm. Có kinh nghiệm làm việc nhóm qua nhiều dự án nhỏ. Đang tìm kiếm mentor để cải thiện kỹ năng lãnh đạo và kỹ thuật phần mềm, đặc biệt trong việc quản lý dự án và kiến trúc hệ thống. Mục tiêu trở thành Team Lead trong tương lai gần.",
-        "demand": [
-            "soft_lead",
-            "cs_se"
-        ],
-        "strength": [],
+        "description": {
+            "text": "Sinh viên năm 3 ngành Khoa học Máy tính, đam mê lập trình và phát triển phần mềm. Có kinh nghiệm làm việc nhóm qua nhiều dự án nhỏ. Đang tìm kiếm mentor để cải thiện kỹ năng lãnh đạo và kỹ thuật phần mềm, đặc biệt trong việc quản lý dự án và kiến trúc hệ thống. Mục tiêu trở thành Team Lead trong tương lai gần.",
+            "features": {
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn",
+                        "Tư vấn"
+                    ],
+                    "domain": [
+                        "IT",
+                        "Đời sống"
+                    ],
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Trí tuệ nhân tạo và dữ liệu",
+                            "Cấu trúc dữ liệu và giải thuật",
+                            "Toán (Đại số và Xác suất)"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp",
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        },
         "tutor": [
             "t_00002",
             "t_00010",
             "t_00009",
-            "t_00003"
+            "t_00003",
+            "t_00005"
         ]
     },
     "2213696": {
         "role": "student",
         "name": "Nguyễn Chí Trung",
-        "major": "cs",
         "rate": 3.9,
         "mail": "trung.nguyen@gmail.com",
         "phone": "0067703659",
-        "description": "Sinh viên năm 4 ngành Khoa học Máy tính, quan tâm đến tối ưu hóa hiệu suất và kỹ thuật phần mềm. Thích nghiên cứu các thuật toán nhanh và cấu trúc dữ liệu hiệu quả. Đang tham gia CLB lập trình thi đấu của trường. Mong muốn nhận được sự hướng dẫn về design patterns và best practices trong software engineering.",
-        "demand": [
-            "soft_fast",
-            "cs_se"
-        ],
-        "strength": [],
+        "description": {
+            "text": "Sinh viên năm 4 ngành Khoa học Máy tính, quan tâm đến tối ưu hóa hiệu suất và kỹ thuật phần mềm. Thích nghiên cứu các thuật toán nhanh và cấu trúc dữ liệu hiệu quả. Đang tham gia CLB lập trình thi đấu của trường. Mong muốn nhận được sự hướng dẫn về design patterns và best practices trong software engineering.",
+            "features": {
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn",
+                        "Tư vấn"
+                    ],
+                    "domain": [
+                        "IT",
+                        "Đời sống",
+                        "Kinh tế học"
+                    ],
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Văn hóa trong du lịch",
+                            "Kiến trúc phân tích phần mềm",
+                            "Cấu trúc dữ liệu và giải thuật",
+                            "Trí tuệ nhân tạo và dữ liệu",
+                            "Thị trường và kinh doanh",
+                            "Kinh tế lượng và thống kê"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        },
         "tutor": [
             "t_00002",
             "t_00001",
             "t_00003",
-            "t_00005"
+            "t_00005",
+            "t_00051"
         ]
     },
     "2212050": {
         "role": "student",
         "name": "Lương Vĩnh Minh",
-        "major": "cs",
         "rate": 3.8,
         "mail": "minh.luong@gmail.com",
         "phone": "0019566815",
-        "description": "Sinh viên năm 4 ngành Khoa học Máy tính, cực kỳ có trách nhiệm, luôn hoàn thành nhiệm vụ đúng hạn",
-        "demand": [
-            "cs_algo",
-            "cs_se"
-        ],
-        "strength": [],
+        "description": {
+            "text": "Sinh viên năm 4 ngành Khoa học Máy tính, cực kỳ có trách nhiệm, luôn hoàn thành nhiệm vụ đúng hạn",
+            "features": {}
+        },
         "tutor": [
             "t_00001",
             "t_00007"
@@ -100,81 +165,22 @@
     "2212209": {
         "role": "student",
         "name": "Nguyễn Quang Nghiêm",
-        "major": "cs",
         "rate": 3.2,
         "mail": "nghiem.nguyen@gmail.com",
         "phone": "0413430604",
-        "description": "Sinh viên năm 4 ngành Khoa học Máy tính, thích làm việc nhóm và học hỏi từ mọi người xung quanh. Đang tham gia dự án phát triển ứng dụng mobile cho startup. Muốn cải thiện kỹ năng làm việc nhóm, giao tiếp hiệu quả và áp dụng các phương pháp phát triển phần mềm chuyên nghiệp. Hướng đến vai trò Scrum Master.",
-        "demand": [
-            "soft_team",
-            "cs_se"
-        ],
-        "strength": [],
+        "description": {
+            "text": "Sinh viên năm 4 ngành Khoa học Máy tính, thích làm việc nhóm và học hỏi từ mọi người xung quanh. Đang tham gia dự án phát triển ứng dụng mobile cho startup. Muốn cải thiện kỹ năng làm việc nhóm, giao tiếp hiệu quả và áp dụng các phương pháp phát triển phần mềm chuyên nghiệp. Hướng đến vai trò Scrum Master.",
+            "features": {}
+        },
         "tutor": [
             "t_00005",
             "t_00004",
             "t_00006"
         ]
     },
-    "t_00001": {
-        "role": "tutor",
-        "name": "Mai Đức Trung",
-        "major": "cs",
-        "rate": 4.0,
-        "mail": "trung.mai@gmail.com",
-        "phone": "0229023317",
-        "description": "Giảng viên Khoa học Máy tính với 6 năm kinh nghiệm giảng dạy kỹ thuật phần mềm. Chuyên về Software Engineering, Design Patterns và Agile Development. Đã tham gia nhiều dự án phát triển phần mềm thực tế. Có kỹ năng giao tiếp tốt, giúp sinh viên dễ dàng tiếp cận các khái niệm phức tạp. Phương pháp giảng dạy tập trung vào thực hành và case studies. Luôn khuyến khích sinh viên phát triển kỹ năng giao tiếp và làm việc nhóm trong môi trường phát triển phần mềm chuyên nghiệp.",
-        "demand": [],
-        "strength": [
-            "cs_se",
-            "soft_comm"
-        ],
-        "students": [
-            "2312593",
-            "2312329"
-        ]
-    },
-    "t_00002": {
-        "role": "tutor",
-        "name": "Bùi Công Tuấn",
-        "major": "ee",
-        "rate": 4.2,
-        "mail": "a@example.com",
-        "phone": "0387181895",
-        "description": "Chuyên gia đa lĩnh vực với nền tảng Kỹ thuật Điện - Điện tử và chuyên môn sâu về Khoa học Máy tính. 7 năm kinh nghiệm trong thiết kế mạch điện, thuật toán và Machine Learning. Đã phát triển nhiều hệ thống nhúng tích hợp AI. Thành thạo trong việc kết hợp hardware và software để tạo ra các giải pháp công nghệ sáng tạo. Phương pháp giảng dạy linh hoạt, phù hợp với nhiều đối tượng sinh viên từ điện tử đến lập trình. Đam mê chia sẻ kiến thức về IoT, robotics và ứng dụng AI trong embedded systems.",
-        "demand": [],
-        "strength": [
-            "ee_circuit",
-            "cs_algo",
-            "cs_ml",
-            "aa"
-        ]
-    },
-    "t_00003": {
-        "role": "tutor",
-        "name": "Trần Thùy Linh",
-        "major": "ch",
-        "rate": 3.4,
-        "mail": "linh.tran@gmail.com",
-        "phone": "0232465401",
-        "description": "Giảng viên Kỹ thuật Hóa học trẻ với phong cách giảng dạy năng động và tương tác cao. Chuyên về nhiệt động lực học hóa học và ứng dụng trong công nghiệp. 5 năm kinh nghiệm giảng dạy và mentoring sinh viên. Điểm mạnh là kỹ năng soft skills toàn diện: lãnh đạo, giao tiếp, tư duy nhanh, phản biện và làm việc nhóm. Đam mê phát triển không chỉ kiến thức chuyên môn mà còn kỹ năng mềm cho sinh viên. Tạo môi trường học tập thân thiện, khuyến khích sinh viên tự tin thể hiện ý kiến và làm việc hiệu quả trong nhóm.",
-        "demand": [],
-        "strength": [
-            "ch_thermo",
-            "soft_lead",
-            "soft_comm",
-            "soft_fast",
-            "soft_crit",
-            "soft_team"
-        ],
-        "students": [
-            "2312329"
-        ]
-    },
     "9999999": {
         "role": "admin",
         "name": "System Administrator",
-        "major": "",
         "rate": 5.0,
         "mail": "",
         "phone": "",
@@ -187,17 +193,13 @@
     "2312450": {
         "role": "student",
         "name": "Nguyễn Thị Hoa",
-        "major": "cs",
         "rate": 3.7,
         "mail": "hoa.nguyen@gmail.com",
         "phone": "0345678901",
-        "description": "Sinh viên năm 3 chuyên ngành Khoa học Máy tính, đam mê AI và Machine Learning. Đang tự học Python, TensorFlow và các framework ML phổ biến. Tham gia câu lạc bộ AI của trường và làm dự án nhận diện khuôn mặt. Muốn học thêm về thuật toán ML nâng cao, deep learning và kỹ năng tư duy phản biện để phân tích bài toán. Mục tiêu trở thành AI Engineer.",
-        "demand": [
-            "cs_ml",
-            "cs_algo",
-            "soft_crit"
-        ],
-        "strength": [],
+        "description": {
+            "text": "Sinh viên năm 3 chuyên ngành Khoa học Máy tính, đam mê AI và Machine Learning. Đang tự học Python, TensorFlow và các framework ML phổ biến. Tham gia câu lạc bộ AI của trường và làm dự án nhận diện khuôn mặt. Muốn học thêm về thuật toán ML nâng cao, deep learning và kỹ năng tư duy phản biện để phân tích bài toán. Mục tiêu trở thành AI Engineer.",
+            "features": {}
+        },
         "tutor": [
             "t_00005",
             "t_00008",
@@ -207,17 +209,13 @@
     "2412651": {
         "role": "student",
         "name": "Phạm Minh Khoa",
-        "major": "ee",
         "rate": 4.0,
         "mail": "khoa.pham@gmail.com",
         "phone": "0356789012",
-        "description": "Sinh viên năm 2 ngành Kỹ thuật Điện - Điện tử, đam mê thiết kế mạch điện và hệ thống nhúng. Tự học Arduino, Raspberry Pi và đang phát triển dự án nhà thông minh IoT. Quan tâm đến xử lý tín hiệu số và thiết kế PCB. Muốn nhận được sự hướng dẫn về phân tích mạch phức tạp, kỹ thuật xử lý tín hiệu và tối ưu hóa hiệu suất hệ thống. Mơ ước trở thành IoT Engineer.",
-        "demand": [
-            "ee_circuit",
-            "ee_signal",
-            "soft_fast"
-        ],
-        "strength": [],
+        "description": {
+            "text": "Sinh viên năm 2 ngành Kỹ thuật Điện - Điện tử, đam mê thiết kế mạch điện và hệ thống nhúng. Tự học Arduino, Raspberry Pi và đang phát triển dự án nhà thông minh IoT. Quan tâm đến xử lý tín hiệu số và thiết kế PCB. Muốn nhận được sự hướng dẫn về phân tích mạch phức tạp, kỹ thuật xử lý tín hiệu và tối ưu hóa hiệu suất hệ thống. Mơ ước trở thành IoT Engineer.",
+            "features": {}
+        },
         "tutor": [
             "t_00004"
         ]
@@ -225,17 +223,13 @@
     "2412789": {
         "role": "student",
         "name": "Lê Văn Dương",
-        "major": "me",
         "rate": 3.6,
         "mail": "duong.le@gmail.com",
         "phone": "0367890123",
-        "description": "Sinh viên năm 2 ngành Kỹ thuật Cơ khí, yêu thích nghiên cứu về động lực học, cơ học chất lỏng và thiết kế sản phẩm. Đang học sử dụng SolidWorks và ANSYS cho mô phỏng. Tham gia đội thi thiết kế xe tiết kiệm nhiên liệu. Muốn nâng cao kỹ năng phân tích cơ học vật rắn, động lực học chất lỏng và làm việc nhóm hiệu quả. Hướng đến nghề kỹ sư thiết kế ô tô.",
-        "demand": [
-            "me_solid",
-            "me_fluid",
-            "soft_team"
-        ],
-        "strength": [],
+        "description": {
+            "text": "Sinh viên năm 2 ngành Kỹ thuật Cơ khí, yêu thích nghiên cứu về động lực học, cơ học chất lỏng và thiết kế sản phẩm. Đang học sử dụng SolidWorks và ANSYS cho mô phỏng. Tham gia đội thi thiết kế xe tiết kiệm nhiên liệu. Muốn nâng cao kỹ năng phân tích cơ học vật rắn, động lực học chất lỏng và làm việc nhóm hiệu quả. Hướng đến nghề kỹ sư thiết kế ô tô.",
+            "features": {}
+        },
         "tutor": [
             "t_00006",
             "t_00009"
@@ -244,17 +238,13 @@
     "2512820": {
         "role": "student",
         "name": "Võ Thị Ánh",
-        "major": "ch",
         "rate": 4.1,
         "mail": "anh.vo@gmail.com",
         "phone": "0378901234",
-        "description": "Sinh viên năm 1 ngành Kỹ thuật Hóa học, yêu thích nghiên cứu hóa hữu cơ và phân tích hóa học. Quan tâm đến nhiệt động lực học hóa học và ứng dụng trong công nghiệp. Muốn học thêm về phản ứng hữu cơ phức tạp, kỹ thuật phân tích hiện đại và kỹ năng lãnh đạo nhóm nghiên cứu. Mơ ước làm việc trong ngành dược phẩm.",
-        "demand": [
-            "ch_thermo",
-            "ch_organic",
-            "soft_lead"
-        ],
-        "strength": [],
+        "description": {
+            "text": "Sinh viên năm 1 ngành Kỹ thuật Hóa học, yêu thích nghiên cứu hóa hữu cơ và phân tích hóa học. Quan tâm đến nhiệt động lực học hóa học và ứng dụng trong công nghiệp. Muốn học thêm về phản ứng hữu cơ phức tạp, kỹ thuật phân tích hiện đại và kỹ năng lãnh đạo nhóm nghiên cứu. Mơ ước làm việc trong ngành dược phẩm.",
+            "features": {}
+        },
         "tutor": [
             "t_00003",
             "t_00010",
@@ -262,119 +252,4519 @@
             "t_00007"
         ]
     },
+    "t_00003": {
+        "role": "tutor",
+        "name": "Võ Thanh Anh",
+        "mail": "anhvo@gmail.com",
+        "phone": "0974654734",
+        "rate": 4.2,
+        "description": {
+            "features": {
+                "id": "Mentor_001",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Tư duy và nhận thức",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Viễn thông",
+                            "Hệ thống nhúng và IoT",
+                            "Hệ thống và tự động hóa"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
     "t_00004": {
         "role": "tutor",
-        "name": "Nguyễn Văn Hùng",
-        "major": "ee",
-        "rate": 4.5,
-        "mail": "hung.nguyen@gmail.com",
-        "phone": "0389012345",
-        "description": "Giảng viên Kỹ thuật Điện - Điện tử với 8 năm kinh nghiệm giảng dạy và nghiên cứu. Chuyên sâu về thiết kế mạch điện tử, hệ thống điều khiển tự động và xử lý tín hiệu số. Đã hướng dẫn hơn 200 sinh viên hoàn thành đồ án và luận văn. Có nhiều bài báo khoa học được công bố trên tạp chí quốc tế. Phương pháp giảng dạy kết hợp lý thuyết với thực hành, giúp sinh viên nắm vững kiến thức và ứng dụng vào thực tế. Luôn sẵn sàng chia sẻ kinh nghiệm và hỗ trợ sinh viên phát triển sự nghiệp.",
-        "demand": [],
-        "strength": [
-            "ee_circuit",
-            "ee_power",
-            "ee_signal",
-            "soft_comm"
-        ]
+        "name": "Lê Ngọc Minh",
+        "mail": "minhle@gmail.com",
+        "phone": "0750733326",
+        "rate": 4.4,
+        "description": {
+            "features": {
+                "id": "Mentor_002",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Hội thảo"
+                    ],
+                    "domain": "IT",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Toán (Đại số và Xác suất)",
+                            "Kiến trúc phân tích phần mềm",
+                            "Hạ tầng và vận hành"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
     },
     "t_00005": {
         "role": "tutor",
-        "name": "Phạm Thùy Thảo",
-        "major": "cs",
-        "rate": 4.8,
-        "mail": "thao.pham@gmail.com",
-        "phone": "0390123456",
-        "description": "Chuyên gia Machine Learning và Data Science với hơn 10 năm kinh nghiệm làm việc tại các công ty công nghệ hàng đầu. Đã triển khai thành công nhiều dự án AI thực tế trong lĩnh vực fintech, healthcare và e-commerce. Giảng dạy hơn 500 sinh viên về ML, Deep Learning, và Data Mining. Tác giả của 15+ bài báo khoa học về AI. Phương pháp giảng dạy thực tế, tập trung vào project-based learning và case studies. Đam mê chia sẻ kiến thức và giúp sinh viên phát triển tư duy phản biện, kỹ năng lãnh đạo trong các dự án AI.",
-        "demand": [],
-        "strength": [
-            "cs_ml",
-            "cs_algo",
-            "cs_data",
-            "soft_crit",
-            "soft_lead"
-        ]
+        "name": "Lê Phương Hương",
+        "mail": "huongle@gmail.com",
+        "phone": "0500100955",
+        "rate": 4.9,
+        "description": {
+            "features": {
+                "id": "Mentor_003",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Xây dựng",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Quản lý và thi công",
+                            "Địa kỹ thuật và nền móng",
+                            "Thiết kế và mô phỏng cấu trúc"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
     },
     "t_00006": {
         "role": "tutor",
-        "name": "Trần Minh Quân",
-        "major": "me",
-        "rate": 4.3,
-        "mail": "quan.tran@gmail.com",
-        "phone": "0301234567",
-        "description": "Kỹ sư cơ khí cao cấp với 10 năm kinh nghiệm trong ngành ô tô và chế tạo máy. Chuyên về thiết kế sản phẩm, mô phỏng động lực học và tối ưu hóa hệ thống cơ khí. Thành thạo SolidWorks, CATIA, ANSYS và các phần mềm CAD/CAE. Đã tham gia thiết kế nhiều dự án lớn cho các hãng ô tô. Có kinh nghiệm giảng dạy và mentoring sinh viên về cơ học vật rắn, động lực học chất lỏng, truyền nhiệt. Phương pháp giảng dạy thực tiễn, kết hợp lý thuyết với các bài toán công nghiệp thực tế. Luôn khuyến khích sinh viên làm việc nhanh và hiệu quả.",
-        "demand": [],
-        "strength": [
-            "me_solid",
-            "me_fluid",
-            "me_thermo",
-            "soft_fast"
-        ]
+        "name": "Võ Hoàng Nam",
+        "mail": "namvo@gmail.com",
+        "phone": "0006171688",
+        "rate": 4.6,
+        "description": {
+            "features": {
+                "id": "Mentor_004",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn",
+                        "Tư vấn"
+                    ],
+                    "domain": "Du lịch",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Tư duy và nhận thức",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Văn hóa trong du lịch",
+                            "Quản trị và điều hành",
+                            "Marketing du lịch"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "NCKH"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
     },
     "t_00007": {
         "role": "tutor",
-        "name": "Lê Thị Hà",
-        "major": "ch",
+        "name": "Trần Thanh Hải",
+        "mail": "haitran@gmail.com",
+        "phone": "0263007759",
         "rate": 4.6,
-        "mail": "ha.le@gmail.com",
-        "phone": "0312345678",
-        "description": "Tiến sĩ Hóa học với chuyên ngành Hóa hữu cơ và Hóa phân tích, 12 năm giảng dạy tại đại học. Nghiên cứu về tổng hợp hợp chất hữu cơ, phân tích cấu trúc phân tử và ứng dụng trong dược phẩm. Đã công bố 20+ bài báo ISI về hóa học. Có nhiều năm kinh nghiệm hướng dẫn sinh viên làm đồ án, luận văn và nghiên cứu khoa học. Phương pháp giảng dạy kết hợp giữa lý thuyết sâu và thực hành phòng thí nghiệm. Chú trọng phát triển tư duy phản biện và kỹ năng làm việc nhóm cho sinh viên. Đam mê truyền cảm hứng nghiên cứu khoa học cho thế hệ trẻ.",
-        "demand": [],
-        "strength": [
-            "ch_organic",
-            "ch_thermo",
-            "soft_crit",
-            "soft_team"
-        ]
+        "description": {
+            "features": {
+                "id": "Mentor_005",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Tư vấn"
+                    ],
+                    "domain": "Chính trị học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Nghiên cứu xã hội",
+                            "Tham luận",
+                            "Phân tích chính sách"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân",
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
     },
     "t_00008": {
         "role": "tutor",
-        "name": "Nguyễn Đức Bình",
-        "major": "cs",
-        "rate": 4.4,
-        "mail": "binh.nguyen@gmail.com",
-        "phone": "0323456789",
-        "description": "Senior Software Engineer với 9 năm kinh nghiệm phát triển phần mềm tại các công ty công nghệ lớn. Chuyên về Web Development (React, Node.js, Python), Software Architecture và Design Patterns. Đã lead nhiều dự án lớn, xây dựng hệ thống phục vụ hàng triệu users. Thành thạo các phương pháp Agile/Scrum, CI/CD, microservices. Đam mê chia sẻ kiến thức và kinh nghiệm thực tế trong ngành. Đã mentoring hơn 50 junior developers. Phương pháp giảng dạy thực chiến, tập trung vào code quality, best practices và kỹ năng làm việc nhóm. Luôn cập nhật công nghệ mới và xu hướng phát triển phần mềm hiện đại.",
-        "demand": [],
-        "strength": [
-            "cs_se",
-            "cs_web",
-            "cs_algo",
-            "soft_comm",
-            "soft_team"
-        ]
+        "name": "Lê Thị Phát",
+        "mail": "phatle@gmail.com",
+        "phone": "0568970562",
+        "rate": 4.7,
+        "description": {
+            "features": {
+                "id": "Mentor_006",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn",
+                        "Hội thảo"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
     },
     "t_00009": {
         "role": "tutor",
-        "name": "Vũ Thị Mai",
-        "major": "ma",
-        "rate": 4.7,
-        "mail": "mai.vu@gmail.com",
-        "phone": "0334567890",
-        "description": "Giảng viên Toán học ứng dụng với Thạc sĩ chuyên ngành Giải tích và Đại số, 8 năm kinh nghiệm giảng dạy. Chuyên sâu về Giải tích, Đại số tuyến tính, Xác suất thống kê và Toán rời rạc. Có phương pháp giảng dạy sáng tạo, dễ hiểu, giúp sinh viên yêu thích môn Toán. Đã giảng dạy cho hơn 1000 sinh viên các ngành kỹ thuật. Kinh nghiệm hướng dẫn sinh viên tham gia Olympic Toán và các cuộc thi khoa học. Chú trọng phát triển tư duy logic, kỹ năng giải quyết vấn đề và khả năng lãnh đạo. Luôn tạo môi trường học tập tích cực, khuyến khích sinh viên đặt câu hỏi và tư duy độc lập.",
-        "demand": [],
-        "strength": [
-            "ma_calculus",
-            "ma_algebra",
-            "ma_stat",
-            "soft_lead",
-            "soft_crit"
-        ]
+        "name": "Huỳnh Đức Phát",
+        "mail": "phathuynh@gmail.com",
+        "phone": "0303465748",
+        "rate": 4.3,
+        "description": {
+            "features": {
+                "id": "Mentor_007",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Kinh tế học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Thị trường và kinh doanh",
+                            "Kinh tế lượng và thống kê",
+                            "Tài chính và đầu tư"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
     },
     "t_00010": {
         "role": "tutor",
-        "name": "Đỗ Văn Long",
-        "major": "ph",
+        "name": "Phan Phương Nam",
+        "mail": "namphan@gmail.com",
+        "phone": "0463965213",
+        "rate": 4.5,
+        "description": {
+            "features": {
+                "id": "Mentor_008",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Hội thảo"
+                    ],
+                    "domain": "Du lịch",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Quản trị và điều hành",
+                            "Văn hóa trong du lịch",
+                            "Marketing du lịch"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "NCKH"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00011": {
+        "role": "tutor",
+        "name": "Phan Hữu Dũng",
+        "mail": "dungphan@gmail.com",
+        "phone": "0431316243",
+        "rate": 4.6,
+        "description": {
+            "features": {
+                "id": "Mentor_009",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Tư vấn"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Hệ thống nhúng và IoT",
+                            "Hệ thống và tự động hóa",
+                            "Thiết kế mạch và phần cứng"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00012": {
+        "role": "tutor",
+        "name": "Huỳnh Phương Anh",
+        "mail": "anhhuynh@gmail.com",
+        "phone": "0445923442",
+        "rate": 3.8,
+        "description": {
+            "features": {
+                "id": "Mentor_010",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Kinh tế học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Kinh tế lượng và thống kê",
+                            "Kế toán",
+                            "Tài chính và đầu tư"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án",
+                        "NCKH"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00013": {
+        "role": "tutor",
+        "name": "Phan Ngọc Minh",
+        "mail": "minhphan@gmail.com",
+        "phone": "0820805715",
+        "rate": 4.6,
+        "description": {
+            "features": {
+                "id": "Mentor_011",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Kinh tế học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Giao tiếp",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Kinh tế lượng và thống kê",
+                            "Thị trường và kinh doanh"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
+    },
+    "t_00014": {
+        "role": "tutor",
+        "name": "Huỳnh Văn Khoa",
+        "mail": "khoahuynh@gmail.com",
+        "phone": "0279031162",
+        "rate": 4.3,
+        "description": {
+            "features": {
+                "id": "Mentor_012",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Hội thảo"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Tư duy và nhận thức",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Hệ thống và tự động hóa",
+                            "Thiết kế mạch và phần cứng"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00015": {
+        "role": "tutor",
+        "name": "Đặng Phương Anh",
+        "mail": "anhđang@gmail.com",
+        "phone": "0968856134",
+        "rate": 4.8,
+        "description": {
+            "features": {
+                "id": "Mentor_013",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Kinh tế học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Tài chính và đầu tư",
+                            "Kế toán"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00016": {
+        "role": "tutor",
+        "name": "Đặng Thị Phát",
+        "mail": "phatđang@gmail.com",
+        "phone": "0923685531",
+        "rate": 3.7,
+        "description": {
+            "features": {
+                "id": "Mentor_014",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Chính trị học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Tham luận",
+                            "Phân tích chính sách",
+                            "Nghiên cứu xã hội"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00017": {
+        "role": "tutor",
+        "name": "Nguyễn Văn Khoa",
+        "mail": "khoanguyen@gmail.com",
+        "phone": "0055238207",
+        "rate": 4.3,
+        "description": {
+            "features": {
+                "id": "Mentor_015",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Chính trị học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Phân tích chính sách",
+                            "Tham luận"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân",
+                        "NCKH"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00018": {
+        "role": "tutor",
+        "name": "Trần Đức Hương",
+        "mail": "huongtran@gmail.com",
+        "phone": "0611556287",
+        "rate": 4.5,
+        "description": {
+            "features": {
+                "id": "Mentor_016",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Du lịch",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Tư duy và nhận thức",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Văn hóa trong du lịch",
+                            "Quản trị và điều hành",
+                            "Marketing du lịch"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân",
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
+    },
+    "t_00019": {
+        "role": "tutor",
+        "name": "Đặng Văn Tuấn",
+        "mail": "tuanđang@gmail.com",
+        "phone": "0764621694",
+        "rate": 3.7,
+        "description": {
+            "features": {
+                "id": "Mentor_017",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Viễn thông",
+                            "Hệ thống và tự động hóa"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
+    },
+    "t_00020": {
+        "role": "tutor",
+        "name": "Bùi Ngọc Khanh",
+        "mail": "khanhbui@gmail.com",
+        "phone": "0291931909",
+        "rate": 4.6,
+        "description": {
+            "features": {
+                "id": "Mentor_018",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn",
+                        "Hội thảo"
+                    ],
+                    "domain": "Chính trị học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Quản lý",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Tham luận",
+                            "Nghiên cứu xã hội"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân",
+                        "NCKH"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00021": {
+        "role": "tutor",
+        "name": "Huỳnh Đức Anh",
+        "mail": "anhhuynh@gmail.com",
+        "phone": "0748774106",
+        "rate": 3.8,
+        "description": {
+            "features": {
+                "id": "Mentor_019",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Xây dựng",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Tư duy và nhận thức",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Quản lý và thi công",
+                            "Bản vẽ và mô hình hóa thông tin",
+                            "Địa kỹ thuật và nền móng"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân",
+                        "NCKH"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00022": {
+        "role": "tutor",
+        "name": "Đặng Hữu Phát",
+        "mail": "phatđang@gmail.com",
+        "phone": "0695341066",
+        "rate": 4.8,
+        "description": {
+            "features": {
+                "id": "Mentor_020",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Tư vấn"
+                    ],
+                    "domain": "Du lịch",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Quản trị và điều hành",
+                            "Văn hóa trong du lịch"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án",
+                        "NCKH"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00023": {
+        "role": "tutor",
+        "name": "Nguyễn Hữu Hải",
+        "mail": "hainguyen@gmail.com",
+        "phone": "0467984633",
+        "rate": 4.5,
+        "description": {
+            "features": {
+                "id": "Mentor_021",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Tư vấn"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Viễn thông",
+                            "Hệ thống và tự động hóa",
+                            "Hệ thống nhúng và IoT"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án",
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00024": {
+        "role": "tutor",
+        "name": "Nguyễn Thị Dũng",
+        "mail": "dungnguyen@gmail.com",
+        "phone": "0567141403",
+        "rate": 3.9,
+        "description": {
+            "features": {
+                "id": "Mentor_022",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Giao tiếp",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Viễn thông",
+                            "Thiết kế mạch và phần cứng",
+                            "Hệ thống và tự động hóa"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp",
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00025": {
+        "role": "tutor",
+        "name": "Võ Đức Khanh",
+        "mail": "khanhvo@gmail.com",
+        "phone": "0441033165",
         "rate": 4.2,
-        "mail": "long.do@gmail.com",
-        "phone": "0345678901",
-        "description": "Thạc sĩ Vật lý với chuyên ngành Cơ học và Điện từ học, 7 năm kinh nghiệm giảng dạy đại học. Chuyên sâu về Cơ học cổ điển, Điện từ học, Quang học và Vật lý hiện đại. Có khả năng giải thích các khái niệm vật lý phức tạp một cách dễ hiểu và trực quan. Đã hướng dẫn nhiều sinh viên đạt giải trong các kỳ thi Olympic Vật lý. Kinh nghiệm trong việc ứng dụng vật lý vào các bài toán kỹ thuật thực tế. Phương pháp giảng dạy kết hợp lý thuyết với thí nghiệm và mô phỏng. Giao tiếp tốt, luôn sẵn sàng hỗ trợ sinh viên giải đáp thắc mắc. Làm việc hiệu quả và tập trung vào kết quả học tập của sinh viên.",
-        "demand": [],
-        "strength": [
-            "ph_mech",
-            "ph_electro",
-            "soft_fast",
-            "soft_comm"
+        "description": {
+            "features": {
+                "id": "Mentor_023",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn",
+                        "Hội thảo"
+                    ],
+                    "domain": "IT",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Trí tuệ nhân tạo và dữ liệu",
+                            "Toán (Đại số và Xác suất)",
+                            "Kiến trúc phân tích phần mềm",
+                            "Hạ tầng và vận hành"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp",
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00026": {
+        "role": "tutor",
+        "name": "Bùi Phương Lan",
+        "mail": "lanbui@gmail.com",
+        "phone": "0659934067",
+        "rate": 4.5,
+        "description": {
+            "features": {
+                "id": "Mentor_024",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Hội thảo"
+                    ],
+                    "domain": "Du lịch",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Quản trị và điều hành",
+                            "Marketing du lịch",
+                            "Văn hóa trong du lịch"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00027": {
+        "role": "tutor",
+        "name": "Huỳnh Hữu Hải",
+        "mail": "haihuynh@gmail.com",
+        "phone": "0032699909",
+        "rate": 4.3,
+        "description": {
+            "features": {
+                "id": "Mentor_025",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Quản lý công nghiệp",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Quản lý chất lượng",
+                            "Quản lý chuỗi cung ứng"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân",
+                        "NCKH"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00028": {
+        "role": "tutor",
+        "name": "Đặng Hữu Khanh",
+        "mail": "khanhđang@gmail.com",
+        "phone": "0979262545",
+        "rate": 4.4,
+        "description": {
+            "features": {
+                "id": "Mentor_026",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Chính trị học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Nghiên cứu xã hội",
+                            "Tham luận"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00029": {
+        "role": "tutor",
+        "name": "Đặng Đức Phát",
+        "mail": "phatđang@gmail.com",
+        "phone": "0793415991",
+        "rate": 4.4,
+        "description": {
+            "features": {
+                "id": "Mentor_027",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "Đồ án"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00030": {
+        "role": "tutor",
+        "name": "Bùi Thị Nam",
+        "mail": "nambui@gmail.com",
+        "phone": "0449375778",
+        "rate": 4.1,
+        "description": {
+            "features": {
+                "id": "Mentor_028",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "IT",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Hạ tầng và vận hành",
+                            "Kiến trúc phân tích phần mềm",
+                            "Lập trình phát triển ứng dụng"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00031": {
+        "role": "tutor",
+        "name": "Nguyễn Văn Dũng",
+        "mail": "dungnguyen@gmail.com",
+        "phone": "0981182490",
+        "rate": 4.1,
+        "description": {
+            "features": {
+                "id": "Mentor_029",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn",
+                        "Hội thảo"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH",
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00032": {
+        "role": "tutor",
+        "name": "Vũ Ngọc Dũng",
+        "mail": "dungvu@gmail.com",
+        "phone": "0061207749",
+        "rate": 3.5,
+        "description": {
+            "features": {
+                "id": "Mentor_030",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Tư vấn"
+                    ],
+                    "domain": "Chính trị học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Tham luận",
+                            "Phân tích chính sách",
+                            "Nghiên cứu xã hội"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00033": {
+        "role": "tutor",
+        "name": "Lê Ngọc Khanh",
+        "mail": "khanhle@gmail.com",
+        "phone": "0278048593",
+        "rate": 4.2,
+        "description": {
+            "features": {
+                "id": "Mentor_031",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Hệ thống và tự động hóa",
+                            "Hệ thống nhúng và IoT"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp",
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00034": {
+        "role": "tutor",
+        "name": "Phạm Đức Tuấn",
+        "mail": "tuanpham@gmail.com",
+        "phone": "0389737773",
+        "rate": 3.6,
+        "description": {
+            "features": {
+                "id": "Mentor_032",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Hệ thống nhúng và IoT",
+                            "Thiết kế mạch và phần cứng",
+                            "Viễn thông"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH",
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00035": {
+        "role": "tutor",
+        "name": "Võ Phương Tuấn",
+        "mail": "tuanvo@gmail.com",
+        "phone": "0754366774",
+        "rate": 4.6,
+        "description": {
+            "features": {
+                "id": "Mentor_033",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn",
+                        "Tư vấn"
+                    ],
+                    "domain": "Xây dựng",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Giao tiếp",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Thiết kế và mô phỏng cấu trúc",
+                            "Địa kỹ thuật và nền móng",
+                            "Quản lý và thi công"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
+    },
+    "t_00036": {
+        "role": "tutor",
+        "name": "Bùi Thị Dũng",
+        "mail": "dungbui@gmail.com",
+        "phone": "0287815895",
+        "rate": 3.9,
+        "description": {
+            "features": {
+                "id": "Mentor_034",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "IT",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Kiến trúc phân tích phần mềm",
+                            "Trí tuệ nhân tạo và dữ liệu",
+                            "Lập trình phát triển ứng dụng"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH",
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00037": {
+        "role": "tutor",
+        "name": "Phạm Hoàng Phát",
+        "mail": "phatpham@gmail.com",
+        "phone": "0835856990",
+        "rate": 3.6,
+        "description": {
+            "features": {
+                "id": "Mentor_035",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Du lịch",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Quản trị và điều hành",
+                            "Văn hóa trong du lịch",
+                            "Marketing du lịch"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00038": {
+        "role": "tutor",
+        "name": "Lê Hoàng Lan",
+        "mail": "lanle@gmail.com",
+        "phone": "0332803757",
+        "rate": 3.6,
+        "description": {
+            "features": {
+                "id": "Mentor_036",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Tư vấn"
+                    ],
+                    "domain": "Du lịch",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Văn hóa trong du lịch",
+                            "Quản trị và điều hành",
+                            "Marketing du lịch"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00039": {
+        "role": "tutor",
+        "name": "Trần Hoàng Hải",
+        "mail": "haitran@gmail.com",
+        "phone": "0341123545",
+        "rate": 4.0,
+        "description": {
+            "features": {
+                "id": "Mentor_037",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn",
+                        "Tư vấn"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH",
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00040": {
+        "role": "tutor",
+        "name": "Trần Thị Khoa",
+        "mail": "khoatran@gmail.com",
+        "phone": "0511863614",
+        "rate": 3.7,
+        "description": {
+            "features": {
+                "id": "Mentor_038",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Du lịch",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Văn hóa trong du lịch",
+                            "Marketing du lịch"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH",
+                        "Đồ án"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00041": {
+        "role": "tutor",
+        "name": "Vũ Thanh Phát",
+        "mail": "phatvu@gmail.com",
+        "phone": "0321158381",
+        "rate": 3.6,
+        "description": {
+            "features": {
+                "id": "Mentor_039",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Quản lý công nghiệp",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Tối ưu hóa và vận hành",
+                            "Phân tích và kinh doanh"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00042": {
+        "role": "tutor",
+        "name": "Bùi Ngọc Tuấn",
+        "mail": "tuanbui@gmail.com",
+        "phone": "0080442478",
+        "rate": 3.9,
+        "description": {
+            "features": {
+                "id": "Mentor_040",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Du lịch",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Giao tiếp",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Văn hóa trong du lịch",
+                            "Quản trị và điều hành",
+                            "Marketing du lịch"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00043": {
+        "role": "tutor",
+        "name": "Phan Thị Hương",
+        "mail": "huongphan@gmail.com",
+        "phone": "0569005083",
+        "rate": 4.6,
+        "description": {
+            "features": {
+                "id": "Mentor_041",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Xây dựng",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Quản lý và thi công",
+                            "Địa kỹ thuật và nền móng"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00044": {
+        "role": "tutor",
+        "name": "Huỳnh Thanh Khoa",
+        "mail": "khoahuynh@gmail.com",
+        "phone": "0376660929",
+        "rate": 3.6,
+        "description": {
+            "features": {
+                "id": "Mentor_042",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Quản lý công nghiệp",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Phân tích và kinh doanh",
+                            "Tối ưu hóa và vận hành"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00045": {
+        "role": "tutor",
+        "name": "Nguyễn Đức Phát",
+        "mail": "phatnguyen@gmail.com",
+        "phone": "0181354376",
+        "rate": 3.6,
+        "description": {
+            "features": {
+                "id": "Mentor_043",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "IT",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Kiến trúc phân tích phần mềm",
+                            "Lập trình phát triển ứng dụng",
+                            "Cấu trúc dữ liệu và giải thuật"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
+    },
+    "t_00046": {
+        "role": "tutor",
+        "name": "Nguyễn Văn Khanh",
+        "mail": "khanhnguyen@gmail.com",
+        "phone": "0700224340",
+        "rate": 4.1,
+        "description": {
+            "features": {
+                "id": "Mentor_044",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Chính trị học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Nghiên cứu xã hội",
+                            "Tham luận"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00047": {
+        "role": "tutor",
+        "name": "Nguyễn Văn Hương",
+        "mail": "huongnguyen@gmail.com",
+        "phone": "0115536963",
+        "rate": 3.6,
+        "description": {
+            "features": {
+                "id": "Mentor_045",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Hội thảo"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Hệ thống nhúng và IoT",
+                            "Viễn thông"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00048": {
+        "role": "tutor",
+        "name": "Võ Văn Tuấn",
+        "mail": "tuanvo@gmail.com",
+        "phone": "0053681797",
+        "rate": 4.2,
+        "description": {
+            "features": {
+                "id": "Mentor_046",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
+    },
+    "t_00049": {
+        "role": "tutor",
+        "name": "Huỳnh Đức Anh",
+        "mail": "anhhuynh@gmail.com",
+        "phone": "0873782222",
+        "rate": 4.1,
+        "description": {
+            "features": {
+                "id": "Mentor_047",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Viễn thông",
+                            "Hệ thống và tự động hóa",
+                            "Thiết kế mạch và phần cứng"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp",
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00050": {
+        "role": "tutor",
+        "name": "Lê Thanh Khoa",
+        "mail": "khoale@gmail.com",
+        "phone": "0751438834",
+        "rate": 4.6,
+        "description": {
+            "features": {
+                "id": "Mentor_048",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Tư vấn"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Hệ thống nhúng và IoT",
+                            "Viễn thông",
+                            "Hệ thống và tự động hóa"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00051": {
+        "role": "tutor",
+        "name": "Nguyễn Hoàng Minh",
+        "mail": "minhnguyen@gmail.com",
+        "phone": "0380982819",
+        "rate": 3.8,
+        "description": {
+            "features": {
+                "id": "Mentor_049",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Kinh tế học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Tư duy và nhận thức",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Thị trường và kinh doanh",
+                            "Kinh tế lượng và thống kê",
+                            "Kế toán"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        },
+        "students": [
+            "2213696"
         ]
+    },
+    "t_00052": {
+        "role": "tutor",
+        "name": "Trần Hoàng Phát",
+        "mail": "phattran@gmail.com",
+        "phone": "0009641223",
+        "rate": 4.8,
+        "description": {
+            "features": {
+                "id": "Mentor_050",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn",
+                        "Tư vấn"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Hệ thống nhúng và IoT",
+                            "Hệ thống và tự động hóa"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân",
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00053": {
+        "role": "tutor",
+        "name": "Phạm Hoàng Hải",
+        "mail": "haipham@gmail.com",
+        "phone": "0346122713",
+        "rate": 3.9,
+        "description": {
+            "features": {
+                "id": "Mentor_051",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Xây dựng",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Bản vẽ và mô hình hóa thông tin",
+                            "Thiết kế và mô phỏng cấu trúc"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00054": {
+        "role": "tutor",
+        "name": "Huỳnh Thanh Nam",
+        "mail": "namhuynh@gmail.com",
+        "phone": "0284746192",
+        "rate": 4.2,
+        "description": {
+            "features": {
+                "id": "Mentor_052",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Tư vấn"
+                    ],
+                    "domain": "Kinh tế học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Kinh tế lượng và thống kê",
+                            "Tài chính và đầu tư",
+                            "Kế toán"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00055": {
+        "role": "tutor",
+        "name": "Phạm Thị Nam",
+        "mail": "nampham@gmail.com",
+        "phone": "0018424630",
+        "rate": 3.7,
+        "description": {
+            "features": {
+                "id": "Mentor_053",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Quản lý công nghiệp",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Quản lý chuỗi cung ứng",
+                            "Tối ưu hóa và vận hành",
+                            "Quản lý chất lượng"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
+    },
+    "t_00056": {
+        "role": "tutor",
+        "name": "Nguyễn Đức Tuấn",
+        "mail": "tuannguyen@gmail.com",
+        "phone": "0572213745",
+        "rate": 4.1,
+        "description": {
+            "features": {
+                "id": "Mentor_054",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Quản lý công nghiệp",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Tối ưu hóa và vận hành",
+                            "Quản lý chuỗi cung ứng",
+                            "Phân tích và kinh doanh"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00057": {
+        "role": "tutor",
+        "name": "Vũ Hoàng Lan",
+        "mail": "lanvu@gmail.com",
+        "phone": "0525034084",
+        "rate": 4.8,
+        "description": {
+            "features": {
+                "id": "Mentor_055",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn",
+                        "Tư vấn"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH",
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00058": {
+        "role": "tutor",
+        "name": "Bùi Phương Dũng",
+        "mail": "dungbui@gmail.com",
+        "phone": "0318468458",
+        "rate": 3.8,
+        "description": {
+            "features": {
+                "id": "Mentor_056",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Kinh tế học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Tài chính và đầu tư",
+                            "Thị trường và kinh doanh",
+                            "Kinh tế lượng và thống kê"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án",
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00059": {
+        "role": "tutor",
+        "name": "Bùi Thị Hải",
+        "mail": "haibui@gmail.com",
+        "phone": "0472151671",
+        "rate": 4.2,
+        "description": {
+            "features": {
+                "id": "Mentor_057",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân",
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00060": {
+        "role": "tutor",
+        "name": "Phan Thanh Dũng",
+        "mail": "dungphan@gmail.com",
+        "phone": "0036050897",
+        "rate": 4.0,
+        "description": {
+            "features": {
+                "id": "Mentor_058",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Xây dựng",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Bản vẽ và mô hình hóa thông tin",
+                            "Thiết kế và mô phỏng cấu trúc",
+                            "Quản lý và thi công"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH",
+                        "Đồ án"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00061": {
+        "role": "tutor",
+        "name": "Bùi Thị Anh",
+        "mail": "anhbui@gmail.com",
+        "phone": "0631462495",
+        "rate": 4.2,
+        "description": {
+            "features": {
+                "id": "Mentor_059",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Kinh tế học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Tài chính và đầu tư",
+                            "Thị trường và kinh doanh"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án",
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00062": {
+        "role": "tutor",
+        "name": "Huỳnh Đức Hải",
+        "mail": "haihuynh@gmail.com",
+        "phone": "0036763150",
+        "rate": 4.7,
+        "description": {
+            "features": {
+                "id": "Mentor_060",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Quản lý công nghiệp",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Quản lý chất lượng",
+                            "Phân tích và kinh doanh",
+                            "Tối ưu hóa và vận hành"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00063": {
+        "role": "tutor",
+        "name": "Lê Phương Dũng",
+        "mail": "dungle@gmail.com",
+        "phone": "0303258730",
+        "rate": 3.8,
+        "description": {
+            "features": {
+                "id": "Mentor_061",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân",
+                        "Đồ án"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00064": {
+        "role": "tutor",
+        "name": "Huỳnh Văn Khanh",
+        "mail": "khanhhuynh@gmail.com",
+        "phone": "0921867086",
+        "rate": 4.9,
+        "description": {
+            "features": {
+                "id": "Mentor_062",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Hệ thống nhúng và IoT",
+                            "Viễn thông"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "NCKH"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
+    },
+    "t_00065": {
+        "role": "tutor",
+        "name": "Bùi Hữu Dũng",
+        "mail": "dungbui@gmail.com",
+        "phone": "0401015981",
+        "rate": 3.6,
+        "description": {
+            "features": {
+                "id": "Mentor_063",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00066": {
+        "role": "tutor",
+        "name": "Đặng Thị Hải",
+        "mail": "haiđang@gmail.com",
+        "phone": "0971812334",
+        "rate": 4.7,
+        "description": {
+            "features": {
+                "id": "Mentor_064",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Du lịch",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Quản trị và điều hành",
+                            "Marketing du lịch",
+                            "Văn hóa trong du lịch"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân",
+                        "NCKH"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
+    },
+    "t_00067": {
+        "role": "tutor",
+        "name": "Lê Hoàng Minh",
+        "mail": "minhle@gmail.com",
+        "phone": "0231464815",
+        "rate": 4.9,
+        "description": {
+            "features": {
+                "id": "Mentor_065",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Kinh tế học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Tài chính và đầu tư",
+                            "Kinh tế lượng và thống kê"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00068": {
+        "role": "tutor",
+        "name": "Phạm Hoàng Nam",
+        "mail": "nampham@gmail.com",
+        "phone": "0310047602",
+        "rate": 4.8,
+        "description": {
+            "features": {
+                "id": "Mentor_066",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Xây dựng",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Thiết kế và mô phỏng cấu trúc",
+                            "Quản lý và thi công"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp",
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00069": {
+        "role": "tutor",
+        "name": "Phan Thanh Minh",
+        "mail": "minhphan@gmail.com",
+        "phone": "0567524305",
+        "rate": 4.6,
+        "description": {
+            "features": {
+                "id": "Mentor_067",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Kinh tế học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Tài chính và đầu tư",
+                            "Kế toán"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00070": {
+        "role": "tutor",
+        "name": "Bùi Đức Tuấn",
+        "mail": "tuanbui@gmail.com",
+        "phone": "0417932236",
+        "rate": 4.4,
+        "description": {
+            "features": {
+                "id": "Mentor_068",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Hệ thống và tự động hóa",
+                            "Hệ thống nhúng và IoT"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00071": {
+        "role": "tutor",
+        "name": "Trần Văn Khanh",
+        "mail": "khanhtran@gmail.com",
+        "phone": "0136769344",
+        "rate": 3.9,
+        "description": {
+            "features": {
+                "id": "Mentor_069",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Tư vấn"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Tư duy và nhận thức",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Hệ thống và tự động hóa",
+                            "Viễn thông"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00072": {
+        "role": "tutor",
+        "name": "Huỳnh Hữu Hải",
+        "mail": "haihuynh@gmail.com",
+        "phone": "0690982131",
+        "rate": 4.3,
+        "description": {
+            "features": {
+                "id": "Mentor_070",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Chính trị học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Tham luận",
+                            "Phân tích chính sách"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp",
+                        "Đồ án"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00073": {
+        "role": "tutor",
+        "name": "Phan Ngọc Khanh",
+        "mail": "khanhphan@gmail.com",
+        "phone": "0445240222",
+        "rate": 4.9,
+        "description": {
+            "features": {
+                "id": "Mentor_071",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Xây dựng",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Bản vẽ và mô hình hóa thông tin",
+                            "Địa kỹ thuật và nền móng",
+                            "Thiết kế và mô phỏng cấu trúc"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00074": {
+        "role": "tutor",
+        "name": "Nguyễn Đức Lan",
+        "mail": "lannguyen@gmail.com",
+        "phone": "0575974107",
+        "rate": 4.3,
+        "description": {
+            "features": {
+                "id": "Mentor_072",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Tư duy và nhận thức",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án",
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00075": {
+        "role": "tutor",
+        "name": "Phan Thị Anh",
+        "mail": "anhphan@gmail.com",
+        "phone": "0530676124",
+        "rate": 3.7,
+        "description": {
+            "features": {
+                "id": "Mentor_073",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Tư vấn"
+                    ],
+                    "domain": "Du lịch",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Marketing du lịch",
+                            "Văn hóa trong du lịch"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "NCKH"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00076": {
+        "role": "tutor",
+        "name": "Võ Thị Nam",
+        "mail": "namvo@gmail.com",
+        "phone": "0870556344",
+        "rate": 4.3,
+        "description": {
+            "features": {
+                "id": "Mentor_074",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00077": {
+        "role": "tutor",
+        "name": "Nguyễn Thị Nam",
+        "mail": "namnguyen@gmail.com",
+        "phone": "0767069717",
+        "rate": 4.5,
+        "description": {
+            "features": {
+                "id": "Mentor_075",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Tư vấn"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00078": {
+        "role": "tutor",
+        "name": "Đặng Hoàng Dũng",
+        "mail": "dungđang@gmail.com",
+        "phone": "0111043438",
+        "rate": 4.0,
+        "description": {
+            "features": {
+                "id": "Mentor_076",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Du lịch",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Văn hóa trong du lịch",
+                            "Quản trị và điều hành"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00079": {
+        "role": "tutor",
+        "name": "Nguyễn Hoàng Dũng",
+        "mail": "dungnguyen@gmail.com",
+        "phone": "0862833850",
+        "rate": 4.0,
+        "description": {
+            "features": {
+                "id": "Mentor_077",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Chính trị học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Giao tiếp",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Phân tích chính sách",
+                            "Tham luận",
+                            "Nghiên cứu xã hội"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
+    },
+    "t_00080": {
+        "role": "tutor",
+        "name": "Vũ Hữu Lan",
+        "mail": "lanvu@gmail.com",
+        "phone": "0793200832",
+        "rate": 4.4,
+        "description": {
+            "features": {
+                "id": "Mentor_078",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
+    },
+    "t_00081": {
+        "role": "tutor",
+        "name": "Vũ Văn Minh",
+        "mail": "minhvu@gmail.com",
+        "phone": "0913563094",
+        "rate": 4.9,
+        "description": {
+            "features": {
+                "id": "Mentor_079",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Quản lý công nghiệp",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Phân tích và kinh doanh",
+                            "Quản lý chuỗi cung ứng"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
+    },
+    "t_00082": {
+        "role": "tutor",
+        "name": "Vũ Văn Phát",
+        "mail": "phatvu@gmail.com",
+        "phone": "0308062425",
+        "rate": 4.5,
+        "description": {
+            "features": {
+                "id": "Mentor_080",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Quản lý công nghiệp",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Tư duy và nhận thức",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Tối ưu hóa và vận hành",
+                            "Phân tích và kinh doanh",
+                            "Quản lý chất lượng"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00083": {
+        "role": "tutor",
+        "name": "Vũ Thanh Khanh",
+        "mail": "khanhvu@gmail.com",
+        "phone": "0953003278",
+        "rate": 3.8,
+        "description": {
+            "features": {
+                "id": "Mentor_081",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Quản lý công nghiệp",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Quản lý chuỗi cung ứng",
+                            "Quản lý chất lượng",
+                            "Tối ưu hóa và vận hành"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00084": {
+        "role": "tutor",
+        "name": "Phạm Thanh Minh",
+        "mail": "minhpham@gmail.com",
+        "phone": "0919133519",
+        "rate": 3.5,
+        "description": {
+            "features": {
+                "id": "Mentor_082",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Xây dựng",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Thiết kế và mô phỏng cấu trúc",
+                            "Địa kỹ thuật và nền móng",
+                            "Bản vẽ và mô hình hóa thông tin"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00085": {
+        "role": "tutor",
+        "name": "Huỳnh Hoàng Hải",
+        "mail": "haihuynh@gmail.com",
+        "phone": "0660896073",
+        "rate": 4.2,
+        "description": {
+            "features": {
+                "id": "Mentor_083",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Hệ thống và tự động hóa",
+                            "Viễn thông"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân",
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00086": {
+        "role": "tutor",
+        "name": "Phạm Thanh Anh",
+        "mail": "anhpham@gmail.com",
+        "phone": "0748991416",
+        "rate": 3.6,
+        "description": {
+            "features": {
+                "id": "Mentor_084",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Tư vấn"
+                    ],
+                    "domain": "Điện-điện tử",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Hệ thống nhúng và IoT",
+                            "Viễn thông",
+                            "Hệ thống và tự động hóa"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00087": {
+        "role": "tutor",
+        "name": "Đặng Thị Minh",
+        "mail": "minhđang@gmail.com",
+        "phone": "0845529462",
+        "rate": 3.7,
+        "description": {
+            "features": {
+                "id": "Mentor_085",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Du lịch",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Quản trị và điều hành",
+                            "Văn hóa trong du lịch"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00088": {
+        "role": "tutor",
+        "name": "Phạm Văn Khanh",
+        "mail": "khanhpham@gmail.com",
+        "phone": "0792169306",
+        "rate": 4.6,
+        "description": {
+            "features": {
+                "id": "Mentor_086",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Chính trị học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Tư duy và nhận thức",
+                            "Quản lý",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Phân tích chính sách",
+                            "Nghiên cứu xã hội",
+                            "Tham luận"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00089": {
+        "role": "tutor",
+        "name": "Vũ Hoàng Lan",
+        "mail": "lanvu@gmail.com",
+        "phone": "0186826813",
+        "rate": 4.6,
+        "description": {
+            "features": {
+                "id": "Mentor_087",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Xây dựng",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Thiết kế và mô phỏng cấu trúc",
+                            "Bản vẽ và mô hình hóa thông tin",
+                            "Địa kỹ thuật và nền móng"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "NCKH",
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
+    },
+    "t_00090": {
+        "role": "tutor",
+        "name": "Lê Phương Lan",
+        "mail": "lanle@gmail.com",
+        "phone": "0360330272",
+        "rate": 3.6,
+        "description": {
+            "features": {
+                "id": "Mentor_088",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "Chính trị học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Giao tiếp",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Phân tích chính sách",
+                            "Tham luận",
+                            "Nghiên cứu xã hội"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00091": {
+        "role": "tutor",
+        "name": "Võ Thị Hương",
+        "mail": "huongvo@gmail.com",
+        "phone": "0934318125",
+        "rate": 4.4,
+        "description": {
+            "features": {
+                "id": "Mentor_089",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "IT",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Giao tiếp",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Toán (Đại số và Xác suất)",
+                            "Hạ tầng và vận hành",
+                            "Lập trình phát triển ứng dụng"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00092": {
+        "role": "tutor",
+        "name": "Vũ Đức Hải",
+        "mail": "haivu@gmail.com",
+        "phone": "0800423838",
+        "rate": 4.9,
+        "description": {
+            "features": {
+                "id": "Mentor_090",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Tư vấn"
+                    ],
+                    "domain": "Quản lý công nghiệp",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Tư duy và nhận thức",
+                            "Quản lý"
+                        ],
+                        "domain_skills": [
+                            "Quản lý chuỗi cung ứng",
+                            "Tối ưu hóa và vận hành"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00093": {
+        "role": "tutor",
+        "name": "Phạm Hữu Nam",
+        "mail": "nampham@gmail.com",
+        "phone": "0909753343",
+        "rate": 4.0,
+        "description": {
+            "features": {
+                "id": "Mentor_091",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn"
+                    ],
+                    "domain": "IT",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [
+                            "Hạ tầng và vận hành",
+                            "Lập trình phát triển ứng dụng",
+                            "Trí tuệ nhân tạo và dữ liệu"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00094": {
+        "role": "tutor",
+        "name": "Phan Phương Hải",
+        "mail": "haiphan@gmail.com",
+        "phone": "0347054650",
+        "rate": 4.0,
+        "description": {
+            "features": {
+                "id": "Mentor_092",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án"
+                    ],
+                    "energy_scale": 3
+                }
+            }
+        }
+    },
+    "t_00095": {
+        "role": "tutor",
+        "name": "Bùi Thị Khoa",
+        "mail": "khoabui@gmail.com",
+        "phone": "0436856738",
+        "rate": 4.9,
+        "description": {
+            "features": {
+                "id": "Mentor_093",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn",
+                        "Hội thảo"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Tư duy và nhận thức",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án",
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00096": {
+        "role": "tutor",
+        "name": "Huỳnh Hữu Nam",
+        "mail": "namhuynh@gmail.com",
+        "phone": "0587367350",
+        "rate": 4.0,
+        "description": {
+            "features": {
+                "id": "Mentor_094",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Nhóm nhỏ (<20)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Chính trị học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Tham luận",
+                            "Nghiên cứu xã hội",
+                            "Phân tích chính sách"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 4
+                }
+            }
+        }
+    },
+    "t_00097": {
+        "role": "tutor",
+        "name": "Huỳnh Thị Nam",
+        "mail": "namhuynh@gmail.com",
+        "phone": "0569097201",
+        "rate": 4.4,
+        "description": {
+            "features": {
+                "id": "Mentor_095",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Du lịch",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Giao tiếp",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Văn hóa trong du lịch",
+                            "Marketing du lịch",
+                            "Quản trị và điều hành"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án",
+                        "NCKH"
+                    ],
+                    "energy_scale": 5
+                }
+            }
+        }
+    },
+    "t_00098": {
+        "role": "tutor",
+        "name": "Phan Hữu Nam",
+        "mail": "namphan@gmail.com",
+        "phone": "0732729322",
+        "rate": 4.6,
+        "description": {
+            "features": {
+                "id": "Mentor_096",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)",
+                        "Ca 1 (6h - 11h)"
+                    ],
+                    "class_size": "Nhóm vừa (<40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "Kinh tế học",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo",
+                            "Giao tiếp"
+                        ],
+                        "domain_skills": [
+                            "Tài chính và đầu tư",
+                            "Thị trường và kinh doanh",
+                            "Kinh tế lượng và thống kê"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Định hướng nghề nghiệp",
+                        "Khởi nghiệp"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
+    },
+    "t_00099": {
+        "role": "tutor",
+        "name": "Huỳnh Phương Dũng",
+        "mail": "dunghuynh@gmail.com",
+        "phone": "0835561171",
+        "rate": 4.2,
+        "description": {
+            "features": {
+                "id": "Mentor_097",
+                "hard_filters": {
+                    "format": "Hybrid",
+                    "availability": [
+                        "Ca 3 (16h - 21h)",
+                        "Ca 2 (11h - 16h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Hội thảo"
+                    ],
+                    "domain": "Du lịch",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Quản lý",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Marketing du lịch",
+                            "Văn hóa trong du lịch",
+                            "Quản trị và điều hành"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Đồ án",
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00100": {
+        "role": "tutor",
+        "name": "Phạm Đức Hương",
+        "mail": "huongpham@gmail.com",
+        "phone": "0446079135",
+        "rate": 3.8,
+        "description": {
+            "features": {
+                "id": "Mentor_098",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 1 (6h - 11h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Dạy chuyên môn"
+                    ],
+                    "domain": "IT",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Quản lý",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Trí tuệ nhân tạo và dữ liệu",
+                            "Toán (Đại số và Xác suất)",
+                            "Cấu trúc dữ liệu và giải thuật"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00101": {
+        "role": "tutor",
+        "name": "Lê Hoàng Hải",
+        "mail": "haile@gmail.com",
+        "phone": "0843930931",
+        "rate": 4.8,
+        "description": {
+            "features": {
+                "id": "Mentor_099",
+                "hard_filters": {
+                    "format": "Online",
+                    "availability": [
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "1-1"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Hội thảo"
+                    ],
+                    "domain": "Quản lý công nghiệp",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Làm việc nhóm, lãnh đạo",
+                            "Tư duy và nhận thức"
+                        ],
+                        "domain_skills": [
+                            "Tối ưu hóa và vận hành",
+                            "Quản lý chuỗi cung ứng",
+                            "Quản lý chất lượng"
+                        ],
+                        "life_skills": 0
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Khởi nghiệp",
+                        "Định hướng nghề nghiệp"
+                    ],
+                    "energy_scale": 2
+                }
+            }
+        }
+    },
+    "t_00102": {
+        "role": "tutor",
+        "name": "Vũ Hữu Tuấn",
+        "mail": "tuanvu@gmail.com",
+        "phone": "0400976923",
+        "rate": 4.5,
+        "description": {
+            "features": {
+                "id": "Mentor_100",
+                "hard_filters": {
+                    "format": "Offline",
+                    "availability": [
+                        "Ca 1 (6h - 11h)",
+                        "Ca 2 (11h - 16h)",
+                        "Ca 3 (16h - 21h)"
+                    ],
+                    "class_size": "Seminar (>40)"
+                },
+                "hard_skills": {
+                    "method": [
+                        "Tư vấn",
+                        "Hội thảo"
+                    ],
+                    "domain": "Đời sống",
+                    "specific_skills": {
+                        "soft_skills": [
+                            "Giao tiếp",
+                            "Quản lý",
+                            "Làm việc nhóm, lãnh đạo"
+                        ],
+                        "domain_skills": [],
+                        "life_skills": 1
+                    }
+                },
+                "vibe": {
+                    "development_path": [
+                        "Nâng cao bản thân",
+                        "Đồ án"
+                    ],
+                    "energy_scale": 1
+                }
+            }
+        }
     }
 }

@@ -1,0 +1,45 @@
+{
+  "Du lịch": [
+    "Văn hóa trong du lịch",
+    "Marketing du lịch",
+    "Quản trị và điều hành"
+  ],
+  "IT": [
+    "Toán (Đại số và Xác suất)",
+    "Trí tuệ nhân tạo và dữ liệu",
+    "Cấu trúc dữ liệu và giải thuật",
+    "Lập trình phát triển ứng dụng",
+    "Hạ tầng và vận hành",
+    "Kiến trúc phân tích phần mềm"
+  ],
+  "Điện-điện tử": [
+    "Hệ thống nhúng và IoT",
+    "Viễn thông",
+    "Hệ thống và tự động hóa",
+    "Thiết kế mạch và phần cứng"
+  ],
+  "Xây dựng": [
+    "Địa kỹ thuật và nền móng",
+    "Thiết kế và mô phỏng cấu trúc",
+    "Bản vẽ và mô hình hóa thông tin",
+    "Quản lý và thi công"
+  ],
+  "Chính trị học": [
+    "Phân tích chính sách",
+    "Tham luận",
+    "Nghiên cứu xã hội"
+  ],
+  "Đời sống": [],
+  "Kinh tế học": [
+    "Tài chính và đầu tư",
+    "Kinh tế lượng và thống kê",
+    "Kế toán",
+    "Thị trường và kinh doanh"
+  ],
+  "Quản lý công nghiệp": [
+    "Quản lý chuỗi cung ứng",
+    "Quản lý chất lượng",
+    "Tối ưu hóa và vận hành",
+    "Phân tích và kinh doanh"
+  ]
+}

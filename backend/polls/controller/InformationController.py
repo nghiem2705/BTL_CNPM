@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 from .BaseController import BaseController
 from polls.entity.UserEntity import *
+from ..services.RecommendationService import RecommendationService
 
 class InformationController(BaseController):
 
@@ -174,13 +175,13 @@ class InformationController(BaseController):
         
         user = users.get(uid_str, {})
         return uid_str, user, None
-    
+
     # student/<stu_id>/tutors/
     # get tutors list for student (return all tutors with filter)
     # filter_status: "all", "registered", "unregistered"
     # keyword: search by name or major
     def getTutorListForStudent(self, student_id: str, filter_status: str = "all", keyword: str = "") -> list[dict]:
-        knn_threshold = 5
+        # knn_threshold = 5 # min
         
         users = self.readUser() or {}
         
@@ -188,37 +189,23 @@ class InformationController(BaseController):
         if (student is None):
             return []
         
-        student_demand = student.get("demand")
+        student_features = student.get("description", {}).get("features", {})
 
-        # lấy tất cả tutors
-        all_tutors = []
+        # Lấy tất cả tutors (danh sách raw chưa điểm)
+        raw_tutors = []
         for key, value in users.items():
             if value.get("role") == "tutor":
-                # kiểm tra xem tutor đã được đăng ký chưa
-                registered = False
-                if key in student.get("tutor", []):
-                    registered = True
-                to_return_value = value.copy()
-                to_return_value["registered"] = registered
+                tutor_obj = value.copy()
+                tutor_obj["id"] = key
+                tutor_obj["registered"] = key in student.get("tutor", [])
+                raw_tutors.append(tutor_obj)
+                
+        # Gọi service đánh giá / tính matched point
+        scored_tutors = RecommendationService.score_all_tutors(student_features, raw_tutors)
 
-                # khởi tạo matched point
-                strengths = value.get("strength")
-                insertion_ = set(strengths) & set(student_demand)
-                if (insertion_):
-                    matched_demands = len(insertion_)
-                    tutor_rating = value.get("rate", 0)
-                    tutor_match_point = matched_demands *2 + tutor_rating # Hàm lượng giá
-                    to_return_value["matched"] = tutor_match_point
-                else:
-                    to_return_value["matched"] = -1
-
-                to_return_value["id"] = key
-                all_tutors.append(to_return_value)
-
-        
-        # filter theo registered status
+        # Filter
         filtered_tutors = []
-        for tutor in all_tutors:
+        for tutor in scored_tutors:
             # filter theo status
             if filter_status == "registered" and not tutor.get("registered"):
                 continue
@@ -227,20 +214,31 @@ class InformationController(BaseController):
             if filter_status == "matched" and tutor.get("matched", -1) == -1:
                 continue
             
-            # filter theo keyword (tìm trong name và major)
+            # filter theo keyword (tìm trong name)
             if keyword:
                 keyword_lower = keyword.lower()
                 name_match = keyword_lower in tutor.get("name", "").lower()
-                major_match = keyword_lower in tutor.get("major", "").lower()
-                if not (name_match or major_match):
+                # Remove major search as major is removed. Maybe search domain?
+                domain = tutor.get("description", {}).get("features", {}).get("hard_skills", {}).get("domain", "")
+                if isinstance(domain, list):
+                    domain_match = any(keyword_lower in d.lower() for d in domain)
+                else:
+                    domain_match = keyword_lower in domain.lower()
+                    
+                if not (name_match or domain_match):
                     continue
             
             filtered_tutors.append(tutor)
                 
-        # sort theo matched point giảm dần
+        # Sort theo matched point giảm dần
         if filter_status == "matched":
-            filtered_tutors.sort(key=lambda x: x.get("matched", -1),  reverse=True)
-            return filtered_tutors[:knn_threshold]
+            filtered_tutors.sort(key=lambda x: x.get("matched", -1), reverse=True)
+            if len(filtered_tutors) > 0:
+                knn_threshold = max(10, int(len(filtered_tutors) * 0.7))
+                return filtered_tutors[:knn_threshold]
+            return filtered_tutors
+
+
 
         return filtered_tutors
 

@@ -16,11 +16,13 @@ import {
     GraduationCap
 } from 'lucide-react';
 import { profileApi } from '../../../api/ProfileApi';
+import StudentSurvey from '../../../components/Survey/StudentSurvey';
 
 const StudentProfile = () => {
     const navigate = useNavigate();
     const { uID } = useParams();  // Get uID from URL params
     const [isEditing, setIsEditing] = useState(false);
+    const [isSurveyOpen, setIsSurveyOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
 
@@ -293,75 +295,53 @@ const StudentProfile = () => {
                                 </label>
                                 {isEditing ? (
                                     <textarea
-                                        value={profileData.description}
-                                        onChange={(e) => setProfileData({ ...profileData, description: e.target.value })}
+                                        value={typeof profileData.description === 'string' ? profileData.description : (profileData.description?.text || '')}
+                                        onChange={(e) => {
+                                            setProfileData({
+                                                ...profileData,
+                                                description: typeof profileData.description === 'string'
+                                                    ? e.target.value
+                                                    : { ...profileData.description, text: e.target.value }
+                                            });
+                                        }}
                                         className={inputStyle}
                                         rows={4}
                                         placeholder="Nhập giới thiệu về bản thân..."
                                     />
                                 ) : (
                                     <div className={`${inputStyle} min-h-[100px]`}>
-                                        {profileData.description || 'Chưa có giới thiệu'}
+                                        {typeof profileData.description === 'string' ? (profileData.description || 'Chưa có giới thiệu') : (profileData.description?.text || 'Chưa có giới thiệu')}
                                     </div>
                                 )}
                             </div>
 
-                            {/* Nhu cầu thêm (cho student) */}
+                            {/* Đặc trưng cá nhân (Khảo sát AI) */}
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                    Nhu cầu / Môn học quan tâm
+                                    Đặc trưng cá nhân (Dành cho AI Tìm kiếm)
                                 </label>
-                                {isEditing ? (
-                                    <div>
-                                        <div className="flex gap-2 mb-2">
-                                            <input
-                                                type="text"
-                                                value={newDemand}
-                                                onChange={(e) => setNewDemand(e.target.value)}
-                                                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddDemand())}
-                                                className="flex-1 border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#006D77]/20"
-                                                placeholder="Thêm nhu cầu"
-                                            />
-                                            <button
-                                                onClick={handleAddDemand}
-                                                className="bg-[#006D77] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#00565e] transition-colors"
-                                            >
-                                                Thêm
-                                            </button>
+                                <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl">
+                                    {profileData.description?.features?.hard_filters ? (
+                                        <div className="space-y-2 text-sm text-gray-700">
+                                            <p><span className="font-semibold">Lĩnh vực:</span> {
+                                                Array.isArray(profileData.description.features.hard_skills?.domain) 
+                                                  ? profileData.description.features.hard_skills.domain.join(', ')
+                                                  : profileData.description.features.hard_skills?.domain || 'Chưa rõ'
+                                            }</p>
+                                            <p><span className="font-semibold">Hình thức:</span> {profileData.description.features.hard_filters.format} ({profileData.description.features.hard_filters.class_size})</p>
+                                            <p><span className="font-semibold">Mức năng lượng:</span> {profileData.description.features.vibe?.energy_scale}/5</p>
                                         </div>
-                                        <div className="flex flex-wrap gap-2">
-                                            {(profileData.demand || []).map((demand, index) => (
-                                                <span
-                                                    key={index}
-                                                    className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-2"
-                                                >
-                                                    {demand}
-                                                    <button
-                                                        onClick={() => handleRemoveDemand(index)}
-                                                        className="hover:text-red-600"
-                                                    >
-                                                        <X size={14} />
-                                                    </button>
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div className="flex flex-wrap gap-2">
-                                        {(profileData.demand || []).length > 0 ? (
-                                            profileData.demand.map((demand, index) => (
-                                                <span
-                                                    key={index}
-                                                    className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium"
-                                                >
-                                                    {demand}
-                                                </span>
-                                            ))
-                                        ) : (
-                                            <span className="text-gray-400 italic">Chưa có thông tin</span>
-                                        )}
-                                    </div>
-                                )}
+                                    ) : (
+                                        <p className="text-gray-500 italic text-sm mb-3">Thông tin khảo sát còn trống hoặc đã cũ. Hãy cập nhật để AI gợi ý chuẩn xác nhất.</p>
+                                    )}
+                                    
+                                    <button
+                                        onClick={() => setIsSurveyOpen(true)}
+                                        className="mt-3 bg-[#006D77] hover:bg-[#00565e] text-white px-4 py-2 rounded-lg text-sm font-bold transition-all shadow-md"
+                                    >
+                                        Chỉnh sửa / Làm lại Khảo sát
+                                    </button>
+                                </div>
                             </div>
 
                             {/* Action Buttons */}
@@ -450,6 +430,26 @@ const StudentProfile = () => {
                     </div>
                 </div>
             </div>
+            
+            {isSurveyOpen && (
+                <StudentSurvey 
+                    uID={currentUserId}
+                    role="student"
+                    isEditing={true}
+                    initialFeatures={profileData.description?.features || null}
+                    onClose={() => setIsSurveyOpen(false)}
+                    onSuccess={(updatedFeatures) => {
+                        setProfileData({
+                            ...profileData,
+                            description: {
+                                ...profileData.description,
+                                features: updatedFeatures
+                            }
+                        });
+                        setIsSurveyOpen(false);
+                    }}
+                />
+            )}
         </div>
     );
 };
